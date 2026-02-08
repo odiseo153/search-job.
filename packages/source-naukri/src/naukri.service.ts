@@ -214,9 +214,7 @@ export class NaukriService implements IScraper {
     const fullText = `${locStr} ${title.toLowerCase()} ${description.toLowerCase()}`;
     if (fullText.includes('hybrid')) return 'Hybrid';
     if (fullText.includes('remote')) return 'Remote';
-    if (fullText.includes('work from office') || !(fullText.includes('remote') || fullText.includes('hybrid'))) {
-      return 'Work from office';
-    }
+    if (fullText.includes('work from office')) return 'Work from office';
     return null;
   }
 }

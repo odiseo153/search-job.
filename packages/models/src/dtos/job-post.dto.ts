@@ -46,6 +46,9 @@ export class JobPostDto {
   vacancyCount?: number | null;
   workFromHomeType?: string | null;
 
+  // Salary enrichment metadata (set during post-processing)
+  salarySource?: string | null;
+
   // Site identifier (filled in during aggregation)
   site?: string | null;
 

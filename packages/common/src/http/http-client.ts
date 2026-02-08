@@ -46,8 +46,10 @@ export class HttpClient {
           options.userAgent ??
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       },
-      // Accept self-signed certs if caCert is configured (simplified)
-      ...(options.caCert ? { httpsAgent: undefined } : {}),
+      // Accept self-signed certs if caCert is configured
+      ...(options.caCert
+        ? { httpsAgent: new (require('https').Agent)({ rejectUnauthorized: false }) }
+        : {}),
     });
   }
 

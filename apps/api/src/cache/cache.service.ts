@@ -8,7 +8,6 @@ interface CacheEntry<T> {
 }
 
 /**
- * In-memory TTL cache for search results.
  * In-memory TTL cache for job search results.
  *
  * Keys are MD5 hashes of sorted, stringified search parameters.

@@ -154,9 +154,7 @@ export class InternshalaService implements IScraper {
     const descSnippet = $card.find('.job-description-text, .detail_view').text().trim();
     if (descSnippet) {
       const descHtml = $card.find('.job-description-text, .detail_view').html() ?? descSnippet;
-      if (format === DescriptionFormat.HTML) {
-        description = descHtml;
-      } else if (format === DescriptionFormat.PLAIN) {
+      if (format === DescriptionFormat.PLAIN) {
         description = plainConverter(descHtml);
       } else {
         description = markdownConverter(descHtml);

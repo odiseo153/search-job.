@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import {
   ScraperInputDto, JobPostDto, JobResponseDto, Site, IScraper,
-  Country, SalarySource,
+  Country, SalarySource, CompensationDto,
 } from '@ever-jobs/models';
 import { extractSalary, convertToAnnual } from '@ever-jobs/common';
 import { LinkedInService } from '@ever-jobs/source-linkedin';
@@ -131,7 +131,7 @@ export class JobsService {
 
     if (job.compensation) {
       // Direct compensation from scraper
-      (job as any).salarySource = SalarySource.DIRECT_DATA;
+      job.salarySource = SalarySource.DIRECT_DATA;
 
       if (
         enforceAnnual &&
@@ -156,17 +156,19 @@ export class JobsService {
         enforceAnnualSalary: enforceAnnual,
       });
       if (extracted.minAmount != null) {
-        (job as any).salarySource = SalarySource.DESCRIPTION;
-        (job as any).interval = extracted.interval;
-        (job as any).minAmount = extracted.minAmount;
-        (job as any).maxAmount = extracted.maxAmount;
-        (job as any).currency = extracted.currency;
+        job.salarySource = SalarySource.DESCRIPTION;
+        job.compensation = new CompensationDto({
+          interval: extracted.interval as any,
+          minAmount: extracted.minAmount,
+          maxAmount: extracted.maxAmount,
+          currency: extracted.currency ?? 'USD',
+        });
       }
     }
 
     // Clear salary source if no salary data
-    if (!(job as any).minAmount && !job.compensation?.minAmount) {
-      (job as any).salarySource = undefined;
+    if (!job.compensation?.minAmount) {
+      job.salarySource = undefined;
     }
   }
 }
