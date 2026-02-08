@@ -13,7 +13,7 @@ RUN npm ci
 COPY . .
 
 # Build the API application
-RUN npm run build
+RUN npx nest build
 
 # ── Runtime stage ──────────────────────────
 FROM node:20-alpine AS runtime
