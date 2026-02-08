@@ -108,9 +108,9 @@ export class SearchCommand extends CommandRunner {
     await this.executeAndOutput(input, options);
   }
 
-  private buildInputFromOptions(options: ScrapeOptions): ScraperInputDto {
+  private buildInputFromOptions(options: SearchOptions): ScraperInputDto {
     return new ScraperInputDto({
-      siteType: options.site?.map((s) => s as Site),
+      siteType: options.site?.map((s: string) => s as Site),
       searchTerm: options.searchTerm,
       googleSearchTerm: options.googleSearchTerm,
       location: options.location,
