@@ -36,8 +36,8 @@ jobs:
 
       - name: Verify dist output
         run: |
-          test -f dist/apps/api/src/main.js || { echo "❌ main.js not found in dist"; exit 1; }
-          test -f dist/apps/api/src/app.module.js || { echo "❌ app.module.js not found in dist"; exit 1; }
+          test -f dist/apps/api/apps/api/src/main.js || { echo "❌ main.js not found in dist"; exit 1; }
+          test -f dist/apps/api/apps/api/src/app.module.js || { echo "❌ app.module.js not found in dist"; exit 1; }
           echo "✅ dist output verified"
 
       - name: Build CLI
