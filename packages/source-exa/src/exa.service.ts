@@ -23,7 +23,7 @@ import {
 @Injectable()
 export class ExaService implements IScraper {
   private readonly logger = new Logger(ExaService.name);
-  private readonly exa: Exa;
+  private readonly exa: Exa | null;
 
   constructor() {
     const apiKey = process.env.EXA_API_KEY;
@@ -32,13 +32,20 @@ export class ExaService implements IScraper {
         'EXA_API_KEY is not set. Exa searches will return empty results. ' +
           'Get your key at https://dashboard.exa.ai',
       );
+      this.exa = null;
+      return;
     }
-    this.exa = new Exa(apiKey);
+    try {
+      this.exa = new Exa(apiKey);
+    } catch (err: any) {
+      this.logger.error(`Failed to initialise Exa client: ${err.message}`);
+      this.exa = null;
+    }
   }
 
   async scrape(input: ScraperInputDto): Promise<JobResponseDto> {
-    if (!process.env.EXA_API_KEY) {
-      this.logger.warn('Skipping Exa scrape — EXA_API_KEY not set');
+    if (!this.exa) {
+      this.logger.warn('Skipping Exa search — client not initialised');
       return new JobResponseDto([]);
     }
 
