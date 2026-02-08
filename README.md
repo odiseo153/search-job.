@@ -792,4 +792,6 @@ MIT © [Ever Co](https://github.com/ever-co)
 
 ## Credits
 
-This project is a TypeScript/NestJS port of the original Python [JobSpy](https://github.com/speedyapply/JobSpy) library by Cullen Watson, re-architected as a modular monorepo for server-side deployment and package reuse. In addition, it implements features from [JobSpy-api](https://github.com/rainmanjam/jobspy-api) in TypeScript/NestJS, and company-specific scrapers ported from [ats-scrapers](https://github.com/speedyapply/ats-scrapers).
+- This project is a TypeScript/NestJS port of the original Python [JobSpy](https://github.com/speedyapply/JobSpy) library by Cullen Watson, re-architected as a modular monorepo for server-side deployment and package reuse.
+- Implements many features from [JobSpy-api](https://github.com/rainmanjam/jobspy-api) in TypeScript/NestJS.
+- Sompany-specific and ATS scrapers ported from [ats-scrapers](https://github.com/speedyapply/ats-scrapers).
