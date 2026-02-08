@@ -1,0 +1,39 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2021",
+    "module": "commonjs",
+    "lib": ["es2021"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@ever-jobs/models": ["packages/models/src/index.ts"],
+      "@ever-jobs/common": ["packages/common/src/index.ts"],
+      "@ever-jobs/source-linkedin": ["packages/source-linkedin/src/index.ts"],
+      "@ever-jobs/source-indeed": ["packages/source-indeed/src/index.ts"],
+      "@ever-jobs/source-glassdoor": ["packages/source-glassdoor/src/index.ts"],
+      "@ever-jobs/source-ziprecruiter": ["packages/source-ziprecruiter/src/index.ts"],
+      "@ever-jobs/source-google": ["packages/source-google/src/index.ts"],
+      "@ever-jobs/source-bayt": ["packages/source-bayt/src/index.ts"],
+      "@ever-jobs/source-naukri": ["packages/source-naukri/src/index.ts"],
+      "@ever-jobs/source-bdjobs": ["packages/source-bdjobs/src/index.ts"],
+      "@ever-jobs/source-internshala": ["packages/source-internshala/src/index.ts"],
+      "@ever-jobs/analytics": ["packages/analytics/src/index.ts"],
+      "@ever-jobs/source-exa": ["packages/source-exa/src/index.ts"],
+      "@ever-jobs/source-upwork": ["packages/source-upwork/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
