@@ -15,6 +15,20 @@ import { BDJobsService } from '@ever-jobs/source-bdjobs';
 import { InternshalaService } from '@ever-jobs/source-internshala';
 import { ExaService } from '@ever-jobs/source-exa';
 import { UpworkService } from '@ever-jobs/source-upwork';
+import { AshbyService } from '@ever-jobs/source-ats-ashby';
+import { GreenhouseService } from '@ever-jobs/source-ats-greenhouse';
+import { LeverService } from '@ever-jobs/source-ats-lever';
+import { WorkableService } from '@ever-jobs/source-ats-workable';
+import { SmartRecruitersService } from '@ever-jobs/source-ats-smartrecruiters';
+import { RipplingService } from '@ever-jobs/source-ats-rippling';
+import { WorkdayService } from '@ever-jobs/source-ats-workday';
+import { AmazonService } from '@ever-jobs/source-company-amazon';
+import { AppleService } from '@ever-jobs/source-company-apple';
+import { MicrosoftService } from '@ever-jobs/source-company-microsoft';
+import { NvidiaService } from '@ever-jobs/source-company-nvidia';
+import { TikTokService } from '@ever-jobs/source-company-tiktok';
+import { UberService } from '@ever-jobs/source-company-uber';
+import { CursorService } from '@ever-jobs/source-company-cursor';
 
 @Injectable()
 export class JobsService {
@@ -33,6 +47,20 @@ export class JobsService {
     private readonly internshalaService: InternshalaService,
     private readonly exaService: ExaService,
     private readonly upworkService: UpworkService,
+    private readonly ashbyService: AshbyService,
+    private readonly greenhouseService: GreenhouseService,
+    private readonly leverService: LeverService,
+    private readonly workableService: WorkableService,
+    private readonly smartRecruitersService: SmartRecruitersService,
+    private readonly ripplingService: RipplingService,
+    private readonly workdayService: WorkdayService,
+    private readonly amazonService: AmazonService,
+    private readonly appleService: AppleService,
+    private readonly microsoftService: MicrosoftService,
+    private readonly nvidiaService: NvidiaService,
+    private readonly tiktokService: TikTokService,
+    private readonly uberService: UberService,
+    private readonly cursorService: CursorService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -46,15 +74,74 @@ export class JobsService {
       [Site.INTERNSHALA, this.internshalaService],
       [Site.EXA, this.exaService],
       [Site.UPWORK, this.upworkService],
+      [Site.ASHBY, this.ashbyService],
+      [Site.GREENHOUSE, this.greenhouseService],
+      [Site.LEVER, this.leverService],
+      [Site.WORKABLE, this.workableService],
+      [Site.SMARTRECRUITERS, this.smartRecruitersService],
+      [Site.RIPPLING, this.ripplingService],
+      [Site.WORKDAY, this.workdayService],
+      [Site.AMAZON, this.amazonService],
+      [Site.APPLE, this.appleService],
+      [Site.MICROSOFT, this.microsoftService],
+      [Site.NVIDIA, this.nvidiaService],
+      [Site.TIKTOK, this.tiktokService],
+      [Site.UBER, this.uberService],
+      [Site.CURSOR, this.cursorService],
     ]);
   }
+
+
+  /** ATS scrapers require a companySlug to target a specific company board */
+  private static readonly ATS_SITES = new Set<Site>([
+    Site.ASHBY,
+    Site.GREENHOUSE,
+    Site.LEVER,
+    Site.WORKABLE,
+    Site.SMARTRECRUITERS,
+    Site.RIPPLING,
+    Site.WORKDAY,
+  ]);
+
+  /** Company scrapers target a single company's career API directly */
+  private static readonly COMPANY_SITES = new Set<Site>([
+    Site.AMAZON,
+    Site.APPLE,
+    Site.MICROSOFT,
+    Site.NVIDIA,
+    Site.TIKTOK,
+    Site.UBER,
+    Site.CURSOR,
+  ]);
 
   /**
    * Orchestrates concurrent searching across selected sites.
    * Runs all selected source modules in parallel via Promise.allSettled.
+   *
+   * Routing rules (when no explicit siteType is provided):
+   * - If `companySlug` provided → only ATS scrapers run (they need a slug)
+   * - Otherwise → search + company scrapers run (ATS scrapers skipped)
+   *
+   * When `siteType` is explicitly provided, the filter is always respected
+   * regardless of `companySlug`.
    */
   async searchJobs(input: ScraperInputDto): Promise<JobPostDto[]> {
-    const sites = input.siteType ?? Object.values(Site);
+    const explicitSites = input.siteType;
+    let sites: Site[];
+
+    if (explicitSites?.length) {
+      // Explicit site selection — respect exactly what was requested
+      sites = explicitSites;
+    } else if (input.companySlug) {
+      // companySlug provided but no explicit sites → ATS scrapers only
+      sites = [...JobsService.ATS_SITES];
+    } else {
+      // Default: search + company scrapers (skip ATS — they need a slug)
+      sites = Object.values(Site).filter(
+        (s) => !JobsService.ATS_SITES.has(s),
+      );
+    }
+
     const selectedScrapers: { site: Site; scraper: IScraper }[] = [];
 
     for (const site of sites) {

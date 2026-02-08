@@ -49,6 +49,14 @@ export class JobPostDto {
   // Salary enrichment metadata (set during post-processing)
   salarySource?: string | null;
 
+  // ATS-specific metadata
+  department?: string | null;
+  team?: string | null;
+  atsId?: string | null;
+  atsType?: string | null;
+  employmentType?: string | null;
+  applyUrl?: string | null;
+
   // Site identifier (filled in during aggregation)
   site?: string | null;
 

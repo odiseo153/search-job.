@@ -10,6 +10,20 @@ export enum Site {
   INTERNSHALA = 'internshala',
   EXA = 'exa',
   UPWORK = 'upwork',
+  ASHBY = 'ashby',
+  GREENHOUSE = 'greenhouse',
+  LEVER = 'lever',
+  WORKABLE = 'workable',
+  SMARTRECRUITERS = 'smartrecruiters',
+  RIPPLING = 'rippling',
+  WORKDAY = 'workday',
+  AMAZON = 'amazon',
+  APPLE = 'apple',
+  MICROSOFT = 'microsoft',
+  NVIDIA = 'nvidia',
+  TIKTOK = 'tiktok',
+  UBER = 'uber',
+  CURSOR = 'cursor',
 }
 
 /**

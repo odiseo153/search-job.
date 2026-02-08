@@ -32,7 +32,21 @@
       "@ever-jobs/source-internshala": ["packages/source-internshala/src/index.ts"],
       "@ever-jobs/analytics": ["packages/analytics/src/index.ts"],
       "@ever-jobs/source-exa": ["packages/source-exa/src/index.ts"],
-      "@ever-jobs/source-upwork": ["packages/source-upwork/src/index.ts"]
+      "@ever-jobs/source-upwork": ["packages/source-upwork/src/index.ts"],
+      "@ever-jobs/source-ats-ashby": ["packages/source-ats-ashby/src/index.ts"],
+      "@ever-jobs/source-ats-greenhouse": ["packages/source-ats-greenhouse/src/index.ts"],
+      "@ever-jobs/source-ats-lever": ["packages/source-ats-lever/src/index.ts"],
+      "@ever-jobs/source-ats-workable": ["packages/source-ats-workable/src/index.ts"],
+      "@ever-jobs/source-ats-smartrecruiters": ["packages/source-ats-smartrecruiters/src/index.ts"],
+      "@ever-jobs/source-ats-rippling": ["packages/source-ats-rippling/src/index.ts"],
+      "@ever-jobs/source-ats-workday": ["packages/source-ats-workday/src/index.ts"],
+      "@ever-jobs/source-company-amazon": ["packages/source-company-amazon/src/index.ts"],
+      "@ever-jobs/source-company-apple": ["packages/source-company-apple/src/index.ts"],
+      "@ever-jobs/source-company-microsoft": ["packages/source-company-microsoft/src/index.ts"],
+      "@ever-jobs/source-company-nvidia": ["packages/source-company-nvidia/src/index.ts"],
+      "@ever-jobs/source-company-tiktok": ["packages/source-company-tiktok/src/index.ts"],
+      "@ever-jobs/source-company-uber": ["packages/source-company-uber/src/index.ts"],
+      "@ever-jobs/source-company-cursor": ["packages/source-company-cursor/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]

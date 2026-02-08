@@ -10,6 +10,20 @@ import { BDJobsModule } from '@ever-jobs/source-bdjobs';
 import { InternshalaModule } from '@ever-jobs/source-internshala';
 import { ExaModule } from '@ever-jobs/source-exa';
 import { UpworkModule } from '@ever-jobs/source-upwork';
+import { AshbyModule } from '@ever-jobs/source-ats-ashby';
+import { GreenhouseModule } from '@ever-jobs/source-ats-greenhouse';
+import { LeverModule } from '@ever-jobs/source-ats-lever';
+import { WorkableModule } from '@ever-jobs/source-ats-workable';
+import { SmartRecruitersModule } from '@ever-jobs/source-ats-smartrecruiters';
+import { RipplingModule } from '@ever-jobs/source-ats-rippling';
+import { WorkdayModule } from '@ever-jobs/source-ats-workday';
+import { AmazonModule } from '@ever-jobs/source-company-amazon';
+import { AppleModule } from '@ever-jobs/source-company-apple';
+import { MicrosoftModule } from '@ever-jobs/source-company-microsoft';
+import { NvidiaModule } from '@ever-jobs/source-company-nvidia';
+import { TikTokModule } from '@ever-jobs/source-company-tiktok';
+import { UberModule } from '@ever-jobs/source-company-uber';
+import { CursorModule } from '@ever-jobs/source-company-cursor';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -27,6 +41,20 @@ import { JobsService } from './jobs.service';
     InternshalaModule,
     ExaModule,
     UpworkModule,
+    AshbyModule,
+    GreenhouseModule,
+    LeverModule,
+    WorkableModule,
+    SmartRecruitersModule,
+    RipplingModule,
+    WorkdayModule,
+    AmazonModule,
+    AppleModule,
+    MicrosoftModule,
+    NvidiaModule,
+    TikTokModule,
+    UberModule,
+    CursorModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],
@@ -34,5 +62,3 @@ import { JobsService } from './jobs.service';
   exports: [JobsService],
 })
 export class JobsModule {}
-
-

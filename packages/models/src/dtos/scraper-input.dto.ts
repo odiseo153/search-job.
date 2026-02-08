@@ -117,6 +117,16 @@ export class ScraperInputDto {
   @IsNumber()
   rateDelayMax?: number;
 
+  @ApiPropertyOptional({ description: 'Company slug for ATS board scraping (e.g., "stripe" for Ashby, "github" for Greenhouse)' })
+  @IsOptional()
+  @IsString()
+  companySlug?: string;
+
+  @ApiPropertyOptional({ description: 'Maximum concurrent company scrapes for ATS sources', default: 5 })
+  @IsOptional()
+  @IsNumber()
+  maxConcurrentCompanies?: number;
+
   constructor(partial?: Partial<ScraperInputDto>) {
     this.siteType = Object.values(Site);
     this.resultsWanted = 15;
@@ -127,6 +137,7 @@ export class ScraperInputDto {
     this.descriptionFormat = DescriptionFormat.MARKDOWN;
     this.linkedinFetchDescription = false;
     this.requestTimeout = 60;
+    this.maxConcurrentCompanies = 5;
     Object.assign(this, partial);
   }
 }

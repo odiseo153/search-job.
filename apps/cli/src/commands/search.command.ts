@@ -36,6 +36,7 @@ interface SearchOptions {
   stdin?: boolean;
   analyze?: boolean;
   bd?: boolean;
+  companySlug?: string;
 }
 
 @Command({
@@ -132,6 +133,7 @@ export class SearchCommand extends CommandRunner {
       userAgent: options.userAgent,
       rateDelayMin: options.rateDelayMin,
       rateDelayMax: options.rateDelayMax,
+      companySlug: options.companySlug,
     });
   }
 
@@ -327,7 +329,7 @@ export class SearchCommand extends CommandRunner {
   @Option({ flags: '--stdin', description: 'Read JSON input from stdin (for LLM/programmatic usage)' })
   parseStdin(): boolean { return true; }
 
-  @Option({ flags: '-s, --site [sites...]', description: 'Sites to search: linkedin, indeed, glassdoor, zip_recruiter, google, bayt, naukri, bdjobs, internshala, exa, upwork' })
+  @Option({ flags: '-s, --site [sites...]', description: 'Sites to search: linkedin, indeed, glassdoor, zip_recruiter, google, bayt, naukri, bdjobs, internshala, exa, upwork, ashby, greenhouse, lever, workable, smartrecruiters, rippling, workday' })
   parseSite(val: string, acc?: string[]): string[] {
     return (acc ?? []).concat(val);
   }
@@ -416,4 +418,7 @@ export class SearchCommand extends CommandRunner {
 
   @Option({ flags: '--bd', description: 'BD intelligence mode: output company analysis instead of raw jobs' })
   parseBd(): boolean { return true; }
+
+  @Option({ flags: '--company-slug <slug>', description: 'Company slug for ATS board scraping (e.g., "stripe" for Ashby, "github" for Greenhouse, "tesla:5:Tesla" for Workday)' })
+  parseCompanySlug(val: string): string { return val; }
 }

@@ -33,7 +33,7 @@ Client Request
 │          ▼           │
 │  ┌────────────────┐  │
 │  │ Source Modules │  │   ← LinkedIn, Indeed, Glassdoor, etc.
-│  │  (11 sources)  │  │
+│  │  (25 sources)  │  │   ← search (11) + ATS (7) + company (7)
 │  └────────────────┘  │
 └──────────────────────┘
            │
@@ -54,7 +54,7 @@ Client Request
 | `HealthController`    | `/health` and `/ping` endpoints                |
 | `JobsService`         | Orchestrates concurrent multi-source searching |
 | `JobsController`      | `POST /api/jobs/search` and `/analyze`         |
-| Source Modules (×11)  | Individual source modules per job board        |
+| Source Modules (×25)  | Search (×11) + ATS (×7) + Company (×7)         |
 | `AnalyticsModule`     | Job data analysis and aggregation              |
 
 ## Project Structure
@@ -75,7 +75,9 @@ ever-jobs/
 │   ├── analytics/           # Job data analytics
 │   ├── common/              # Shared HTTP client, utilities
 │   ├── models/              # TypeScript interfaces & DTOs
-│   └── source-*/            # Per-site source modules (×11)
+│   ├── source-*/            # Search source modules (×11)
+│   ├── source-ats-*/        # ATS source modules (×7)
+│   └── source-company-*/    # Company-specific source modules (×7)
 ├── Dockerfile               # Multi-stage Docker build
 ├── docker-compose.yml       # Production deployment
 ├── docker-compose.dev.yml   # Development with hot-reload
