@@ -72,7 +72,13 @@ export default () => {
     // Swagger
     swagger: {
       enabled: parseBool(process.env.ENABLE_SWAGGER, true),
-      path: process.env.SWAGGER_PATH || 'api/docs',
+      path: process.env.SWAGGER_PATH || 'swg',
+    },
+
+    // Scalar
+    scalar: {
+      enabled: parseBool(process.env.ENABLE_SCALAR, true),
+      path: process.env.SCALAR_PATH || 'docs',
     },
   };
 };

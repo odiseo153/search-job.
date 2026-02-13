@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { apiReference } from '@scalar/nestjs-api-reference';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 
@@ -32,12 +33,14 @@ async function bootstrap() {
   });
   logger.log(`CORS enabled for origins: ${corsOrigins.join(', ')}`);
 
-  // ── Swagger ────────────────────────────
+  // ── API Documentation ──────────────────
   const swaggerEnabled = config.get<boolean>('swagger.enabled', true);
-  const swaggerPath = config.get<string>('swagger.path', 'api/docs');
+  const swaggerPath = config.get<string>('swagger.path', 'swg');
+  const scalarEnabled = config.get<boolean>('scalar.enabled', true);
+  const scalarPath = config.get<string>('scalar.path', 'docs');
 
-  if (swaggerEnabled) {
-    const swaggerConfig = new DocumentBuilder()
+  if (swaggerEnabled || scalarEnabled) {
+    const openApiConfig = new DocumentBuilder()
       .setTitle('Ever Jobs API')
       .setDescription(
         `# Ever Jobs API
@@ -70,9 +73,22 @@ Results are cached (when enabled) to improve performance and reduce load on job 
       .addTag('Health', 'Health check and monitoring endpoints')
       .build();
 
-    const document = SwaggerModule.createDocument(app, swaggerConfig);
-    SwaggerModule.setup(swaggerPath, app, document);
-    logger.log(`Swagger docs: http://localhost:${config.get('port', 3000)}/${swaggerPath}`);
+    const document = SwaggerModule.createDocument(app, openApiConfig);
+
+    // ── Swagger UI ───────────────────────
+    if (swaggerEnabled) {
+      SwaggerModule.setup(swaggerPath, app, document);
+      logger.log(`Swagger UI docs: http://localhost:${config.get('port', 3000)}/${swaggerPath}`);
+    }
+
+    // ── Scalar API Reference ─────────────
+    if (scalarEnabled) {
+      app.use(
+        `/${scalarPath}`,
+        apiReference({ content: document }),
+      );
+      logger.log(`Scalar API docs: http://localhost:${config.get('port', 3000)}/${scalarPath}`);
+    }
   }
 
   // ── Start ──────────────────────────────

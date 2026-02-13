@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "mcp__f21aa21f-1a8e-4c0a-a832-8b5b73cdd18f__get_code_context_exa",
+      "mcp__f21aa21f-1a8e-4c0a-a832-8b5b73cdd18f__crawling_exa",
+      "Bash(npm install:*)",
+      "Bash(npx nx run api:build:*)",
+      "Bash(npx nx show:*)",
+      "Bash(npx nest build:*)",
+      "Bash(npm run start:dev:*)",
+      "Bash(timeout:*)",
+      "Bash(ping:*)",
+      "Bash(npx nest start:*)",
+      "Bash(npx nx run-many:*)",
+      "Bash(node:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(curl:*)",
+      "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''http://localhost:3000/docs'' -UseBasicParsing\\).StatusCode\")",
+      "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''http://localhost:3000/swg-json'' -UseBasicParsing\\).StatusCode\")",
+      "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''http://localhost:3000/swg'' -UseBasicParsing\\).Content.Substring\\(0, 200\\)\")",
+      "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''http://localhost:3000/docs'' -UseBasicParsing\\).Content.Substring\\(0, 300\\)\")",
+      "mcp__Control_Chrome__open_url",
+      "Bash(start:*)"
+    ]
+  }
+}
