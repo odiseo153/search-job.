@@ -2,11 +2,12 @@
 
 > A modular, extensible NestJS monorepo for aggregating job postings from multiple job boards.
 
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=ever-co.ever-jobs)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 [![NestJS](https://img.shields.io/badge/NestJS-10.x-e0234e.svg)](https://nestjs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Overview
+## ⭐️ Overview
 
 **Ever Jobs** searches job postings from **25 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
@@ -56,7 +57,7 @@ Direct integrations with major tech companies' career APIs.
 
 ---
 
-## Features
+## ✨ Features
 
 - 🔍 **Multi-source aggregation** — Search 1 or all 25 sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
@@ -80,7 +81,7 @@ Direct integrations with major tech companies' career APIs.
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -754,6 +755,15 @@ Run: npm run cli -- compare --search-term "data engineer" --results 15
 5. Add the module to `apps/api/src/jobs/jobs.module.ts`
 6. Submit a pull request
 
+## 🔐 Security
+
+**Ever Jobs** follows good security practices, but 100% security cannot be guaranteed in any software!
+**Ever Jobs** is provided AS IS without any warranty. Use at your own risk!
+
+In a production setup, all client-side to server-side (backend, APIs) communications should be encrypted using HTTPS/WSS/SSL (REST APIs, GraphQL endpoint, Socket.io WebSockets, etc.).
+
+If you discover any issue regarding security, please disclose the information responsibly by emailing <mailto:security@ever.co> and not by creating a GitHub issue.
+
 ## ⚠️ Legal Disclaimer
 
 **This software is provided for educational and research purposes only.**
@@ -784,14 +794,47 @@ Ever Co and the contributors to this project:
 
 ---
 
-## License
+## 🛡️ License
 
 MIT © [Ever Co](https://github.com/ever-co)
 
----
+## ™️ Trademarks
+
+**Ever**® is a registered trademark of [Ever Co. LTD](https://ever.co).
+**Ever® Jobs™**, **Ever® Demand™**, **Ever® Gauzy™**, **Ever® Teams™** and **Ever® OpenSaaS™** are all trademarks of [Ever Co. LTD](https://ever.co).
+
+The trademarks may only be used with the written permission of Ever Co. LTD. and may not be used to promote or otherwise market competitive products or services.
+
+All other brand and product names are trademarks, registered trademarks, or service marks of their respective holders.
+
+## 🍺 Contribute
+
+-   Please give us a :star: on Github, it **helps**!
+-   You are more than welcome to submit feature requests in the [separate repo](https://github.com/ever-co/feature-requests/issues)
+-   Pull requests are always welcome! Please base pull requests against the _develop_ branch and follow the [contributing guide](.github/CONTRIBUTING.MD).
+
+## 💪 Thanks to our Contributors
+
+See our contributors list in [CONTRIBUTORS.md](https://github.com/ever-co/ever-jobs/blob/develop/.github/CONTRIBUTORS.md).
+You can also view a full list of our [contributors tracked by GitHub](https://github.com/ever-co/ever-jobs/graphs/contributors).
+
+<img src="https://contributors-img.web.app/image?repo=ever-co/ever-jobs" />
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ever-co/ever-jobs&type=Date)](https://star-history.com/#ever-co/ever-jobs&Date)
 
 ## Credits
 
 - This project is a TypeScript/NestJS port of the original Python [JobSpy](https://github.com/speedyapply/JobSpy) library by Cullen Watson, re-architected as a modular monorepo for server-side deployment and package reuse.
 - Implements many features from [JobSpy-api](https://github.com/rainmanjam/jobspy-api) in TypeScript/NestJS.
-- Sompany-specific and ATS scrapers ported from [ats-scrapers](https://github.com/speedyapply/ats-scrapers).
+- Company-specific and ATS scrapers ported from [ats-scrapers](https://github.com/speedyapply/ats-scrapers).
+
+## ©️ Copyright
+
+#### Copyright © 2026-present, Ever Co. LTD. All rights reserved
+
+## 🔥 P.S
+
+-   If you are running any business or doing freelance, check our new project [Ever Gauzy](https://github.com/ever-co/ever-gauzy) - Open Business Management Platform (ERP/CRM/HRM)
+-   [We are Hiring: remote TypeScript / NodeJS / NestJS / Angular & React developers](https://github.com/ever-co/jobs#available-positions)
