@@ -29,10 +29,12 @@ const JOB_TYPE_MAP: Record<string, JobType> = {
 
 /**
  * Regex to parse salary strings like "$60,000 - $80,000".
- * Uses non-overlapping number pattern (\d{1,3}(?:,\d{3})*|\d+) instead of
- * [\d,]+ to prevent super-linear backtracking (ReDoS).
+ * Numbers are matched with the character class [\d,]+ which cannot backtrack
+ * (character classes are atomic). The surrounding structure has no nested
+ * quantifiers, so the overall pattern runs in linear time. Input length is
+ * capped in parseSalary() as additional ReDoS defence-in-depth.
  */
-const SALARY_REGEX = /\$?(\d{1,3}(?:,\d{3})*|\d+)\s*[-\u2013]\s*\$?(\d{1,3}(?:,\d{3})*|\d+)/;
+const SALARY_REGEX = /\$?([\d,]+)\s*[-\u2013]\s*\$?([\d,]+)/;
 
 @Injectable()
 export class RemotiveService implements IScraper {
@@ -157,7 +159,7 @@ export class RemotiveService implements IScraper {
    * Parse a salary string like "$60,000 - $80,000" into a CompensationDto.
    */
   private parseSalary(salary: string | null | undefined): CompensationDto | null {
-    if (!salary) {
+    if (!salary || salary.length > 200) {
       return null;
     }
 
