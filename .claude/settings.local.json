@@ -25,7 +25,11 @@
       "Bash(npx jest:*)",
       "Bash(python:*)",
       "Bash(TS_NODE_PROJECT=tsconfig.base.json npx ts-node:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
