@@ -1,9 +1,11 @@
-import { IsOptional, IsString, IsBoolean, IsNumber, IsArray, IsEnum } from 'class-validator';
+import { IsOptional, IsString, IsBoolean, IsNumber, IsArray, IsEnum, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Site } from '../enums/site.enum';
 import { JobType } from '../enums/job-type.enum';
 import { DescriptionFormat } from '../enums/description-format.enum';
 import { Country } from '../enums/country.enum';
+import { ScraperAuthDto } from './auth/scraper-auth.dto';
 
 export class ScraperInputDto {
   @ApiPropertyOptional({ enum: Site, isArray: true, description: 'Sites to scrape (default: all)' })
@@ -126,6 +128,15 @@ export class ScraperInputDto {
   @IsOptional()
   @IsNumber()
   maxConcurrentCompanies?: number;
+
+  @ApiPropertyOptional({
+    type: () => ScraperAuthDto,
+    description: 'Per-request authentication credentials for individual sources (overrides env vars)',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ScraperAuthDto)
+  auth?: ScraperAuthDto;
 
   constructor(partial?: Partial<ScraperInputDto>) {
     this.siteType = Object.values(Site);

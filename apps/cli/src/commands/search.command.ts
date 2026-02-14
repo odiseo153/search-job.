@@ -37,6 +37,7 @@ interface SearchOptions {
   analyze?: boolean;
   bd?: boolean;
   companySlug?: string;
+  upworkAuthJson?: string;
 }
 
 @Command({
@@ -110,6 +111,17 @@ export class SearchCommand extends CommandRunner {
   }
 
   private buildInputFromOptions(options: SearchOptions): ScraperInputDto {
+    // Build per-source auth from CLI flags
+    let auth: any;
+    if (options.upworkAuthJson) {
+      try {
+        const upworkAuth = JSON.parse(options.upworkAuthJson);
+        auth = { upwork: upworkAuth };
+      } catch {
+        console.error('Warning: Invalid JSON for --upwork-auth-json, ignoring');
+      }
+    }
+
     return new ScraperInputDto({
       siteType: options.site?.map((s: string) => s as Site),
       searchTerm: options.searchTerm,
@@ -134,6 +146,7 @@ export class SearchCommand extends CommandRunner {
       rateDelayMin: options.rateDelayMin,
       rateDelayMax: options.rateDelayMax,
       companySlug: options.companySlug,
+      auth,
     });
   }
 
@@ -421,4 +434,7 @@ export class SearchCommand extends CommandRunner {
 
   @Option({ flags: '--company-slug <slug>', description: 'Company slug for ATS board scraping (e.g., "stripe" for Ashby, "github" for Greenhouse, "tesla:5:Tesla" for Workday)' })
   parseCompanySlug(val: string): string { return val; }
+
+  @Option({ flags: '--upwork-auth-json <json>', description: 'Upwork auth credentials as JSON: \'{"clientId":"...","clientSecret":"...","grantType":"client_credentials"}\'' })
+  parseUpworkAuthJson(val: string): string { return val; }
 }

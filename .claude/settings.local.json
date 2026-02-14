@@ -21,7 +21,11 @@
       "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''http://localhost:3000/swg'' -UseBasicParsing\\).Content.Substring\\(0, 200\\)\")",
       "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''http://localhost:3000/docs'' -UseBasicParsing\\).Content.Substring\\(0, 300\\)\")",
       "mcp__Control_Chrome__open_url",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "Bash(npx jest:*)",
+      "Bash(python:*)",
+      "Bash(TS_NODE_PROJECT=tsconfig.base.json npx ts-node:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

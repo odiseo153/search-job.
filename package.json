@@ -14,7 +14,11 @@
     "cli": "npx ts-node -r tsconfig-paths/register apps/cli/src/main.ts",
     "lint": "npx nx run-many --target=lint --all",
     "test": "jest",
-    "test:e2e": "jest --testPathPattern e2e-spec"
+    "test:e2e": "jest --testPathPatterns e2e-spec",
+    "test:api": "jest --testPathPatterns apps/api/__tests__",
+    "test:cli": "jest --testPathPatterns apps/cli/__tests__",
+    "test:sources": "jest --testPathPatterns packages/source-",
+    "test:fast": "jest --testPathPatterns apps/api/__tests__/health"
   },
   "dependencies": {
     "@nestjs/common": "^10.4.0",

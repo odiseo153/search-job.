@@ -19,10 +19,32 @@ module.exports = {
     '^@ever-jobs/source-internshala$': '<rootDir>/packages/source-internshala/src/index.ts',
     '^@ever-jobs/source-exa$': '<rootDir>/packages/source-exa/src/index.ts',
     '^@ever-jobs/source-upwork$': '<rootDir>/packages/source-upwork/src/index.ts',
+    '^@ever-jobs/source-ats-ashby$': '<rootDir>/packages/source-ats-ashby/src/index.ts',
+    '^@ever-jobs/source-ats-greenhouse$': '<rootDir>/packages/source-ats-greenhouse/src/index.ts',
+    '^@ever-jobs/source-ats-lever$': '<rootDir>/packages/source-ats-lever/src/index.ts',
+    '^@ever-jobs/source-ats-workable$': '<rootDir>/packages/source-ats-workable/src/index.ts',
+    '^@ever-jobs/source-ats-smartrecruiters$': '<rootDir>/packages/source-ats-smartrecruiters/src/index.ts',
+    '^@ever-jobs/source-ats-rippling$': '<rootDir>/packages/source-ats-rippling/src/index.ts',
+    '^@ever-jobs/source-ats-workday$': '<rootDir>/packages/source-ats-workday/src/index.ts',
+    '^@ever-jobs/source-company-amazon$': '<rootDir>/packages/source-company-amazon/src/index.ts',
+    '^@ever-jobs/source-company-apple$': '<rootDir>/packages/source-company-apple/src/index.ts',
+    '^@ever-jobs/source-company-microsoft$': '<rootDir>/packages/source-company-microsoft/src/index.ts',
+    '^@ever-jobs/source-company-nvidia$': '<rootDir>/packages/source-company-nvidia/src/index.ts',
+    '^@ever-jobs/source-company-tiktok$': '<rootDir>/packages/source-company-tiktok/src/index.ts',
+    '^@ever-jobs/source-company-uber$': '<rootDir>/packages/source-company-uber/src/index.ts',
+    '^@ever-jobs/source-company-cursor$': '<rootDir>/packages/source-company-cursor/src/index.ts',
   },
   transform: {
     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.base.json' }],
+    // Transform ESM-only packages (uuid v13+ ships as ESM .js)
+    '[/\\\\]node_modules[/\\\\]uuid[/\\\\].+\\.js$': ['ts-jest', {
+      tsconfig: 'tsconfig.base.json',
+      diagnostics: false,
+    }],
   },
+  transformIgnorePatterns: [
+    'node_modules[/\\\\](?!(uuid)[/\\\\])',
+  ],
   // E2E tests hit live APIs — give each test generous timeout
   testTimeout: 120_000,
   // Run test files sequentially to avoid rate-limiting

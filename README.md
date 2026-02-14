@@ -561,16 +561,22 @@ Global AI-powered job search via the [Exa API](https://exa.ai). Requires `EXA_AP
 
 ### Upwork
 
-Global freelance marketplace. Uses the official [Upwork SDK](https://github.com/upwork/node-upwork-oauth2) with GraphQL API (`marketplaceJobPostings` query). Requires the following environment variables:
+Global freelance marketplace. Uses the official [Upwork SDK](https://github.com/upwork/node-upwork-oauth2) with GraphQL API (`marketplaceJobPostings` query). Supports two OAuth2 grant types:
 
-| Variable               | Description                       |
-| ---------------------- | --------------------------------- |
-| `UPWORK_CLIENT_ID`     | OAuth2 application client ID      |
-| `UPWORK_CLIENT_SECRET` | OAuth2 application client secret  |
-| `UPWORK_ACCESS_TOKEN`  | Pre-obtained OAuth2 access token  |
-| `UPWORK_REFRESH_TOKEN` | Pre-obtained OAuth2 refresh token |
+- **`client_credentials`** — server-to-server, requires only `clientId` + `clientSecret`
+- **`authorization_code`** — user-delegated, requires all four values below
+
+| Variable               | Required                | Description                                                      |
+| ---------------------- | ----------------------- | ---------------------------------------------------------------- |
+| `UPWORK_CLIENT_ID`     | Yes (both flows)        | OAuth2 application client ID                                     |
+| `UPWORK_CLIENT_SECRET` | Yes (both flows)        | OAuth2 application client secret                                 |
+| `UPWORK_GRANT_TYPE`    | No (auto-detected)      | `client_credentials` or `authorization_code`                     |
+| `UPWORK_ACCESS_TOKEN`  | `authorization_code` only | Pre-obtained OAuth2 access token                               |
+| `UPWORK_REFRESH_TOKEN` | `authorization_code` only | Pre-obtained OAuth2 refresh token                              |
 
 Get API credentials at [developers.upwork.com](https://developers.upwork.com). Without credentials, Upwork searches gracefully return empty results.
+
+Credentials can also be passed per-request via the `auth.upwork` field in the request body, which overrides env vars. See [Authentication docs](docs/AUTHENTICATION.md) for details.
 
 ---
 
