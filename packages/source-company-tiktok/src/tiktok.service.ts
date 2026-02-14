@@ -71,7 +71,7 @@ export class TikTokService implements IScraper, OnModuleDestroy {
         if (currentCount >= maxResults || currentCount === previousCount) break;
 
         previousCount = currentCount;
-        await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+        await page.evaluate('window.scrollTo(0, document.body.scrollHeight)');
         await this.delay(DELAY_MS);
         scrollAttempts++;
       }
