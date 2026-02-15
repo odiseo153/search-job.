@@ -8,6 +8,11 @@ export class CompensationDto {
 
   constructor(partial?: Partial<CompensationDto>) {
     this.currency = 'USD';
-    Object.assign(this, partial);
+    if (partial) {
+      const clean = Object.fromEntries(
+        Object.entries(partial).filter(([, v]) => v !== undefined),
+      );
+      Object.assign(this, clean);
+    }
   }
 }
