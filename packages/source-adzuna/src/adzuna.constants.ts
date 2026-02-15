@@ -44,3 +44,22 @@ export const COUNTRY_TO_ADZUNA: Partial<Record<Country, string>> = {
  * Default Adzuna country code when no mapping is found.
  */
 export const ADZUNA_DEFAULT_COUNTRY = 'us';
+
+/**
+ * Map Adzuna 2-letter country codes to their local currency (ISO 4217).
+ * Adzuna returns salaries in local currency for each country endpoint.
+ */
+export const ADZUNA_COUNTRY_CURRENCY: Record<string, string> = {
+  us: 'USD',
+  gb: 'GBP',
+  au: 'AUD',
+  ca: 'CAD',
+  de: 'EUR',
+  fr: 'EUR',
+  at: 'EUR',
+  in: 'INR',
+  pl: 'PLN',
+  br: 'BRL',
+  nz: 'NZD',
+  za: 'ZAR',
+};

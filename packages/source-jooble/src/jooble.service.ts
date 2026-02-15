@@ -24,8 +24,25 @@ import {
 } from './jooble.constants';
 import { JoobleResponse, JoobleJob } from './jooble.types';
 
-/** Safe regex for parsing salary ranges like "$80,000 - $120,000" */
-const SALARY_RANGE_REGEX = /\$?(\d{1,3}(?:,\d{3})*|\d+)\s*[-\u2013]\s*\$?(\d{1,3}(?:,\d{3})*|\d+)/;
+/** Safe regex for parsing salary ranges like "$80,000 - $120,000" or "€3,000 - €5,000" */
+const SALARY_RANGE_REGEX = /[$€£₹]?\s*(\d{1,3}(?:,\d{3})*|\d+)\s*[-\u2013]\s*[$€£₹]?\s*(\d{1,3}(?:,\d{3})*|\d+)/;
+
+/** Map currency symbols found in salary strings to ISO 4217 codes */
+const CURRENCY_SYMBOL_MAP: Record<string, string> = {
+  '$': 'USD',
+  '\u20AC': 'EUR', // €
+  '\u00A3': 'GBP', // £
+  '\u20B9': 'INR', // ₹
+};
+
+/** Match interval keywords in salary strings */
+const INTERVAL_KEYWORDS: Array<[RegExp, CompensationInterval]> = [
+  [/\b(?:per\s+hour|\/\s*hr|hourly|\/\s*hour)\b/i, CompensationInterval.HOURLY],
+  [/\b(?:per\s+day|\/\s*day|daily)\b/i, CompensationInterval.DAILY],
+  [/\b(?:per\s+week|\/\s*wk|weekly)\b/i, CompensationInterval.WEEKLY],
+  [/\b(?:per\s+month|\/\s*mo|monthly|p\.?\s*m\.?)\b/i, CompensationInterval.MONTHLY],
+  [/\b(?:per\s+year|\/\s*yr|yearly|annual|annually|p\.?\s*a\.?)\b/i, CompensationInterval.YEARLY],
+];
 
 @Injectable()
 export class JoobleService implements IScraper {
@@ -185,10 +202,18 @@ export class JoobleService implements IScraper {
 
   /**
    * Parse a salary string into a CompensationDto.
-   * Handles formats like "$80,000 - $120,000", "80000", or empty strings.
+   * Detects currency from symbols ($, €, £, ₹) and interval from keywords
+   * (hourly, monthly, yearly, etc.). Falls back to null currency / yearly interval
+   * when the string doesn't contain enough hints.
    */
   private parseSalary(salary: string): CompensationDto | null {
     if (!salary || !salary.trim()) return null;
+
+    // Detect currency from symbol
+    const currency = this.detectCurrency(salary);
+
+    // Detect interval from keywords
+    const interval = this.detectInterval(salary);
 
     const rangeMatch = salary.match(SALARY_RANGE_REGEX);
     if (rangeMatch) {
@@ -196,28 +221,50 @@ export class JoobleService implements IScraper {
       const maxAmount = parseInt(rangeMatch[2].replace(/,/g, ''), 10);
       if (!isNaN(minAmount) && !isNaN(maxAmount)) {
         return new CompensationDto({
-          interval: CompensationInterval.YEARLY,
+          interval,
           minAmount,
           maxAmount,
-          currency: 'USD',
+          currency,
         });
       }
     }
 
     // Try to parse a single number
-    const singleMatch = salary.match(/\$?(\d{1,3}(?:,\d{3})*|\d+)/);
+    const singleMatch = salary.match(/[$€£₹]?\s*(\d{1,3}(?:,\d{3})*|\d+)/);
     if (singleMatch) {
       const amount = parseInt(singleMatch[1].replace(/,/g, ''), 10);
       if (!isNaN(amount) && amount > 0) {
         return new CompensationDto({
-          interval: CompensationInterval.YEARLY,
+          interval,
           minAmount: amount,
           maxAmount: null,
-          currency: 'USD',
+          currency,
         });
       }
     }
 
     return null;
+  }
+
+  /**
+   * Detect ISO 4217 currency code from a salary string's symbol.
+   * Returns null when no recognizable symbol is found.
+   */
+  private detectCurrency(salary: string): string | undefined {
+    for (const [symbol, code] of Object.entries(CURRENCY_SYMBOL_MAP)) {
+      if (salary.includes(symbol)) return code;
+    }
+    return undefined; // let CompensationDto default handle it
+  }
+
+  /**
+   * Detect compensation interval from keywords in a salary string.
+   * Returns YEARLY as the default when no interval hint is found.
+   */
+  private detectInterval(salary: string): CompensationInterval {
+    for (const [pattern, interval] of INTERVAL_KEYWORDS) {
+      if (pattern.test(salary)) return interval;
+    }
+    return CompensationInterval.YEARLY;
   }
 }
