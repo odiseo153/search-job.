@@ -10,12 +10,12 @@ services:
       target: builder   # Use the builder stage (has devDependencies)
     container_name: ever-jobs-api-dev
     ports:
-      - "${PORT:-3000}:3000"
+      - "${PORT:-3001}:3001"
     env_file:
       - .env
     environment:
       NODE_ENV: development
-      PORT: 3000
+      PORT: 3001
       LOG_LEVEL: debug
 
       # Enable security features for dev testing

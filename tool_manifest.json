@@ -47,7 +47,7 @@
     },
     "api": {
       "endpoint": "POST /api/jobs/search",
-      "docs": "http://localhost:3000/api/docs"
+      "docs": "http://localhost:3001/api/docs"
     }
   },
 

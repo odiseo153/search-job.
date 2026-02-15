@@ -36,7 +36,7 @@ RUN mkdir -p /app/logs
 # ── Environment defaults ──────────────────
 # These can be overridden by docker-compose or runtime env
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=3001
 
 # API Security
 ENV ENABLE_API_KEY_AUTH=false
