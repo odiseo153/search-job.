@@ -26,6 +26,7 @@ import {
   ADZUNA_RATE_LIMIT_PER_MINUTE,
   COUNTRY_TO_ADZUNA,
   ADZUNA_DEFAULT_COUNTRY,
+  ADZUNA_COUNTRY_CURRENCY,
 } from './adzuna.constants';
 import { AdzunaResponse, AdzunaJob } from './adzuna.types';
 
@@ -139,7 +140,7 @@ export class AdzunaService implements IScraper {
           seenIds.add(jobId);
 
           try {
-            const job = this.mapJob(raw, input.descriptionFormat);
+            const job = this.mapJob(raw, countryCode, input.descriptionFormat);
             if (job) jobs.push(job);
           } catch (err: any) {
             this.logger.warn(`Error mapping Adzuna job ${jobId}: ${err.message}`);
@@ -170,7 +171,7 @@ export class AdzunaService implements IScraper {
   /**
    * Map an Adzuna job result to a JobPostDto.
    */
-  private mapJob(raw: AdzunaJob, descriptionFormat?: DescriptionFormat): JobPostDto | null {
+  private mapJob(raw: AdzunaJob, countryCode: string, descriptionFormat?: DescriptionFormat): JobPostDto | null {
     // jobUrl is REQUIRED — skip if missing
     const jobUrl = raw.redirect_url;
     if (!jobUrl) return null;
@@ -206,7 +207,7 @@ export class AdzunaService implements IScraper {
           interval: CompensationInterval.YEARLY,
           minAmount: hasMin ? raw.salary_min : null,
           maxAmount: hasMax ? raw.salary_max : null,
-          currency: 'USD',
+          currency: ADZUNA_COUNTRY_CURRENCY[countryCode] ?? 'USD',
         });
       }
     }
