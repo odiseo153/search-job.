@@ -2,7 +2,7 @@
 
 ## How do I enable Swagger UI?
 
-Set `ENABLE_SWAGGER=true` (default) in your `.env` file. The docs are available at `http://localhost:3000/api/docs`. You can change the path with `SWAGGER_PATH`.
+Set `ENABLE_SWAGGER=true` (default) in your `.env` file. The docs are available at `http://localhost:3001/api/docs`. You can change the path with `SWAGGER_PATH`.
 
 ## Where are logs stored?
 

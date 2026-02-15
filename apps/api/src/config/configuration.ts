@@ -20,7 +20,7 @@ export default () => {
   };
 
   return {
-    port: parseInt(process.env.PORT, 3000),
+    port: parseInt(process.env.PORT, 3001),
 
     // API Security
     auth: {

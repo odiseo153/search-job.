@@ -33,7 +33,11 @@
       "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)",
       "Bash(git checkout:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(git worktree add:*)",
+      "Bash(ls -la \"E:\\\\Coding\\\\Ever Gauzy AI\\\\ever-jobs-phase4\\\\packages\\\\source-ats-icims\"\" && echo \"---\" && ls -la \"E:CodingEver Gauzy AIever-jobs-phase4packagessource-ats-icimssrc\"\")",
+      "Bash(dir:*)",
+      "mcp__Desktop_Commander__create_directory"
     ]
   }
 }

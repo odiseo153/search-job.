@@ -10,7 +10,7 @@ cp .env.example .env
 docker compose up -d
 
 # 3. Verify health
-curl http://localhost:3000/health
+curl http://localhost:3001/health
 ```
 
 ## Standalone Docker
