@@ -1,5 +1,39 @@
 # API Changelog
 
+## [0.3.0] — 2026-02-15
+
+### New Sources (7)
+
+Added 7 new job source integrations (Tier 2 — HTML scraping / Playwright):
+
+**ATS (3):**
+- **BambooHR** — Public JSON API, `{companySlug}.bamboohr.com/careers/list`
+- **Personio** — Public XML feed, `{companySlug}.jobs.personio.de/xml`
+- **JazzHR** *(WIP)* — HTML scraping, `{companySlug}.applytojob.com/apply/jobs/`
+
+**Job Boards (4):**
+- **Dice** *(WIP)* — Cheerio + Playwright fallback, US tech jobs
+- **SimplyHired** *(WIP)* — Cheerio + Playwright fallback, global
+- **Wellfound** *(WIP)* — Playwright SPA (`__NEXT_DATA__` extraction), startup jobs
+- **StepStone** *(WIP)* — Playwright SPA, Germany (`.de`) initially
+
+Total sources expanded from 39 to 46.
+
+### New `siteType` Values
+
+- `bamboohr`, `personio`, `jazzhr` — ATS sources (require `companySlug` parameter)
+- `dice`, `simplyhired`, `wellfound`, `stepstone` — search-based job boards (included in default searches)
+
+### Proxy Support
+
+All 7 sources wire proxies through:
+- HTTP sources: via `createHttpClient({ proxies })`
+- Playwright sources: via `BrowserPool.getPage({ proxy })`
+
+### WIP Sources Note
+
+5 of 7 sources are marked WIP — code is shipped but HTML selectors need validation against live sites. These sources will gracefully return empty results if selectors are outdated.
+
 ## [0.2.0] — 2026-02-14
 
 ### New Sources (5)

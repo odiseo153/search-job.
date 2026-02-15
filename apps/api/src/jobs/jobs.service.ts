@@ -42,6 +42,13 @@ import { AdzunaService } from '@ever-jobs/source-adzuna';
 import { ReedService } from '@ever-jobs/source-reed';
 import { JoobleService } from '@ever-jobs/source-jooble';
 import { CareerJetService } from '@ever-jobs/source-careerjet';
+import { BambooHRService } from '@ever-jobs/source-ats-bamboohr';
+import { PersonioService } from '@ever-jobs/source-ats-personio';
+import { JazzHRService } from '@ever-jobs/source-ats-jazzhr';
+import { DiceService } from '@ever-jobs/source-dice';
+import { SimplyHiredService } from '@ever-jobs/source-simplyhired';
+import { WellfoundService } from '@ever-jobs/source-wellfound';
+import { StepStoneService } from '@ever-jobs/source-stepstone';
 
 @Injectable()
 export class JobsService {
@@ -87,6 +94,13 @@ export class JobsService {
     private readonly reedService: ReedService,
     private readonly joobleService: JoobleService,
     private readonly careerJetService: CareerJetService,
+    private readonly bambooHRService: BambooHRService,
+    private readonly personioService: PersonioService,
+    private readonly jazzHRService: JazzHRService,
+    private readonly diceService: DiceService,
+    private readonly simplyHiredService: SimplyHiredService,
+    private readonly wellfoundService: WellfoundService,
+    private readonly stepStoneService: StepStoneService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -127,6 +141,13 @@ export class JobsService {
       [Site.REED, this.reedService],
       [Site.JOOBLE, this.joobleService],
       [Site.CAREERJET, this.careerJetService],
+      [Site.BAMBOOHR, this.bambooHRService],
+      [Site.PERSONIO, this.personioService],
+      [Site.JAZZHR, this.jazzHRService],
+      [Site.DICE, this.diceService],
+      [Site.SIMPLYHIRED, this.simplyHiredService],
+      [Site.WELLFOUND, this.wellfoundService],
+      [Site.STEPSTONE, this.stepStoneService],
     ]);
   }
 
@@ -142,6 +163,9 @@ export class JobsService {
     Site.WORKDAY,
     Site.RECRUITEE,
     Site.TEAMTAILOR,
+    Site.BAMBOOHR,
+    Site.PERSONIO,
+    Site.JAZZHR,
   ]);
 
   /** Company scrapers target a single company's career API directly */

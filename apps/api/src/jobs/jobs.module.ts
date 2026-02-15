@@ -37,6 +37,13 @@ import { AdzunaModule } from '@ever-jobs/source-adzuna';
 import { ReedModule } from '@ever-jobs/source-reed';
 import { JoobleModule } from '@ever-jobs/source-jooble';
 import { CareerJetModule } from '@ever-jobs/source-careerjet';
+import { BambooHRModule } from '@ever-jobs/source-ats-bamboohr';
+import { PersonioModule } from '@ever-jobs/source-ats-personio';
+import { JazzHRModule } from '@ever-jobs/source-ats-jazzhr';
+import { DiceModule } from '@ever-jobs/source-dice';
+import { SimplyHiredModule } from '@ever-jobs/source-simplyhired';
+import { WellfoundModule } from '@ever-jobs/source-wellfound';
+import { StepStoneModule } from '@ever-jobs/source-stepstone';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -81,6 +88,13 @@ import { JobsService } from './jobs.service';
     ReedModule,
     JoobleModule,
     CareerJetModule,
+    BambooHRModule,
+    PersonioModule,
+    JazzHRModule,
+    DiceModule,
+    SimplyHiredModule,
+    WellfoundModule,
+    StepStoneModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],

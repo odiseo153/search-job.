@@ -37,6 +37,13 @@ export enum Site {
   REED = 'reed',
   JOOBLE = 'jooble',
   CAREERJET = 'careerjet',
+  BAMBOOHR = 'bamboohr',
+  PERSONIO = 'personio',
+  JAZZHR = 'jazzhr',
+  DICE = 'dice',
+  SIMPLYHIRED = 'simplyhired',
+  WELLFOUND = 'wellfound',
+  STEPSTONE = 'stepstone',
 }
 
 /**

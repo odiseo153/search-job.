@@ -59,7 +59,14 @@
       "@ever-jobs/source-adzuna": ["packages/source-adzuna/src/index.ts"],
       "@ever-jobs/source-reed": ["packages/source-reed/src/index.ts"],
       "@ever-jobs/source-jooble": ["packages/source-jooble/src/index.ts"],
-      "@ever-jobs/source-careerjet": ["packages/source-careerjet/src/index.ts"]
+      "@ever-jobs/source-careerjet": ["packages/source-careerjet/src/index.ts"],
+      "@ever-jobs/source-ats-bamboohr": ["packages/source-ats-bamboohr/src/index.ts"],
+      "@ever-jobs/source-ats-personio": ["packages/source-ats-personio/src/index.ts"],
+      "@ever-jobs/source-ats-jazzhr": ["packages/source-ats-jazzhr/src/index.ts"],
+      "@ever-jobs/source-dice": ["packages/source-dice/src/index.ts"],
+      "@ever-jobs/source-simplyhired": ["packages/source-simplyhired/src/index.ts"],
+      "@ever-jobs/source-wellfound": ["packages/source-wellfound/src/index.ts"],
+      "@ever-jobs/source-stepstone": ["packages/source-stepstone/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]

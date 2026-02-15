@@ -9,9 +9,9 @@
 
 ## ⭐️ Overview
 
-**Ever Jobs** searches job postings from **39 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
+**Ever Jobs** searches job postings from **46 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
-### Search-Based Job Boards (22)
+### Search-Based Job Boards (26)
 
 | Source                 | Method                 | Region                      |
 | ---------------------- | ---------------------- | --------------------------- |
@@ -37,8 +37,12 @@
 | **Reed**               | REST API (API key)     | UK                          |
 | **Jooble**             | REST API (API key)     | 70+ countries               |
 | **CareerJet**          | REST API (affiliate)   | 80+ countries               |
+| **Dice**               | HTML + Playwright      | US (tech jobs)              |
+| **SimplyHired**        | HTML + Playwright      | Global                      |
+| **Wellfound**          | Playwright SPA         | Global (startups)           |
+| **StepStone**          | Playwright SPA         | Germany                     |
 
-### ATS Job Boards (9)
+### ATS Job Boards (12)
 
 ATS scrapers require a `companySlug` to target a specific company's job board.
 
@@ -53,6 +57,9 @@ ATS scrapers require a `companySlug` to target a specific company's job board.
 | **Workday**         | Workday         | REST API    |
 | **Recruitee**       | Recruitee       | REST API    |
 | **Teamtailor**      | Teamtailor      | REST API    |
+| **BambooHR**        | BambooHR        | REST API (JSON) |
+| **Personio**        | Personio        | XML feed        |
+| **JazzHR**          | JazzHR          | HTML scraping   |
 
 ### Company-Specific Scrapers (7)
 
@@ -72,7 +79,7 @@ Direct integrations with major tech companies' career APIs.
 
 ## ✨ Features
 
-- 🔍 **Multi-source aggregation** — Search 1 or all 39 sources concurrently
+- 🔍 **Multi-source aggregation** — Search 1 or all 46 sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
 - 🌐 **Country-aware** — Indeed & Glassdoor support 65+ countries with automatic domain resolution
 - 🔄 **Proxy rotation** — Built-in rotating proxy support (HTTP, HTTPS, SOCKS5)
