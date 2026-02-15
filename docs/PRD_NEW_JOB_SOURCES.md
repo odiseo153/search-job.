@@ -2,14 +2,14 @@
 
 **Author:** AI Assistant
 **Date:** 2026-02-14
-**Status:** Phase 2 Complete
+**Status:** Phase 3 In Progress
 **Epic:** Source Expansion
 
 ---
 
 ## 1. Overview
 
-Expand ever-jobs from **26 sources** to **39 sources** by adding new job boards and ATS integrations. Phase 1 added 8 public API/RSS sources (Tier 1), Phase 2 added 5 API-key sources (Tier 1.5).
+Expand ever-jobs from **26 sources** to **46 sources** by adding new job boards and ATS integrations. Phase 1 added 8 public API/RSS sources (Tier 1), Phase 2 added 5 API-key sources (Tier 1.5), Phase 3 adds 7 HTML scraping / semi-public API sources (Tier 2).
 
 ### Current Sources (26)
 
@@ -132,7 +132,7 @@ These 8 sources have free, unauthenticated APIs or RSS feeds. They follow existi
 
 ## 3. Future Tiers (Planned)
 
-### Tier 1.5 - Free API Key Required
+### Tier 1.5 - Free API Key Required (Phase 2 - Complete)
 
 | Source | Type | Notes |
 |--------|------|-------|
@@ -142,21 +142,21 @@ These 8 sources have free, unauthenticated APIs or RSS feeds. They follow existi
 | Jooble | Aggregator | Free developer API |
 | CareerJet | Aggregator | Free webmaster API |
 
-### Tier 2 - HTML Scraping (Medium)
+### Tier 2 - HTML Scraping (Phase 3 - In Progress)
 
-| Source | Type | Notes |
-|--------|------|-------|
-| Wellfound (AngelList) | Job Board | Startups, salary/equity |
-| StepStone | Job Board | Major European board |
-| Dice | Job Board | Tech-focused, 70K+ jobs |
-| SimplyHired | Job Board | Standard HTML |
-| JazzHR | ATS | Clean career pages |
-| Personio | ATS | European HR platform |
-| BambooHR | ATS | Per-company API |
-| Comeet | ATS | Clean HTML |
-| Pinpoint | ATS | Clean HTML |
+| Source | Type | Package | Status | Notes |
+|--------|------|---------|--------|-------|
+| BambooHR | ATS | `source-ats-bamboohr` | Complete | Public JSON API at `{slug}.bamboohr.com/careers/list` |
+| Personio | ATS | `source-ats-personio` | Complete | Public XML feed at `{slug}.jobs.personio.de/xml` |
+| JazzHR | ATS | `source-ats-jazzhr` | WIP | HTML scraping; TODO: validate selectors against live career pages |
+| Dice | Job Board | `source-dice` | WIP | Cheerio + Playwright fallback; TODO: validate selectors against live pages |
+| SimplyHired | Job Board | `source-simplyhired` | WIP | Cheerio + Playwright fallback; TODO: validate against anti-bot measures |
+| Wellfound (AngelList) | Job Board | `source-wellfound` | WIP | Playwright SPA; TODO: validate `__NEXT_DATA__` structure |
+| StepStone | Job Board | `source-stepstone` | WIP | Playwright SPA; TODO: validate selectors, currently Germany-only |
+| Comeet | ATS | — | Planned | Deferred to future iteration |
+| Pinpoint | ATS | — | Planned | Deferred to future iteration |
 
-### Tier 3 - Heavy Anti-Bot (Hard)
+### Tier 3 - Heavy Anti-Bot (Phase 4 - Planned)
 
 | Source | Type | Notes |
 |--------|------|-------|
@@ -234,5 +234,5 @@ API Request
 |-------|---------|--------|
 | **Phase 1 (Tier 1)** | RemoteOK, Remotive, Jobicy, Himalayas, Arbeitnow, WeWorkRemotely, Recruitee, Teamtailor | ✅ **Complete** |
 | **Phase 2 (Tier 1.5)** | USAJobs, Adzuna, Reed, Jooble, CareerJet | ✅ **Complete** |
-| **Phase 3 (Tier 2)** | Wellfound, StepStone, Dice, SimplyHired, JazzHR, Personio, BambooHR | Planned |
+| **Phase 3 (Tier 2)** | BambooHR ✅, Personio ✅, JazzHR 🚧, Dice 🚧, SimplyHired 🚧, Wellfound 🚧, StepStone 🚧 | 🚧 **In Progress** (2/7 complete, 5 WIP) |
 | **Phase 4 (Tier 3)** | Monster, CareerBuilder, iCIMS, Taleo, SuccessFactors | Planned |
