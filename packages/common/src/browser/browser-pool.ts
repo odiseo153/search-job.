@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import type { Browser, Page, LaunchOptions, BrowserContextOptions } from 'playwright';
+import { STEALTH_INIT_SCRIPT, USER_AGENT_POOL, VIEWPORT_POOL } from './stealth-scripts';
 
 /** Options passed to `BrowserPool.getPage()`. */
 export interface BrowserPageOptions {
@@ -7,6 +8,13 @@ export interface BrowserPageOptions {
   proxy?: string;
   /** Navigation timeout in seconds (used by the caller, not the pool). */
   timeout?: number;
+  /**
+   * Enable stealth mode for anti-bot evasion.
+   * When true, injects scripts to mask webdriver detection, randomizes
+   * UA/viewport, and patches browser fingerprinting APIs.
+   * Default: false (backwards-compatible).
+   */
+  stealth?: boolean;
 }
 
 /**
@@ -15,6 +23,9 @@ export interface BrowserPageOptions {
  * Usage:
  *   const page = await BrowserPool.getPage();
  *   try { ... } finally { await page.close(); }
+ *
+ * For anti-bot protected sites:
+ *   const page = await BrowserPool.getPage({ stealth: true, proxy });
  *
  * Call `BrowserPool.close()` on app shutdown (e.g. `onModuleDestroy`).
  */
@@ -34,10 +45,13 @@ export class BrowserPool {
     ],
   };
 
-  /** User-Agent string used for every new page. */
-  private static readonly USER_AGENT =
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
-    '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+  /** Default (non-stealth) User-Agent string. */
+  private static readonly DEFAULT_USER_AGENT = USER_AGENT_POOL[0];
+
+  /** Pick a random element from an array. */
+  private static pick<T>(arr: readonly T[]): T {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
 
   /**
    * Get (or lazily launch) a shared Chromium browser instance.
@@ -68,16 +82,19 @@ export class BrowserPool {
   }
 
   /**
-   * Create a fresh page with stealth-like defaults.
+   * Create a fresh page with configurable stealth level.
    * The caller is responsible for closing the page when done.
    *
-   * @param opts.proxy  — route all traffic through this proxy server
+   * @param opts.proxy    — route all traffic through this proxy server
+   * @param opts.stealth  — enable anti-bot evasion (UA/viewport rotation, JS patches)
    */
   static async getPage(opts?: BrowserPageOptions): Promise<Page> {
     const browser = await this.getBrowser();
+    const stealth = opts?.stealth ?? false;
+
     const ctxOpts: BrowserContextOptions = {
-      userAgent: this.USER_AGENT,
-      viewport: { width: 1440, height: 900 },
+      userAgent: stealth ? this.pick(USER_AGENT_POOL) : this.DEFAULT_USER_AGENT,
+      viewport: stealth ? this.pick(VIEWPORT_POOL) : { width: 1440, height: 900 },
       locale: 'en-US',
       timezoneId: 'America/New_York',
       javaScriptEnabled: true,
@@ -88,6 +105,11 @@ export class BrowserPool {
     }
 
     const context = await browser.newContext(ctxOpts);
+
+    if (stealth) {
+      await context.addInitScript(STEALTH_INIT_SCRIPT);
+    }
+
     return context.newPage();
   }
 

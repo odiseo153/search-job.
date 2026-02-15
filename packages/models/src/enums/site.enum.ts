@@ -44,6 +44,11 @@ export enum Site {
   SIMPLYHIRED = 'simplyhired',
   WELLFOUND = 'wellfound',
   STEPSTONE = 'stepstone',
+  MONSTER = 'monster',
+  CAREERBUILDER = 'careerbuilder',
+  ICIMS = 'icims',
+  TALEO = 'taleo',
+  SUCCESSFACTORS = 'successfactors',
 }
 
 /**

@@ -44,6 +44,11 @@ import { DiceModule } from '@ever-jobs/source-dice';
 import { SimplyHiredModule } from '@ever-jobs/source-simplyhired';
 import { WellfoundModule } from '@ever-jobs/source-wellfound';
 import { StepStoneModule } from '@ever-jobs/source-stepstone';
+import { MonsterModule } from '@ever-jobs/source-monster';
+import { CareerBuilderModule } from '@ever-jobs/source-careerbuilder';
+import { IcimsModule } from '@ever-jobs/source-ats-icims';
+import { TaleoModule } from '@ever-jobs/source-ats-taleo';
+import { SuccessFactorsModule } from '@ever-jobs/source-ats-successfactors';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -95,6 +100,11 @@ import { JobsService } from './jobs.service';
     SimplyHiredModule,
     WellfoundModule,
     StepStoneModule,
+    MonsterModule,
+    CareerBuilderModule,
+    IcimsModule,
+    TaleoModule,
+    SuccessFactorsModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],

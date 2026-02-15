@@ -9,9 +9,9 @@
 
 ## ⭐️ Overview
 
-**Ever Jobs** searches job postings from **46 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
+**Ever Jobs** searches job postings from **51 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
-### Search-Based Job Boards (26)
+### Search-Based Job Boards (28)
 
 | Source                 | Method                 | Region                      |
 | ---------------------- | ---------------------- | --------------------------- |
@@ -41,8 +41,10 @@
 | **SimplyHired**        | HTML + Playwright      | Global                      |
 | **Wellfound**          | Playwright SPA         | Global (startups)           |
 | **StepStone**          | Playwright SPA         | Germany                     |
+| **Monster**            | API + Playwright       | Global                      |
+| **CareerBuilder**      | HTML + Playwright      | US                          |
 
-### ATS Job Boards (12)
+### ATS Job Boards (15)
 
 ATS scrapers require a `companySlug` to target a specific company's job board.
 
@@ -60,6 +62,9 @@ ATS scrapers require a `companySlug` to target a specific company's job board.
 | **BambooHR**        | BambooHR        | REST API (JSON) |
 | **Personio**        | Personio        | XML feed        |
 | **JazzHR**          | JazzHR          | HTML scraping   |
+| **iCIMS**           | iCIMS           | Playwright + JSON gateway |
+| **Taleo**           | Oracle Taleo    | REST API (JSON) |
+| **SuccessFactors**  | SAP SuccessFactors | OData API + HTML fallback |
 
 ### Company-Specific Scrapers (7)
 
@@ -79,7 +84,7 @@ Direct integrations with major tech companies' career APIs.
 
 ## ✨ Features
 
-- 🔍 **Multi-source aggregation** — Search 1 or all 46 sources concurrently
+- 🔍 **Multi-source aggregation** — Search 1 or all 51 sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
 - 🌐 **Country-aware** — Indeed & Glassdoor support 65+ countries with automatic domain resolution
 - 🔄 **Proxy rotation** — Built-in rotating proxy support (HTTP, HTTPS, SOCKS5)
@@ -324,7 +329,7 @@ All parameters are optional. When `siteType` is omitted, search + company scrape
 
 | Parameter                  | Type       | Default    | Description                                                                                                                                                                                                                                                                                                                             |
 | -------------------------- | ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor` |
+| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor` |
 | `companySlug`              | `string`   | —          | Company identifier for ATS scrapers (e.g. `stripe`, `notion`). When set without `siteType`, only ATS scrapers run                                                                                                                                                                                                                       |
 | `searchTerm`               | `string`   | —          | Job search keywords                                                                                                                                                                                                                                                                                                                     |
 | `googleSearchTerm`         | `string`   | —          | Google-specific search query override                                                                                                                                                                                                                                                                                                   |
@@ -438,8 +443,8 @@ ever-jobs/
 │   ├── models/                       @ever-jobs/models
 │   ├── common/                       @ever-jobs/common (HttpClient, converters, utils)
 │   ├── analytics/                    @ever-jobs/analytics
-│   ├── source-*/                     Search source modules (×22)
-│   ├── source-ats-*/                 ATS source modules (×9)
+│   ├── source-*/                     Search source modules (×24)
+│   ├── source-ats-*/                 ATS source modules (×12)
 │   └── source-company-*/             Company-specific source modules (×7)
 │
 ├── .github/
