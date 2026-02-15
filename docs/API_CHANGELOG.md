@@ -1,5 +1,44 @@
 # API Changelog
 
+## [0.4.0] — 2026-02-15
+
+### New Sources (5)
+
+Added 5 new job source integrations (Tier 3 — heavy anti-bot / enterprise ATS):
+
+**ATS (3):**
+- **Oracle Taleo** — REST API (JSON), `{company}:{careerSection}` slug format
+- **iCIMS** *(WIP)* — JSON gateway + Playwright fallback with stealth mode
+- **SAP SuccessFactors** *(WIP)* — OData API + HTML fallback, `{instance}:{companyId}` slug format
+
+**Job Boards (2):**
+- **Monster** *(WIP)* — `appsapi.monster.io` JSON API + Playwright stealth fallback (DataDome protected)
+- **CareerBuilder** *(WIP)* — Cheerio + Playwright stealth fallback (Cloudflare protected)
+
+Total sources expanded from 46 to 51.
+
+### New `siteType` Values
+
+- `taleo`, `icims`, `successfactors` — ATS sources (require `companySlug` parameter)
+- `monster`, `careerbuilder` — search-based job boards (included in default searches)
+
+### BrowserPool Stealth Mode
+
+New `stealth: true` option for `BrowserPool.getPage()` enables anti-bot evasion:
+- User-Agent rotation (6 recent Chrome UAs across Mac/Win/Linux)
+- Viewport randomization (5 common resolutions)
+- JavaScript injection to mask `navigator.webdriver`, fake `window.chrome.runtime`, override `navigator.plugins`, patch canvas fingerprinting, and spoof WebGL renderer info
+
+### Proxy Support
+
+All 5 sources wire proxies through:
+- HTTP sources: via `createHttpClient({ proxies })`
+- Playwright sources: via `BrowserPool.getPage({ proxy, stealth: true })`
+
+### WIP Sources Note
+
+4 of 5 sources are marked WIP — Monster and CareerBuilder will likely need residential proxies for reliable operation. iCIMS layouts vary per company deployment. SuccessFactors OData access varies per company configuration.
+
 ## [0.3.0] — 2026-02-15
 
 ### New Sources (7)

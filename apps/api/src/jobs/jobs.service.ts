@@ -49,6 +49,11 @@ import { DiceService } from '@ever-jobs/source-dice';
 import { SimplyHiredService } from '@ever-jobs/source-simplyhired';
 import { WellfoundService } from '@ever-jobs/source-wellfound';
 import { StepStoneService } from '@ever-jobs/source-stepstone';
+import { MonsterService } from '@ever-jobs/source-monster';
+import { CareerBuilderService } from '@ever-jobs/source-careerbuilder';
+import { IcimsService } from '@ever-jobs/source-ats-icims';
+import { TaleoService } from '@ever-jobs/source-ats-taleo';
+import { SuccessFactorsService } from '@ever-jobs/source-ats-successfactors';
 
 @Injectable()
 export class JobsService {
@@ -101,6 +106,11 @@ export class JobsService {
     private readonly simplyHiredService: SimplyHiredService,
     private readonly wellfoundService: WellfoundService,
     private readonly stepStoneService: StepStoneService,
+    private readonly monsterService: MonsterService,
+    private readonly careerBuilderService: CareerBuilderService,
+    private readonly icimsService: IcimsService,
+    private readonly taleoService: TaleoService,
+    private readonly successFactorsService: SuccessFactorsService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -148,6 +158,11 @@ export class JobsService {
       [Site.SIMPLYHIRED, this.simplyHiredService],
       [Site.WELLFOUND, this.wellfoundService],
       [Site.STEPSTONE, this.stepStoneService],
+      [Site.MONSTER, this.monsterService],
+      [Site.CAREERBUILDER, this.careerBuilderService],
+      [Site.ICIMS, this.icimsService],
+      [Site.TALEO, this.taleoService],
+      [Site.SUCCESSFACTORS, this.successFactorsService],
     ]);
   }
 
@@ -166,6 +181,9 @@ export class JobsService {
     Site.BAMBOOHR,
     Site.PERSONIO,
     Site.JAZZHR,
+    Site.ICIMS,
+    Site.TALEO,
+    Site.SUCCESSFACTORS,
   ]);
 
   /** Company scrapers target a single company's career API directly */

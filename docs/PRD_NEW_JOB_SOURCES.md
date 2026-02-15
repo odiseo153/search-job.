@@ -2,14 +2,14 @@
 
 **Author:** AI Assistant
 **Date:** 2026-02-14
-**Status:** Phase 3 In Progress
+**Status:** Phase 4 In Progress
 **Epic:** Source Expansion
 
 ---
 
 ## 1. Overview
 
-Expand ever-jobs from **26 sources** to **46 sources** by adding new job boards and ATS integrations. Phase 1 added 8 public API/RSS sources (Tier 1), Phase 2 added 5 API-key sources (Tier 1.5), Phase 3 adds 7 HTML scraping / semi-public API sources (Tier 2).
+Expand ever-jobs from **26 sources** to **51 sources** by adding new job boards and ATS integrations. Phase 1 added 8 public API/RSS sources (Tier 1), Phase 2 added 5 API-key sources (Tier 1.5), Phase 3 added 7 HTML scraping / semi-public API sources (Tier 2), Phase 4 adds 5 heavy anti-bot / enterprise ATS sources (Tier 3).
 
 ### Current Sources (26)
 
@@ -156,17 +156,17 @@ These 8 sources have free, unauthenticated APIs or RSS feeds. They follow existi
 | Comeet | ATS | — | Planned | Deferred to future iteration |
 | Pinpoint | ATS | — | Planned | Deferred to future iteration |
 
-### Tier 3 - Heavy Anti-Bot (Phase 4 - Planned)
+### Tier 3 - Heavy Anti-Bot (Phase 4 - In Progress)
 
-| Source | Type | Notes |
-|--------|------|-------|
-| Monster | Job Board | DataDome protection |
-| CareerBuilder | Job Board | Moderate-heavy protection |
-| iCIMS | ATS | Enterprise, JS rendering |
-| Oracle Taleo | ATS | Legacy, complex URLs |
-| SAP SuccessFactors | ATS | Enterprise |
-| Phenom People | ATS | AI-powered, heavy JS |
-| Eightfold | ATS | AI-powered, heavy JS |
+| Source | Type | Package | Status | Notes |
+|--------|------|---------|--------|-------|
+| Oracle Taleo | ATS | `source-ats-taleo` | Complete | REST API (JSON), `{company}:{careerSection}` slug format |
+| iCIMS | ATS | `source-ats-icims` | WIP | JSON gateway + Playwright stealth; layouts vary per company |
+| SAP SuccessFactors | ATS | `source-ats-successfactors` | WIP | OData API + HTML fallback; OData access varies per config |
+| CareerBuilder | Job Board | `source-careerbuilder` | WIP | Cheerio + Playwright stealth; Cloudflare protected, likely needs residential proxies |
+| Monster | Job Board | `source-monster` | WIP | `appsapi.monster.io` JSON API + Playwright stealth; DataDome protected |
+| Phenom People | ATS | — | Planned | AI-powered, heavy JS — deferred to future iteration |
+| Eightfold | ATS | — | Planned | AI-powered, heavy JS — deferred to future iteration |
 
 ---
 
@@ -234,5 +234,5 @@ API Request
 |-------|---------|--------|
 | **Phase 1 (Tier 1)** | RemoteOK, Remotive, Jobicy, Himalayas, Arbeitnow, WeWorkRemotely, Recruitee, Teamtailor | ✅ **Complete** |
 | **Phase 2 (Tier 1.5)** | USAJobs, Adzuna, Reed, Jooble, CareerJet | ✅ **Complete** |
-| **Phase 3 (Tier 2)** | BambooHR ✅, Personio ✅, JazzHR 🚧, Dice 🚧, SimplyHired 🚧, Wellfound 🚧, StepStone 🚧 | 🚧 **In Progress** (2/7 complete, 5 WIP) |
-| **Phase 4 (Tier 3)** | Monster, CareerBuilder, iCIMS, Taleo, SuccessFactors | Planned |
+| **Phase 3 (Tier 2)** | BambooHR ✅, Personio ✅, JazzHR 🚧, Dice 🚧, SimplyHired 🚧, Wellfound 🚧, StepStone 🚧 | ✅ **Complete** (2 functional, 5 WIP) |
+| **Phase 4 (Tier 3)** | Taleo ✅, iCIMS 🚧, SuccessFactors 🚧, CareerBuilder 🚧, Monster 🚧 | 🚧 **In Progress** (1/5 complete, 4 WIP) |

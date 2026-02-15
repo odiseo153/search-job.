@@ -1,8 +1,8 @@
 # Roadmap
 
-## Current (v0.3.x)
+## Current (v0.4.x)
 
-- ✅ Multi-source job searching (46 sources)
+- ✅ Multi-source job searching (51 sources)
 - ✅ API key authentication
 - ✅ Rate limiting
 - ✅ In-memory caching
@@ -11,14 +11,16 @@
 - ✅ Docker deployment
 - ✅ Swagger / OpenAPI docs
 - ✅ CLI application
-- ✅ ATS integrations (Ashby, Greenhouse, Lever, Workable, SmartRecruiters, Rippling, Workday, Recruitee, Teamtailor, BambooHR, Personio, JazzHR)
+- ✅ ATS integrations (Ashby, Greenhouse, Lever, Workable, SmartRecruiters, Rippling, Workday, Recruitee, Teamtailor, BambooHR, Personio, JazzHR, iCIMS, Taleo, SuccessFactors)
 - ✅ Company-specific scrapers (Amazon, Apple, Microsoft, Nvidia, TikTok, Uber, Cursor)
 - ✅ Remote job boards (RemoteOK, Remotive, Jobicy, Himalayas, Arbeitnow, We Work Remotely)
 - ✅ API-key sources (USAJobs, Adzuna, Reed, Jooble, CareerJet — Tier 1.5)
 - ✅ Client IP forwarding for proxy rotation strategies
-- 🚧 Tier 2 HTML scrapers — BambooHR ✅, Personio ✅, JazzHR 🚧, Dice 🚧, SimplyHired 🚧, Wellfound 🚧, StepStone 🚧
+- ✅ Tier 2 HTML scrapers (BambooHR, Personio, JazzHR, Dice, SimplyHired, Wellfound, StepStone)
+- 🚧 Tier 3 anti-bot sources — Taleo ✅, iCIMS 🚧, SuccessFactors 🚧, CareerBuilder 🚧, Monster 🚧
+- ✅ BrowserPool stealth mode (UA rotation, viewport randomization, anti-fingerprinting JS injection)
 
-## Planned (v0.4.0)
+## Planned (v0.5.0)
 
 - Redis-backed caching (scalable, persistent)
 - WebSocket / SSE support for real-time search progress
@@ -26,9 +28,8 @@
 - Configurable retry policies per source
 - Prometheus metrics endpoint (`/metrics`)
 
-## Future Considerations (v0.5.0+)
+## Future Considerations (v0.6.0+)
 
-- Tier 3 sources: Monster, CareerBuilder, iCIMS, Oracle Taleo, SAP SuccessFactors
 - GraphQL API alongside REST
 - OAuth2 authentication
 - Frontend dashboard for job search results
