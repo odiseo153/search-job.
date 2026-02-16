@@ -8,9 +8,14 @@ import {
   JobResponseDto,
   JobPostDto,
   LocationDto,
+  DescriptionFormat,
   Site,
 } from '@ever-jobs/models';
-import { createHttpClient } from '@ever-jobs/common';
+import {
+  createHttpClient,
+  extractEmails,
+  htmlToPlainText,
+} from '@ever-jobs/common';
 import { JAZZHR_HEADERS } from './jazzhr.constants';
 
 @Injectable()
@@ -22,6 +27,19 @@ export class JazzHRService implements IScraper {
     if (!companySlug) {
       this.logger.warn('No companySlug provided for JazzHR scraper');
       return new JobResponseDto([]);
+    }
+
+    // Check for API key: per-request auth overrides env var
+    const apiKey = input.auth?.jazzhr?.apiKey ?? process.env.JAZZHR_API_KEY;
+    if (apiKey) {
+      try {
+        const result = await this.scrapeWithApi(apiKey, companySlug, input);
+        return result;
+      } catch (err: any) {
+        this.logger.warn(
+          `JazzHR authenticated API failed for ${companySlug}: ${err.message}. Falling back to HTML scraping.`,
+        );
+      }
     }
 
     const client = createHttpClient({
@@ -136,6 +154,116 @@ export class JazzHRService implements IScraper {
     });
 
     return jobs;
+  }
+
+  /**
+   * Fetch jobs using the authenticated JazzHR REST API.
+   * API key is passed as a query parameter.
+   *
+   * @see https://www.jazzhr.com/api/
+   */
+  private async scrapeWithApi(
+    apiKey: string,
+    companySlug: string,
+    input: ScraperInputDto,
+  ): Promise<JobResponseDto> {
+    this.logger.log(
+      `JazzHR: using authenticated API for company: ${companySlug}`,
+    );
+
+    const client = createHttpClient({
+      proxies: input.proxies,
+      caCert: input.caCert,
+      timeout: input.requestTimeout,
+    });
+
+    const url = `https://api.resumatorapi.com/v1/jobs/status/open?apikey=${encodeURIComponent(apiKey)}`;
+
+    const response = await client.get(url, {
+      headers: { Accept: 'application/json' },
+    });
+
+    const jobs: any[] = Array.isArray(response.data) ? response.data : [];
+
+    this.logger.log(
+      `JazzHR (authenticated): found ${jobs.length} jobs for ${companySlug}`,
+    );
+
+    const resultsWanted = input.resultsWanted ?? 100;
+    const jobPosts: JobPostDto[] = [];
+
+    for (const job of jobs) {
+      if (jobPosts.length >= resultsWanted) break;
+
+      try {
+        const post = this.mapApiJob(job, companySlug, input.descriptionFormat);
+        if (post) {
+          jobPosts.push(post);
+        }
+      } catch (err: any) {
+        this.logger.warn(
+          `Error processing JazzHR API job ${job.id}: ${err.message}`,
+        );
+      }
+    }
+
+    return new JobResponseDto(jobPosts);
+  }
+
+  /**
+   * Map a JazzHR API job object to a JobPostDto.
+   *
+   * API response fields include: id, title, city, state, zip,
+   * department, description, type, original_open_date, etc.
+   */
+  private mapApiJob(
+    job: any,
+    companySlug: string,
+    format?: DescriptionFormat,
+  ): JobPostDto | null {
+    const title = job.title;
+    if (!title) return null;
+
+    // Description
+    let description: string | null = null;
+    if (job.description) {
+      if (format === DescriptionFormat.HTML) {
+        description = job.description;
+      } else if (format === DescriptionFormat.PLAIN) {
+        description = htmlToPlainText(job.description);
+      } else {
+        // Default: MARKDOWN / plain fallback
+        description = htmlToPlainText(job.description);
+      }
+    }
+
+    // Location — API provides city, state, zip as separate fields
+    const city = job.city || null;
+    const state = job.state || null;
+    const location = (city || state)
+      ? new LocationDto({ city, state })
+      : null;
+
+    // Job URL: JazzHR apply link pattern
+    const jobUrl = job.board_code
+      ? `https://${encodeURIComponent(companySlug)}.applytojob.com/apply/${job.board_code}`
+      : `https://${encodeURIComponent(companySlug)}.applytojob.com/apply/${job.id}`;
+
+    return new JobPostDto({
+      id: `jazzhr-${job.id}`,
+      title,
+      companyName: companySlug,
+      jobUrl,
+      location,
+      description,
+      datePosted: job.original_open_date ?? null,
+      emails: extractEmails(description),
+      site: Site.JAZZHR,
+      atsId: job.id ?? null,
+      atsType: 'jazzhr',
+      department: job.department ?? null,
+      employmentType: job.type ?? null,
+    });
   }
 
   private hashCode(str: string): number {

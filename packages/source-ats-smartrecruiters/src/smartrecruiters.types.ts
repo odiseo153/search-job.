@@ -14,6 +14,15 @@ export interface SmartRecruitersDepartment {
   label?: string | null;
 }
 
+export interface SmartRecruitersJobAd {
+  sections?: {
+    jobDescription?: { title?: string; text?: string } | null;
+    qualifications?: { title?: string; text?: string } | null;
+    additionalInformation?: { title?: string; text?: string } | null;
+    companyDescription?: { title?: string; text?: string } | null;
+  } | null;
+}
+
 export interface SmartRecruitersJob {
   id?: string | null;
   name?: string | null;
@@ -26,6 +35,7 @@ export interface SmartRecruitersJob {
   typeOfEmployment?: { id?: string; label?: string } | null;
   ref?: string | null;
   company?: { name?: string; identifier?: string } | null;
+  jobAd?: SmartRecruitersJobAd | null;
 }
 
 export interface SmartRecruitersResponse {

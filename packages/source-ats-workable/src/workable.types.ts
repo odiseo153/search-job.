@@ -36,3 +36,45 @@ export interface WorkableJob {
 export interface WorkableResponse {
   jobs: WorkableJob[];
 }
+
+/**
+ * Workable API v3 job object.
+ * @see https://workable.readme.io/reference/jobs
+ */
+export interface WorkableApiV3Job {
+  id?: string | null;
+  title?: string | null;
+  full_title?: string | null;
+  shortcode?: string | null;
+  code?: string | null;
+  state?: string | null;
+  department?: string | null;
+  department_hierarchy?: Array<{ id?: number; name?: string }> | null;
+  url?: string | null;
+  application_url?: string | null;
+  shortlink?: string | null;
+  location?: {
+    location_str?: string | null;
+    country?: string | null;
+    country_code?: string | null;
+    region?: string | null;
+    region_code?: string | null;
+    city?: string | null;
+    zip_code?: string | null;
+    telecommuting?: boolean | null;
+  } | null;
+  created_at?: string | null;
+  published_on?: string | null;
+  employment_type?: string | null;
+}
+
+/**
+ * Workable API v3 list jobs response.
+ * @see https://workable.readme.io/reference/jobs
+ */
+export interface WorkableApiV3Response {
+  jobs: WorkableApiV3Job[];
+  paging?: {
+    next?: string | null;
+  } | null;
+}

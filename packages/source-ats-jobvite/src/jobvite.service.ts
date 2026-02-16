@@ -14,7 +14,7 @@ import {
   markdownConverter,
   extractEmails,
 } from '@ever-jobs/common';
-import { JOBVITE_API_URL, JOBVITE_HEADERS } from './jobvite.constants';
+import { JOBVITE_API_URL, JOBVITE_OFFICIAL_API_URL, JOBVITE_HEADERS } from './jobvite.constants';
 import { JobviteResponse, JobviteJob } from './jobvite.types';
 
 @Injectable()
@@ -26,6 +26,28 @@ export class JobviteService implements IScraper {
     if (!companySlug) {
       this.logger.warn('No companySlug provided for Jobvite scraper');
       return new JobResponseDto([]);
+    }
+
+    // Check for API credentials: per-request auth overrides env vars
+    const apiKey =
+      input.auth?.jobvite?.apiKey ?? process.env.JOBVITE_API_KEY;
+    const apiSecret =
+      input.auth?.jobvite?.apiSecret ?? process.env.JOBVITE_API_SECRET;
+
+    if (apiKey && apiSecret) {
+      try {
+        const result = await this.scrapeWithApi(
+          apiKey,
+          apiSecret,
+          companySlug,
+          input,
+        );
+        return result;
+      } catch (err: any) {
+        this.logger.warn(
+          `Jobvite authenticated API failed for ${companySlug}: ${err.message}. Falling back to public scraping.`,
+        );
+      }
     }
 
     const client = createHttpClient({
@@ -72,6 +94,64 @@ export class JobviteService implements IScraper {
       );
       return new JobResponseDto([]);
     }
+  }
+
+  /**
+   * Fetch jobs using the authenticated Jobvite API.
+   * Uses API key + secret as query parameters and reuses mapJob() for mapping.
+   * @see https://developer.jobvite.com
+   */
+  private async scrapeWithApi(
+    apiKey: string,
+    apiSecret: string,
+    companySlug: string,
+    input: ScraperInputDto,
+  ): Promise<JobResponseDto> {
+    this.logger.log(
+      `Jobvite: using authenticated API for company: ${companySlug}`,
+    );
+
+    const client = createHttpClient({
+      proxies: input.proxies,
+      caCert: input.caCert,
+      timeout: input.requestTimeout,
+    });
+
+    const url =
+      `${JOBVITE_OFFICIAL_API_URL}?api=${encodeURIComponent(apiKey)}` +
+      `&sc=${encodeURIComponent(apiSecret)}` +
+      `&companyId=${encodeURIComponent(companySlug)}`;
+
+    const response = await client.get(url, {
+      headers: { Accept: 'application/json' },
+    });
+
+    const data: JobviteResponse = response.data ?? { requisitions: [] };
+    const jobs = data.requisitions ?? [];
+
+    this.logger.log(
+      `Jobvite (authenticated): found ${jobs.length} jobs for ${companySlug}`,
+    );
+
+    const resultsWanted = input.resultsWanted ?? 100;
+    const jobPosts: JobPostDto[] = [];
+
+    for (const job of jobs) {
+      if (jobPosts.length >= resultsWanted) break;
+
+      try {
+        const post = this.mapJob(job, companySlug, input.descriptionFormat);
+        if (post) {
+          jobPosts.push(post);
+        }
+      } catch (err: any) {
+        this.logger.warn(
+          `Error processing Jobvite API job ${job.eId}: ${err.message}`,
+        );
+      }
+    }
+
+    return new JobResponseDto(jobPosts);
   }
 
   private mapJob(

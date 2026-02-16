@@ -12,3 +12,8 @@ export const PERSONIO_HEADERS: Record<string, string> = {
   'User-Agent':
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129 Safari/537.36',
 };
+
+/** Personio official API endpoints */
+export const PERSONIO_API_AUTH_URL = 'https://api.personio.de/v1/auth';
+export const PERSONIO_API_POSITIONS_URL =
+  'https://api.personio.de/v1/recruiting/positions';

@@ -16,7 +16,7 @@ import {
   markdownConverter,
   extractEmails,
 } from '@ever-jobs/common';
-import { RECRUITEE_HEADERS } from './recruitee.constants';
+import { RECRUITEE_HEADERS, RECRUITEE_OFFICIAL_API_BASE } from './recruitee.constants';
 import { RecruiteeOffer, RecruiteeResponse } from './recruitee.types';
 
 @Injectable()
@@ -28,6 +28,19 @@ export class RecruiteeService implements IScraper {
     if (!companySlug) {
       this.logger.warn('No companySlug provided for Recruitee scraper');
       return new JobResponseDto([]);
+    }
+
+    // Check for API token: per-request auth overrides env var
+    const apiToken = input.auth?.recruitee?.apiToken ?? process.env.RECRUITEE_API_TOKEN;
+    if (apiToken) {
+      try {
+        const result = await this.scrapeWithApi(apiToken, companySlug, input);
+        return result;
+      } catch (err: any) {
+        this.logger.warn(
+          `Recruitee authenticated API failed for ${companySlug}: ${err.message}. Falling back to public scraping.`,
+        );
+      }
     }
 
     const client = createHttpClient({
@@ -68,6 +81,65 @@ export class RecruiteeService implements IScraper {
       this.logger.error(`Recruitee scrape error for ${companySlug}: ${err.message}`);
       return new JobResponseDto([]);
     }
+  }
+
+  /**
+   * Fetch jobs using the official Recruitee API with Bearer token authentication.
+   * Provides access to full offer details including pipeline stages,
+   * custom fields, and non-published offers.
+   *
+   * @see https://docs.recruitee.com/reference/getting-started
+   */
+  private async scrapeWithApi(
+    apiToken: string,
+    companySlug: string,
+    input: ScraperInputDto,
+  ): Promise<JobResponseDto> {
+    this.logger.log(
+      `Recruitee: using authenticated API for company: ${companySlug}`,
+    );
+
+    const client = createHttpClient({
+      proxies: input.proxies,
+      caCert: input.caCert,
+      timeout: input.requestTimeout,
+    });
+
+    const url = `${RECRUITEE_OFFICIAL_API_BASE}/${encodeURIComponent(companySlug)}/offers?scope=published`;
+
+    const response = await client.get(url, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${apiToken}`,
+      },
+    });
+
+    const data: RecruiteeResponse = response.data ?? { offers: [] };
+    const offers = data.offers ?? [];
+
+    this.logger.log(
+      `Recruitee (authenticated): found ${offers.length} offers for ${companySlug}`,
+    );
+
+    const resultsWanted = input.resultsWanted ?? 100;
+    const jobPosts: JobPostDto[] = [];
+
+    for (const offer of offers) {
+      if (jobPosts.length >= resultsWanted) break;
+
+      try {
+        const post = this.processOffer(offer, companySlug, input.descriptionFormat);
+        if (post) {
+          jobPosts.push(post);
+        }
+      } catch (err: any) {
+        this.logger.warn(
+          `Error processing Recruitee API offer ${offer.id}: ${err.message}`,
+        );
+      }
+    }
+
+    return new JobResponseDto(jobPosts);
   }
 
   private processOffer(

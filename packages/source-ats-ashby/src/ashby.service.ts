@@ -29,6 +29,19 @@ export class AshbyService implements IScraper {
       return new JobResponseDto([]);
     }
 
+    // Check for API key: per-request auth overrides env var
+    const apiKey = input.auth?.ashby?.apiKey ?? process.env.ASHBY_API_KEY;
+    if (apiKey) {
+      try {
+        const result = await this.scrapeWithApi(apiKey, companySlug, input);
+        return result;
+      } catch (err: any) {
+        this.logger.warn(
+          `Ashby authenticated API failed for ${companySlug}: ${err.message}. Falling back to public scraping.`,
+        );
+      }
+    }
+
     const client = createHttpClient({
       proxies: input.proxies,
       caCert: input.caCert,
@@ -68,6 +81,64 @@ export class AshbyService implements IScraper {
       this.logger.error(`Ashby scrape error for ${companySlug}: ${err.message}`);
       return new JobResponseDto([]);
     }
+  }
+
+  /**
+   * Fetch jobs using the authenticated Ashby Posting API.
+   * Uses Basic Auth with the API key and reuses processJob() for mapping.
+   */
+  private async scrapeWithApi(
+    apiKey: string,
+    companySlug: string,
+    input: ScraperInputDto,
+  ): Promise<JobResponseDto> {
+    this.logger.log(
+      `Ashby: using authenticated API for company: ${companySlug}`,
+    );
+
+    const client = createHttpClient({
+      proxies: input.proxies,
+      caCert: input.caCert,
+      timeout: input.requestTimeout,
+    });
+
+    const url = `${ASHBY_API_URL}/${encodeURIComponent(companySlug)}`;
+    const authToken = Buffer.from(`${apiKey}:`).toString('base64');
+
+    const response = await client.post(url, undefined, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Basic ${authToken}`,
+      },
+    });
+
+    const data: AshbyResponse = response.data ?? { jobs: [] };
+    const jobs = data.jobs ?? [];
+
+    this.logger.log(
+      `Ashby (authenticated): found ${jobs.length} jobs for ${companySlug}`,
+    );
+
+    const resultsWanted = input.resultsWanted ?? 100;
+    const jobPosts: JobPostDto[] = [];
+
+    for (const job of jobs) {
+      if (jobPosts.length >= resultsWanted) break;
+      if (job.isListed === false) continue;
+
+      try {
+        const post = this.processJob(job, companySlug, input.descriptionFormat);
+        if (post) {
+          jobPosts.push(post);
+        }
+      } catch (err: any) {
+        this.logger.warn(
+          `Error processing Ashby API job ${job.id}: ${err.message}`,
+        );
+      }
+    }
+
+    return new JobResponseDto(jobPosts);
   }
 
   private processJob(

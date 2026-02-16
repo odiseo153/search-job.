@@ -4,6 +4,17 @@
 
 export interface TeamtailorResponse {
   data: TeamtailorJob[];
+  links?: {
+    self?: string;
+    first?: string;
+    last?: string;
+    prev?: string;
+    next?: string;
+  };
+  meta?: {
+    'record-count'?: number;
+    'page-count'?: number;
+  };
 }
 
 export interface TeamtailorJob {
