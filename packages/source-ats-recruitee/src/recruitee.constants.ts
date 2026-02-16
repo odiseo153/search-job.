@@ -1,6 +1,9 @@
 /** Recruitee API base URL (slug is interpolated at runtime) */
 export const RECRUITEE_API_BASE = 'https://{slug}.recruitee.com/api/offers';
 
+/** Recruitee official authenticated API base URL */
+export const RECRUITEE_OFFICIAL_API_BASE = 'https://api.recruitee.com/c';
+
 /** Default headers for Recruitee API requests */
 export const RECRUITEE_HEADERS: Record<string, string> = {
   Accept: 'application/json',

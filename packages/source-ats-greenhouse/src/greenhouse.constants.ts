@@ -1,5 +1,8 @@
-/** Greenhouse API base URL */
+/** Greenhouse public job board API base URL */
 export const GREENHOUSE_API_URL = 'https://api.greenhouse.io/v1/boards';
+
+/** Greenhouse Harvest (authenticated) API base URL */
+export const GREENHOUSE_HARVEST_API_URL = 'https://harvest.greenhouse.io/v1';
 
 /** Default headers for Greenhouse API requests */
 export const GREENHOUSE_HEADERS: Record<string, string> = {

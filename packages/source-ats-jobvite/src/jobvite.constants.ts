@@ -4,6 +4,13 @@
  */
 export const JOBVITE_API_URL = 'https://jobs.jobvite.com/api/v2/job-feed';
 
+/**
+ * Jobvite official authenticated API endpoint.
+ * Requires API key + secret as query parameters.
+ * @see https://developer.jobvite.com
+ */
+export const JOBVITE_OFFICIAL_API_URL = 'https://api.jobvite.com/api/v2/job';
+
 /** Default headers for Jobvite career page requests */
 export const JOBVITE_HEADERS: Record<string, string> = {
   Accept: 'application/json',

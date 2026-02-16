@@ -8,6 +8,17 @@ import { ReedAuthDto } from './reed-auth.dto';
 import { JoobleAuthDto } from './jooble-auth.dto';
 import { CareerjetAuthDto } from './careerjet-auth.dto';
 import { ExaAuthDto } from './exa-auth.dto';
+import { GreenhouseAuthDto } from './greenhouse-auth.dto';
+import { LeverAuthDto } from './lever-auth.dto';
+import { AshbyAuthDto } from './ashby-auth.dto';
+import { SmartRecruitersAuthDto } from './smartrecruiters-auth.dto';
+import { WorkableAuthDto } from './workable-auth.dto';
+import { TeamtailorAuthDto } from './teamtailor-auth.dto';
+import { RecruiteeAuthDto } from './recruitee-auth.dto';
+import { BambooHRAuthDto } from './bamboohr-auth.dto';
+import { PersonioAuthDto } from './personio-auth.dto';
+import { JazzHRAuthDto } from './jazzhr-auth.dto';
+import { JobviteAuthDto } from './jobvite-auth.dto';
 
 /**
  * Per-request authentication credentials for individual sources.
@@ -17,8 +28,14 @@ import { ExaAuthDto } from './exa-auth.dto';
  *
  * Each property is keyed by source name and is independently optional —
  * only include credentials for the source(s) you want to override.
+ *
+ * For ATS sources, providing auth credentials switches the scraper from
+ * public board scraping to using the official authenticated API, which
+ * typically returns richer data (full descriptions, compensation, etc.).
  */
 export class ScraperAuthDto {
+  // ─── Job Board Sources ──────────────────────────────────────────
+
   @ApiPropertyOptional({
     type: () => UpworkAuthDto,
     description: 'Upwork OAuth2 credentials (overrides UPWORK_* env vars)',
@@ -81,6 +98,107 @@ export class ScraperAuthDto {
   @ValidateNested()
   @Type(() => ExaAuthDto)
   exa?: ExaAuthDto;
+
+  // ─── ATS Sources (official API auth) ────────────────────────────
+
+  @ApiPropertyOptional({
+    type: () => GreenhouseAuthDto,
+    description: 'Greenhouse Harvest API key — switches to authenticated API with richer data',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => GreenhouseAuthDto)
+  greenhouse?: GreenhouseAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => LeverAuthDto,
+    description: 'Lever API key — switches to authenticated Postings API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => LeverAuthDto)
+  lever?: LeverAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => AshbyAuthDto,
+    description: 'Ashby API key — switches to authenticated API with extended data',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => AshbyAuthDto)
+  ashby?: AshbyAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => SmartRecruitersAuthDto,
+    description: 'SmartRecruiters API key — enables access to private postings',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => SmartRecruitersAuthDto)
+  smartrecruiters?: SmartRecruitersAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => WorkableAuthDto,
+    description: 'Workable API token + subdomain — switches to API v3 with full descriptions',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => WorkableAuthDto)
+  workable?: WorkableAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => TeamtailorAuthDto,
+    description: 'Teamtailor API token — switches to authenticated JSON:API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => TeamtailorAuthDto)
+  teamtailor?: TeamtailorAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => RecruiteeAuthDto,
+    description: 'Recruitee API token — enables access to full offer details',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => RecruiteeAuthDto)
+  recruitee?: RecruiteeAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => BambooHRAuthDto,
+    description: 'BambooHR API key — switches to authenticated REST API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => BambooHRAuthDto)
+  bamboohr?: BambooHRAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => PersonioAuthDto,
+    description: 'Personio API credentials — switches to authenticated Recruiting API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => PersonioAuthDto)
+  personio?: PersonioAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => JazzHRAuthDto,
+    description: 'JazzHR API key — switches from HTML scraping to REST API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => JazzHRAuthDto)
+  jazzhr?: JazzHRAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => JobviteAuthDto,
+    description: 'Jobvite API key + secret — switches to authenticated API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => JobviteAuthDto)
+  jobvite?: JobviteAuthDto;
 
   // Future sources:
   // linkedin?: LinkedInAuthDto;

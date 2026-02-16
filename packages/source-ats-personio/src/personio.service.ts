@@ -20,8 +20,16 @@ import {
   PERSONIO_XML_URL_COM,
   PERSONIO_JOB_URL_DE,
   PERSONIO_HEADERS,
+  PERSONIO_API_AUTH_URL,
+  PERSONIO_API_POSITIONS_URL,
 } from './personio.constants';
-import { PersonioPosition, PersonioDescription } from './personio.types';
+import {
+  PersonioPosition,
+  PersonioDescription,
+  PersonioApiAuthResponse,
+  PersonioApiPositionsResponse,
+  PersonioApiPosition,
+} from './personio.types';
 
 @Injectable()
 export class PersonioService implements IScraper {
@@ -32,6 +40,28 @@ export class PersonioService implements IScraper {
     if (!companySlug) {
       this.logger.warn('No companySlug provided for Personio scraper');
       return new JobResponseDto([]);
+    }
+
+    // Check for API credentials: per-request auth overrides env vars
+    const clientId =
+      input.auth?.personio?.clientId ?? process.env.PERSONIO_CLIENT_ID;
+    const clientSecret =
+      input.auth?.personio?.clientSecret ?? process.env.PERSONIO_CLIENT_SECRET;
+
+    if (clientId && clientSecret) {
+      try {
+        const result = await this.scrapeWithApi(
+          clientId,
+          clientSecret,
+          companySlug,
+          input,
+        );
+        return result;
+      } catch (err: any) {
+        this.logger.warn(
+          `Personio authenticated API failed for ${companySlug}: ${err.message}. Falling back to public XML scraping.`,
+        );
+      }
     }
 
     const client = createHttpClient({
@@ -95,6 +125,165 @@ export class PersonioService implements IScraper {
       this.logger.error(`Personio XML parse error for ${companySlug}: ${err.message}`);
       return new JobResponseDto([]);
     }
+  }
+
+  /**
+   * Fetch jobs using the authenticated Personio Recruiting API.
+   *
+   * 1. Authenticates via POST to /v1/auth to obtain a Bearer token.
+   * 2. Fetches active positions via GET /v1/recruiting/positions?status=active.
+   * 3. Maps API positions to JobPostDto using the same site/atsType identifiers.
+   *
+   * @throws on any HTTP or mapping error so the caller can fall back to XML scraping.
+   */
+  private async scrapeWithApi(
+    clientId: string,
+    clientSecret: string,
+    companySlug: string,
+    input: ScraperInputDto,
+  ): Promise<JobResponseDto> {
+    this.logger.log(
+      `Personio: using authenticated API for company: ${companySlug}`,
+    );
+
+    const client = createHttpClient({
+      proxies: input.proxies,
+      caCert: input.caCert,
+      timeout: input.requestTimeout,
+    });
+
+    // Step 1: Authenticate to obtain Bearer token
+    const authResponse = await client.post<PersonioApiAuthResponse>(
+      PERSONIO_API_AUTH_URL,
+      { client_id: clientId, client_secret: clientSecret },
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    const token = authResponse.data?.data?.token;
+    if (!token) {
+      throw new Error('Personio API auth response did not include a token');
+    }
+
+    // Step 2: Fetch active positions with pagination
+    const resultsWanted = input.resultsWanted ?? 100;
+    const pageSize = 50;
+    const jobPosts: JobPostDto[] = [];
+    let offset = 0;
+
+    const apiHeaders = {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+
+    while (jobPosts.length < resultsWanted) {
+      const positionsResponse =
+        await client.get<PersonioApiPositionsResponse>(
+          `${PERSONIO_API_POSITIONS_URL}?status=active&limit=${pageSize}&offset=${offset}`,
+          { headers: apiHeaders },
+        );
+
+      const positions = positionsResponse.data?.data ?? [];
+
+      if (positions.length === 0) break;
+
+      this.logger.log(
+        `Personio (authenticated): fetched ${positions.length} positions at offset ${offset} for ${companySlug}`,
+      );
+
+      // Step 3: Map API positions to JobPostDto
+      for (const pos of positions) {
+        if (jobPosts.length >= resultsWanted) break;
+
+        try {
+          const post = this.mapApiPosition(
+            pos,
+            companySlug,
+            input.descriptionFormat,
+          );
+          if (post) {
+            jobPosts.push(post);
+          }
+        } catch (err: any) {
+          this.logger.warn(
+            `Error processing Personio API position ${pos.id}: ${err.message}`,
+          );
+        }
+      }
+
+      offset += positions.length;
+
+      // If we got fewer than page size, there are no more results
+      if (positions.length < pageSize) break;
+    }
+
+    this.logger.log(
+      `Personio (authenticated) total: ${jobPosts.length} positions for ${companySlug}`,
+    );
+    return new JobResponseDto(jobPosts);
+  }
+
+  /**
+   * Map a single Personio API position to a JobPostDto.
+   * Uses the same site / atsType identifiers as the XML-based mapper.
+   */
+  private mapApiPosition(
+    pos: PersonioApiPosition,
+    companySlug: string,
+    format?: DescriptionFormat,
+  ): JobPostDto | null {
+    const attrs = pos.attributes;
+    if (!attrs?.name || !pos.id) return null;
+
+    // Description handling
+    let description: string | null = null;
+    if (attrs.description) {
+      if (format === DescriptionFormat.HTML) {
+        description = attrs.description;
+      } else if (format === DescriptionFormat.MARKDOWN) {
+        description = markdownConverter(attrs.description) ?? attrs.description;
+      } else {
+        description = htmlToPlainText(attrs.description);
+      }
+    }
+
+    const location = new LocationDto({
+      city: attrs.office?.attributes?.name ?? null,
+    });
+
+    // Build job URL (default to .de domain for API-sourced positions)
+    const jobUrl = `https://${encodeURIComponent(companySlug)}.jobs.personio.de/job/${pos.id}`;
+
+    const datePosted = attrs.created_at
+      ? new Date(attrs.created_at).toISOString().split('T')[0]
+      : null;
+
+    const skills =
+      attrs.keywords && Array.isArray(attrs.keywords)
+        ? attrs.keywords.filter(Boolean)
+        : null;
+
+    return new JobPostDto({
+      id: `personio-${pos.id}`,
+      title: attrs.name,
+      companyName: companySlug,
+      jobUrl,
+      location,
+      description,
+      datePosted,
+      isRemote: false,
+      emails: extractEmails(description),
+      site: Site.PERSONIO,
+      atsId: pos.id.toString(),
+      atsType: 'personio',
+      department: attrs.department?.attributes?.name ?? null,
+      employmentType: attrs.employment_type ?? null,
+      skills,
+    });
   }
 
   private parseXml(xml: string): PersonioPosition[] {

@@ -11,7 +11,12 @@ import {
 } from '@ever-jobs/models';
 import { createHttpClient, extractEmails } from '@ever-jobs/common';
 import { WORKABLE_API_URL, WORKABLE_HEADERS } from './workable.constants';
-import { WorkableJob, WorkableResponse } from './workable.types';
+import {
+  WorkableJob,
+  WorkableResponse,
+  WorkableApiV3Job,
+  WorkableApiV3Response,
+} from './workable.types';
 
 @Injectable()
 export class WorkableService implements IScraper {
@@ -22,6 +27,30 @@ export class WorkableService implements IScraper {
     if (!companySlug) {
       this.logger.warn('No companySlug provided for Workable scraper');
       return new JobResponseDto([]);
+    }
+
+    // Check for API token: per-request auth overrides env var
+    const accessToken =
+      input.auth?.workable?.accessToken ?? process.env.WORKABLE_API_TOKEN;
+    const subdomain =
+      input.auth?.workable?.subdomain ??
+      process.env.WORKABLE_SUBDOMAIN ??
+      companySlug;
+
+    if (accessToken) {
+      try {
+        const result = await this.scrapeWithApi(
+          accessToken,
+          subdomain,
+          companySlug,
+          input,
+        );
+        return result;
+      } catch (err: any) {
+        this.logger.warn(
+          `Workable authenticated API failed for ${companySlug}: ${err.message}. Falling back to public scraping.`,
+        );
+      }
     }
 
     const client = createHttpClient({
@@ -62,6 +91,133 @@ export class WorkableService implements IScraper {
       this.logger.error(`Workable scrape error for ${companySlug}: ${err.message}`);
       return new JobResponseDto([]);
     }
+  }
+
+  /**
+   * Fetch jobs using the authenticated Workable API v3.
+   * Uses Bearer token auth and returns published jobs.
+   * @see https://workable.readme.io/reference/jobs
+   */
+  private async scrapeWithApi(
+    accessToken: string,
+    subdomain: string,
+    companySlug: string,
+    input: ScraperInputDto,
+  ): Promise<JobResponseDto> {
+    this.logger.log(
+      `Workable: using authenticated API v3 for subdomain: ${subdomain}`,
+    );
+
+    const client = createHttpClient({
+      proxies: input.proxies,
+      caCert: input.caCert,
+      timeout: input.requestTimeout,
+    });
+
+    const resultsWanted = input.resultsWanted ?? 100;
+    const limit = Math.min(resultsWanted, 100);
+    const baseUrl = `https://${encodeURIComponent(subdomain)}.workable.com/spi/v3/jobs`;
+    const jobPosts: JobPostDto[] = [];
+    let sinceId: string | null = null;
+
+    const headers = {
+      Accept: 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    while (jobPosts.length < resultsWanted) {
+      let url = `${baseUrl}?state=published&limit=${limit}`;
+      if (sinceId) {
+        url += `&since_id=${encodeURIComponent(sinceId)}`;
+      }
+
+      const response = await client.get<WorkableApiV3Response>(url, { headers });
+
+      const data = response.data ?? { jobs: [] };
+      const jobs = data.jobs ?? [];
+
+      if (jobs.length === 0) break;
+
+      this.logger.log(
+        `Workable (authenticated): fetched ${jobs.length} jobs for ${subdomain}`,
+      );
+
+      for (const job of jobs) {
+        if (jobPosts.length >= resultsWanted) break;
+
+        try {
+          const post = this.processApiJob(job, companySlug);
+          if (post) {
+            jobPosts.push(post);
+          }
+        } catch (err: any) {
+          this.logger.warn(
+            `Error processing Workable API job ${job.shortcode}: ${err.message}`,
+          );
+        }
+      }
+
+      // Workable API uses cursor-based pagination via paging.next
+      sinceId = data.paging?.next ?? null;
+      if (!sinceId) break;
+    }
+
+    this.logger.log(
+      `Workable (authenticated) total: ${jobPosts.length} jobs for ${subdomain}`,
+    );
+    return new JobResponseDto(jobPosts);
+  }
+
+  /**
+   * Map a Workable API v3 job to JobPostDto.
+   */
+  private processApiJob(
+    job: WorkableApiV3Job,
+    companySlug: string,
+  ): JobPostDto | null {
+    const title = job.full_title ?? job.title;
+    if (!title) return null;
+
+    const loc = job.location;
+    const location = new LocationDto({
+      city: loc?.city ?? null,
+      state: loc?.region ?? null,
+      country: loc?.country ?? null,
+    });
+
+    const isRemote = loc?.telecommuting ?? false;
+
+    const jobType = job.employment_type
+      ? (() => {
+          const mapped = getJobTypeFromString(job.employment_type!);
+          return mapped ? [mapped] : null;
+        })()
+      : null;
+
+    const datePosted = job.published_on ?? job.created_at ?? null;
+
+    return new JobPostDto({
+      id: `workable-${job.shortcode ?? job.id}`,
+      title,
+      companyName: companySlug,
+      jobUrl:
+        job.url ??
+        job.shortlink ??
+        `https://apply.workable.com/${companySlug}/j/${job.shortcode}`,
+      location,
+      datePosted: datePosted
+        ? new Date(datePosted).toISOString().split('T')[0]
+        : null,
+      isRemote,
+      jobType,
+      site: Site.WORKABLE,
+      // ATS-specific fields
+      atsId: job.shortcode ?? job.id ?? null,
+      atsType: 'workable',
+      department: job.department ?? null,
+      employmentType: job.employment_type ?? null,
+      applyUrl: job.application_url ?? null,
+    });
   }
 
   private processJob(

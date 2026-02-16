@@ -14,7 +14,12 @@ import {
   markdownConverter,
   extractEmails,
 } from '@ever-jobs/common';
-import { TEAMTAILOR_API_URL, TEAMTAILOR_HEADERS } from './teamtailor.constants';
+import {
+  TEAMTAILOR_API_URL,
+  TEAMTAILOR_HEADERS,
+  TEAMTAILOR_OFFICIAL_API_URL,
+  TEAMTAILOR_API_VERSION,
+} from './teamtailor.constants';
 import { TeamtailorJob, TeamtailorResponse } from './teamtailor.types';
 
 @Injectable()
@@ -26,6 +31,20 @@ export class TeamtailorService implements IScraper {
     if (!companySlug) {
       this.logger.warn('No companySlug provided for Teamtailor scraper');
       return new JobResponseDto([]);
+    }
+
+    // Check for API token: per-request auth overrides env var
+    const apiToken =
+      input.auth?.teamtailor?.apiToken ?? process.env.TEAMTAILOR_API_TOKEN;
+    if (apiToken) {
+      try {
+        const result = await this.scrapeWithApi(apiToken, companySlug, input);
+        return result;
+      } catch (err: any) {
+        this.logger.warn(
+          `Teamtailor authenticated API failed for ${companySlug}: ${err.message}. Falling back to public scraping.`,
+        );
+      }
     }
 
     const client = createHttpClient({
@@ -71,6 +90,75 @@ export class TeamtailorService implements IScraper {
       this.logger.error(`Teamtailor scrape error for ${companySlug}: ${err.message}`);
       return new JobResponseDto([]);
     }
+  }
+
+  /**
+   * Fetch jobs using the authenticated Teamtailor JSON:API.
+   * Uses Token auth header and reuses processJob() for mapping since
+   * the official API returns the same JSON:API structure as the widget.
+   */
+  private async scrapeWithApi(
+    apiToken: string,
+    companySlug: string,
+    input: ScraperInputDto,
+  ): Promise<JobResponseDto> {
+    this.logger.log(
+      `Teamtailor: using authenticated API for company: ${companySlug}`,
+    );
+
+    const client = createHttpClient({
+      proxies: input.proxies,
+      caCert: input.caCert,
+      timeout: input.requestTimeout,
+    });
+
+    const resultsWanted = input.resultsWanted ?? 100;
+    const pageSize = Math.min(resultsWanted, 30);
+    const jobPosts: JobPostDto[] = [];
+    let nextUrl: string | null =
+      `${TEAMTAILOR_OFFICIAL_API_URL}/jobs?page[size]=${pageSize}`;
+
+    const headers = {
+      Accept: 'application/vnd.api+json',
+      Authorization: `Token token=${apiToken}`,
+      'X-Api-Version': TEAMTAILOR_API_VERSION,
+    };
+
+    while (nextUrl && jobPosts.length < resultsWanted) {
+      const response = await client.get(nextUrl, { headers });
+
+      const data: TeamtailorResponse = response.data ?? { data: [] };
+      const jobs = data.data ?? [];
+
+      if (jobs.length === 0) break;
+
+      this.logger.log(
+        `Teamtailor (authenticated): fetched ${jobs.length} jobs for ${companySlug}`,
+      );
+
+      for (const job of jobs) {
+        if (jobPosts.length >= resultsWanted) break;
+
+        try {
+          const post = this.processJob(job, companySlug, input.descriptionFormat);
+          if (post) {
+            jobPosts.push(post);
+          }
+        } catch (err: any) {
+          this.logger.warn(
+            `Error processing Teamtailor API job ${job.id}: ${err.message}`,
+          );
+        }
+      }
+
+      // Follow JSON:API pagination link
+      nextUrl = data.links?.next ?? null;
+    }
+
+    this.logger.log(
+      `Teamtailor (authenticated) total: ${jobPosts.length} jobs for ${companySlug}`,
+    );
+    return new JobResponseDto(jobPosts);
   }
 
   private processJob(
