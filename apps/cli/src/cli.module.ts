@@ -37,6 +37,21 @@ import { AdzunaModule } from '@ever-jobs/source-adzuna';
 import { ReedModule } from '@ever-jobs/source-reed';
 import { JoobleModule } from '@ever-jobs/source-jooble';
 import { CareerJetModule } from '@ever-jobs/source-careerjet';
+import { BambooHRModule } from '@ever-jobs/source-ats-bamboohr';
+import { PersonioModule } from '@ever-jobs/source-ats-personio';
+import { JazzHRModule } from '@ever-jobs/source-ats-jazzhr';
+import { DiceModule } from '@ever-jobs/source-dice';
+import { SimplyHiredModule } from '@ever-jobs/source-simplyhired';
+import { WellfoundModule } from '@ever-jobs/source-wellfound';
+import { StepStoneModule } from '@ever-jobs/source-stepstone';
+import { MonsterModule } from '@ever-jobs/source-monster';
+import { CareerBuilderModule } from '@ever-jobs/source-careerbuilder';
+import { IcimsModule } from '@ever-jobs/source-ats-icims';
+import { TaleoModule } from '@ever-jobs/source-ats-taleo';
+import { SuccessFactorsModule } from '@ever-jobs/source-ats-successfactors';
+import { JobviteModule } from '@ever-jobs/source-ats-jobvite';
+import { AdpModule } from '@ever-jobs/source-ats-adp';
+import { UkgModule } from '@ever-jobs/source-ats-ukg';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsService } from '../../api/src/jobs/jobs.service';
 import { SearchCommand } from './commands/search.command';
@@ -88,6 +103,25 @@ import { CompareCommand } from './commands/compare.command';
     ReedModule,
     JoobleModule,
     CareerJetModule,
+    // Phase 3 ATS sources
+    BambooHRModule,
+    PersonioModule,
+    JazzHRModule,
+    // Phase 3 Playwright sources
+    DiceModule,
+    SimplyHiredModule,
+    WellfoundModule,
+    StepStoneModule,
+    MonsterModule,
+    CareerBuilderModule,
+    // Phase 4 Tier 3 ATS sources
+    IcimsModule,
+    TaleoModule,
+    SuccessFactorsModule,
+    // Phase 5 ATS sources
+    JobviteModule,
+    AdpModule,
+    UkgModule,
     // Analytics
     AnalyticsModule,
   ],

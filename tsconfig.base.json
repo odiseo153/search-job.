@@ -71,7 +71,10 @@
       "@ever-jobs/source-careerbuilder": ["packages/source-careerbuilder/src/index.ts"],
       "@ever-jobs/source-ats-icims": ["packages/source-ats-icims/src/index.ts"],
       "@ever-jobs/source-ats-taleo": ["packages/source-ats-taleo/src/index.ts"],
-      "@ever-jobs/source-ats-successfactors": ["packages/source-ats-successfactors/src/index.ts"]
+      "@ever-jobs/source-ats-successfactors": ["packages/source-ats-successfactors/src/index.ts"],
+      "@ever-jobs/source-ats-jobvite": ["packages/source-ats-jobvite/src/index.ts"],
+      "@ever-jobs/source-ats-adp": ["packages/source-ats-adp/src/index.ts"],
+      "@ever-jobs/source-ats-ukg": ["packages/source-ats-ukg/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]
