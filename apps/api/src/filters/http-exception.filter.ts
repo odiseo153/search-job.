@@ -67,6 +67,20 @@ export class HttpExceptionFilter implements ExceptionFilter {
       };
     }
 
+    // Log more detail for validation (Bad Request) errors
+    const logLevel = status >= 500 ? 'error' : 'warn';
+    this.logger[logLevel](
+      `✕ ${request.method} ${request.url} ${Date.now()}ms [${request.headers?.['x-request-id'] ?? 'no-id'}] ${errorPayload.error}`,
+    );
+    if (status === 400 && errorPayload.validationErrors) {
+      this.logger.warn(
+        `Validation errors: ${JSON.stringify(errorPayload.validationErrors)}`,
+      );
+      this.logger.warn(
+        `Request body: ${JSON.stringify(request.body)}`,
+      );
+    }
+
     response.status(status).json({
       ...errorPayload,
       statusCode: status,
