@@ -49,6 +49,9 @@ import { CareerBuilderModule } from '@ever-jobs/source-careerbuilder';
 import { IcimsModule } from '@ever-jobs/source-ats-icims';
 import { TaleoModule } from '@ever-jobs/source-ats-taleo';
 import { SuccessFactorsModule } from '@ever-jobs/source-ats-successfactors';
+import { JobviteModule } from '@ever-jobs/source-ats-jobvite';
+import { AdpModule } from '@ever-jobs/source-ats-adp';
+import { UkgModule } from '@ever-jobs/source-ats-ukg';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -105,6 +108,9 @@ import { JobsService } from './jobs.service';
     IcimsModule,
     TaleoModule,
     SuccessFactorsModule,
+    JobviteModule,
+    AdpModule,
+    UkgModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],

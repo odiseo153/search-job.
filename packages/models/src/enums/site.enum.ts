@@ -49,6 +49,9 @@ export enum Site {
   ICIMS = 'icims',
   TALEO = 'taleo',
   SUCCESSFACTORS = 'successfactors',
+  JOBVITE = 'jobvite',
+  ADP = 'adp',
+  UKG = 'ukg',
 }
 
 /**

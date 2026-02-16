@@ -9,7 +9,7 @@
 
 ## ⭐️ Overview
 
-**Ever Jobs** searches job postings from **51 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
+**Ever Jobs** searches job postings from **54 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
 ### Search-Based Job Boards (28)
 
@@ -44,27 +44,30 @@
 | **Monster**            | API + Playwright       | Global                      |
 | **CareerBuilder**      | HTML + Playwright      | US                          |
 
-### ATS Job Boards (15)
+### ATS Job Boards (18)
 
-ATS scrapers require a `companySlug` to target a specific company's job board.
+ATS scrapers require a `companySlug` to target a specific company's job board. Ever Jobs integrates directly with each ATS platform's structured API, detecting new postings at the source — often hours before they appear on aggregated job boards like LinkedIn or Indeed.
 
-| Source              | ATS Platform    | Method      |
-| ------------------- | --------------- | ----------- |
-| **Ashby**           | Ashby           | REST API    |
-| **Greenhouse**      | Greenhouse      | REST API    |
-| **Lever**           | Lever           | REST API    |
-| **Workable**        | Workable        | GraphQL API |
-| **SmartRecruiters** | SmartRecruiters | REST API    |
-| **Rippling**        | Rippling        | REST API    |
-| **Workday**         | Workday         | REST API    |
-| **Recruitee**       | Recruitee       | REST API    |
-| **Teamtailor**      | Teamtailor      | REST API    |
-| **BambooHR**        | BambooHR        | REST API (JSON) |
-| **Personio**        | Personio        | XML feed        |
-| **JazzHR**          | JazzHR          | HTML scraping   |
-| **iCIMS**           | iCIMS           | Playwright + JSON gateway |
-| **Taleo**           | Oracle Taleo    | REST API (JSON) |
-| **SuccessFactors**  | SAP SuccessFactors | OData API + HTML fallback |
+| Source              | ATS Platform       | Method                    | Notable Users                                       |
+| ------------------- | ------------------ | ------------------------- | --------------------------------------------------- |
+| **Greenhouse**      | Greenhouse         | REST API                  | Airbnb, Coinbase, Datadog, DoorDash, HubSpot, Notion, Stripe |
+| **Lever**           | Lever              | REST API                  | Netflix, Shopify, KPMG, Eventbrite, Atlassian       |
+| **Workday**         | Workday            | REST API                  | Amazon, Salesforce, Target, Bank of America, Visa   |
+| **Ashby**           | Ashby              | REST API                  | Ramp, Figma, Linear, Vercel, Plaid                  |
+| **SmartRecruiters** | SmartRecruiters    | REST API                  | Visa, Bosch, LinkedIn, Skechers, Equinox            |
+| **Jobvite**         | Jobvite            | REST API                  | Logitech, Schneider Electric, Zappos                |
+| **Workable**        | Workable           | GraphQL API               | Sephora, Bain Capital, Forbes                       |
+| **SAP SuccessFactors** | SAP SuccessFactors | OData API + HTML fallback | Siemens, Accenture, Deloitte, EY                 |
+| **Oracle Taleo**    | Oracle Taleo       | REST API (JSON)           | JPMorgan Chase, PepsiCo, Intel, Cisco               |
+| **iCIMS**           | iCIMS              | Playwright + JSON gateway | UPS, Uber, Johnson & Johnson, Target                |
+| **ADP Recruiting**  | ADP Workforce Now  | REST API                  | Major enterprises across industries                 |
+| **UKG (UltiPro)**   | UKG Pro Recruiting | REST API                  | Major healthcare and manufacturing organizations    |
+| **Rippling**        | Rippling           | REST API                  |                                                     |
+| **Recruitee**       | Recruitee          | REST API                  |                                                     |
+| **Teamtailor**      | Teamtailor         | REST API                  |                                                     |
+| **BambooHR**        | BambooHR           | REST API (JSON)           |                                                     |
+| **Personio**        | Personio           | XML feed                  |                                                     |
+| **JazzHR**          | JazzHR             | HTML scraping             |                                                     |
 
 ### Company-Specific Scrapers (7)
 
@@ -84,7 +87,7 @@ Direct integrations with major tech companies' career APIs.
 
 ## ✨ Features
 
-- 🔍 **Multi-source aggregation** — Search 1 or all 51 sources concurrently
+- 🔍 **Multi-source aggregation** — Search 1 or all 54 sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
 - 🌐 **Country-aware** — Indeed & Glassdoor support 65+ countries with automatic domain resolution
 - 🔄 **Proxy rotation** — Built-in rotating proxy support (HTTP, HTTPS, SOCKS5)
@@ -329,7 +332,7 @@ All parameters are optional. When `siteType` is omitted, search + company scrape
 
 | Parameter                  | Type       | Default    | Description                                                                                                                                                                                                                                                                                                                             |
 | -------------------------- | ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor` |
+| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`, `jobvite`, `adp`, `ukg`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor` |
 | `companySlug`              | `string`   | —          | Company identifier for ATS scrapers (e.g. `stripe`, `notion`). When set without `siteType`, only ATS scrapers run                                                                                                                                                                                                                       |
 | `searchTerm`               | `string`   | —          | Job search keywords                                                                                                                                                                                                                                                                                                                     |
 | `googleSearchTerm`         | `string`   | —          | Google-specific search query override                                                                                                                                                                                                                                                                                                   |
@@ -443,8 +446,8 @@ ever-jobs/
 │   ├── models/                       @ever-jobs/models
 │   ├── common/                       @ever-jobs/common (HttpClient, converters, utils)
 │   ├── analytics/                    @ever-jobs/analytics
-│   ├── source-*/                     Search source modules (×24)
-│   ├── source-ats-*/                 ATS source modules (×12)
+│   ├── source-*/                     Search source modules (×28)
+│   ├── source-ats-*/                 ATS source modules (×18)
 │   └── source-company-*/             Company-specific source modules (×7)
 │
 ├── .github/

@@ -54,6 +54,9 @@ import { CareerBuilderService } from '@ever-jobs/source-careerbuilder';
 import { IcimsService } from '@ever-jobs/source-ats-icims';
 import { TaleoService } from '@ever-jobs/source-ats-taleo';
 import { SuccessFactorsService } from '@ever-jobs/source-ats-successfactors';
+import { JobviteService } from '@ever-jobs/source-ats-jobvite';
+import { AdpService } from '@ever-jobs/source-ats-adp';
+import { UkgService } from '@ever-jobs/source-ats-ukg';
 
 @Injectable()
 export class JobsService {
@@ -111,6 +114,9 @@ export class JobsService {
     private readonly icimsService: IcimsService,
     private readonly taleoService: TaleoService,
     private readonly successFactorsService: SuccessFactorsService,
+    private readonly jobviteService: JobviteService,
+    private readonly adpService: AdpService,
+    private readonly ukgService: UkgService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -163,6 +169,9 @@ export class JobsService {
       [Site.ICIMS, this.icimsService],
       [Site.TALEO, this.taleoService],
       [Site.SUCCESSFACTORS, this.successFactorsService],
+      [Site.JOBVITE, this.jobviteService],
+      [Site.ADP, this.adpService],
+      [Site.UKG, this.ukgService],
     ]);
   }
 
@@ -184,6 +193,9 @@ export class JobsService {
     Site.ICIMS,
     Site.TALEO,
     Site.SUCCESSFACTORS,
+    Site.JOBVITE,
+    Site.ADP,
+    Site.UKG,
   ]);
 
   /** Company scrapers target a single company's career API directly */
