@@ -52,6 +52,17 @@ import { SuccessFactorsModule } from '@ever-jobs/source-ats-successfactors';
 import { JobviteModule } from '@ever-jobs/source-ats-jobvite';
 import { AdpModule } from '@ever-jobs/source-ats-adp';
 import { UkgModule } from '@ever-jobs/source-ats-ukg';
+import { GoogleCareersModule } from '@ever-jobs/source-company-google';
+import { MetaModule } from '@ever-jobs/source-company-meta';
+import { NetflixModule } from '@ever-jobs/source-company-netflix';
+import { StripeModule } from '@ever-jobs/source-company-stripe';
+import { OpenAIModule } from '@ever-jobs/source-company-openai';
+import { BreezyHRModule } from '@ever-jobs/source-ats-breezyhr';
+import { ComeetModule } from '@ever-jobs/source-ats-comeet';
+import { PinpointModule } from '@ever-jobs/source-ats-pinpoint';
+import { BuiltInModule } from '@ever-jobs/source-builtin';
+import { SnagajobModule } from '@ever-jobs/source-snagajob';
+import { DribbbleModule } from '@ever-jobs/source-dribbble';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -111,6 +122,20 @@ import { JobsService } from './jobs.service';
     JobviteModule,
     AdpModule,
     UkgModule,
+    // Phase 6: New company scrapers
+    GoogleCareersModule,
+    MetaModule,
+    NetflixModule,
+    StripeModule,
+    OpenAIModule,
+    // Phase 6: New ATS sources
+    BreezyHRModule,
+    ComeetModule,
+    PinpointModule,
+    // Phase 7: Additional job boards
+    BuiltInModule,
+    SnagajobModule,
+    DribbbleModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],

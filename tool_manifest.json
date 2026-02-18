@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "name": "ever-jobs",
   "display_name": "Ever Jobs",
-  "description": "Multi-source job search tool. Searches 11 job boards (LinkedIn, Indeed, Glassdoor, ZipRecruiter, Google, Bayt, Naukri, BDJobs, Internshala, Exa, Upwork) concurrently and returns normalized, structured job posting data.",
+  "description": "Multi-source job search tool. Searches 65+ job boards, ATS platforms, and company career pages (LinkedIn, Indeed, Glassdoor, Greenhouse, Lever, Amazon, Apple, Microsoft, etc.) concurrently and returns normalized, structured job posting data via REST API, CLI, or MCP server.",
   "version": "0.1.0",
   "author": "Ever Co",
   "license": "MIT",
@@ -11,30 +11,28 @@
   "capabilities": {
     "job_search": {
       "description": "Search for jobs across multiple job boards simultaneously",
-      "supported_sites": [
-        "linkedin",
-        "indeed",
-        "glassdoor",
-        "zip_recruiter",
-        "google",
-        "bayt",
-        "naukri",
-        "bdjobs",
-        "internshala",
-        "exa",
-        "upwork"
-      ],
+      "supported_sites": {
+        "job_boards": ["linkedin", "indeed", "glassdoor", "zip_recruiter", "google", "bayt", "naukri", "bdjobs", "internshala", "exa", "upwork", "dice", "simplyhired", "wellfound", "stepstone", "monster", "careerbuilder", "builtin", "snagajob", "dribbble"],
+        "remote_boards": ["remoteok", "remotive", "weworkremotely", "jobicy", "himalayas", "arbeitnow"],
+        "ats_platforms": ["greenhouse", "lever", "ashby", "workable", "smartrecruiters", "jobvite", "workday", "successfactors", "taleo", "icims", "adp", "ukg", "rippling", "recruitee", "teamtailor", "bamboohr", "personio", "jazzhr"],
+        "company_pages": ["amazon", "apple", "microsoft", "nvidia", "tiktok", "uber", "cursor", "google_careers", "meta", "netflix", "stripe", "openai"],
+        "aggregators": ["usajobs", "adzuna", "reed", "jooble", "careerjet"]
+      },
       "output_formats": ["json", "csv", "table", "summary"],
       "features": [
-        "Multi-board concurrent searching",
+        "Multi-board concurrent searching (65+ sources)",
         "Country-aware domain resolution (65+ countries)",
+        "ATS board searching with company slug",
+        "Company-specific career page scraping",
         "Salary extraction from descriptions",
         "Annual salary normalization",
-        "Proxy rotation",
+        "Proxy rotation (HTTP/HTTPS/SOCKS5)",
         "Rate limiting",
         "Remote job filtering",
         "Job type filtering",
-        "Description format selection (markdown, html, plain)"
+        "Description format selection (markdown, html, plain)",
+        "Analytics (summary stats, company intelligence, site comparison)",
+        "MCP server for AI assistant integration"
       ]
     }
   },
@@ -61,8 +59,11 @@
       "siteType": {
         "type": "array",
         "items": { "type": "string" },
-        "description": "Sites to search. Omit to search all 11 boards.",
-        "enum": ["linkedin", "indeed", "glassdoor", "zip_recruiter", "google", "bayt", "naukri", "bdjobs", "internshala", "exa", "upwork"]
+        "description": "Sites to search. Omit to search all search + company sources. Provide companySlug for ATS sources."
+      },
+      "companySlug": {
+        "type": "string",
+        "description": "Company identifier for ATS scrapers (e.g., 'stripe', 'notion'). When set without siteType, only ATS scrapers run."
       },
       "location": {
         "type": "string",

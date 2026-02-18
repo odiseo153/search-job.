@@ -52,6 +52,20 @@ export enum Site {
   JOBVITE = 'jobvite',
   ADP = 'adp',
   UKG = 'ukg',
+  // Phase 6: New company scrapers
+  GOOGLE_CAREERS = 'google_careers',
+  META = 'meta',
+  NETFLIX = 'netflix',
+  STRIPE = 'stripe',
+  OPENAI = 'openai',
+  // Phase 6: New ATS integrations
+  BREEZYHR = 'breezyhr',
+  COMEET = 'comeet',
+  PINPOINT = 'pinpoint',
+  // Phase 7: Additional job boards
+  BUILTIN = 'builtin',
+  SNAGAJOB = 'snagajob',
+  DRIBBBLE = 'dribbble',
 }
 
 /**

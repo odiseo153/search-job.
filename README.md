@@ -9,67 +9,70 @@
 
 ## ⭐️ Overview
 
-**Ever Jobs** searches job postings from **54 sources** concurrently and returns aggregated, normalized results through a single REST API **or CLI**. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
+**Ever Jobs** searches job postings from **65+ sources** concurrently and returns aggregated, normalized results through a single REST API, **CLI**, or **MCP server** for AI assistants. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
-### Search-Based Job Boards (28)
+### Search-Based Job Boards (31)
 
-| Source                 | Method                 | Region                      |
-| ---------------------- | ---------------------- | --------------------------- |
-| **LinkedIn**           | HTML parsing (Cheerio) | Global                      |
-| **Indeed**             | GraphQL API            | 65+ countries               |
-| **Glassdoor**          | GraphQL API + CSRF     | 25+ countries               |
-| **ZipRecruiter**       | REST API               | US / Canada                 |
-| **Google Jobs**        | Search page parsing    | Global                      |
-| **Bayt**               | HTML parsing (Cheerio) | Middle East / International |
-| **Naukri**             | REST API               | India                       |
-| **BDJobs**             | HTML parsing (Cheerio) | Bangladesh                  |
-| **Internshala**        | HTML parsing (Cheerio) | India (internships & jobs)  |
-| **Exa**                | Exa AI search API      | Global                      |
-| **Upwork**             | GraphQL API (OAuth2)   | Global (freelance)          |
-| **RemoteOK**           | REST API (JSON)        | Global (remote)             |
-| **Remotive**           | REST API (JSON)        | Global (remote)             |
-| **Jobicy**             | REST API (JSON)        | Global (remote)             |
-| **Himalayas**          | REST API (JSON)        | Global (remote)             |
-| **Arbeitnow**          | REST API (JSON)        | Europe                      |
-| **We Work Remotely**   | RSS feed               | Global (remote)             |
-| **USAJobs**            | REST API (API key)     | US (government jobs)        |
-| **Adzuna**             | REST API (API key)     | 12+ countries               |
-| **Reed**               | REST API (API key)     | UK                          |
-| **Jooble**             | REST API (API key)     | 70+ countries               |
-| **CareerJet**          | REST API (affiliate)   | 80+ countries               |
-| **Dice**               | HTML + Playwright      | US (tech jobs)              |
-| **SimplyHired**        | HTML + Playwright      | Global                      |
-| **Wellfound**          | Playwright SPA         | Global (startups)           |
-| **StepStone**          | Playwright SPA         | Germany                     |
-| **Monster**            | API + Playwright       | Global                      |
-| **CareerBuilder**      | HTML + Playwright      | US                          |
+| Source               | Method                 | Region                      |
+| -------------------- | ---------------------- | --------------------------- |
+| **LinkedIn**         | HTML parsing (Cheerio) | Global                      |
+| **Indeed**           | GraphQL API            | 65+ countries               |
+| **Glassdoor**        | GraphQL API + CSRF     | 25+ countries               |
+| **ZipRecruiter**     | REST API               | US / Canada                 |
+| **Google Jobs**      | Search page parsing    | Global                      |
+| **Bayt**             | HTML parsing (Cheerio) | Middle East / International |
+| **Naukri**           | REST API               | India                       |
+| **BDJobs**           | HTML parsing (Cheerio) | Bangladesh                  |
+| **Internshala**      | HTML parsing (Cheerio) | India (internships & jobs)  |
+| **Exa**              | Exa AI search API      | Global                      |
+| **Upwork**           | GraphQL API (OAuth2)   | Global (freelance)          |
+| **RemoteOK**         | REST API (JSON)        | Global (remote)             |
+| **Remotive**         | REST API (JSON)        | Global (remote)             |
+| **Jobicy**           | REST API (JSON)        | Global (remote)             |
+| **Himalayas**        | REST API (JSON)        | Global (remote)             |
+| **Arbeitnow**        | REST API (JSON)        | Europe                      |
+| **We Work Remotely** | RSS feed               | Global (remote)             |
+| **USAJobs**          | REST API (API key)     | US (government jobs)        |
+| **Adzuna**           | REST API (API key)     | 12+ countries               |
+| **Reed**             | REST API (API key)     | UK                          |
+| **Jooble**           | REST API (API key)     | 70+ countries               |
+| **CareerJet**        | REST API (affiliate)   | 80+ countries               |
+| **Dice**             | REST API + Playwright  | US (tech jobs)              |
+| **SimplyHired**      | HTML + Playwright      | Global                      |
+| **Wellfound**        | Playwright SPA         | Global (startups)           |
+| **StepStone**        | Playwright SPA         | Germany                     |
+| **Monster**          | API + Playwright       | Global                      |
+| **CareerBuilder**    | HTML + Playwright      | US                          |
+| **BuiltIn**          | `__NEXT_DATA__` JSON   | US (tech startups)          |
+| **Snagajob**         | Search API             | US (hourly/part-time)       |
+| **Dribbble Jobs**    | JSON API + HTML        | Global (design)             |
 
 ### ATS Job Boards (18)
 
 ATS scrapers require a `companySlug` to target a specific company's job board. Ever Jobs integrates directly with each ATS platform's structured API, detecting new postings at the source — often hours before they appear on aggregated job boards like LinkedIn or Indeed.
 
-| Source              | ATS Platform       | Method                    | Notable Users                                       |
-| ------------------- | ------------------ | ------------------------- | --------------------------------------------------- |
-| **Greenhouse**      | Greenhouse         | REST API                  | Airbnb, Coinbase, Datadog, DoorDash, HubSpot, Notion, Stripe |
-| **Lever**           | Lever              | REST API                  | Netflix, Shopify, KPMG, Eventbrite, Atlassian       |
-| **Workday**         | Workday            | REST API                  | Amazon, Salesforce, Target, Bank of America, Visa   |
-| **Ashby**           | Ashby              | REST API                  | Ramp, Figma, Linear, Vercel, Plaid                  |
-| **SmartRecruiters** | SmartRecruiters    | REST API                  | Visa, Bosch, LinkedIn, Skechers, Equinox            |
-| **Jobvite**         | Jobvite            | REST API                  | Logitech, Schneider Electric, Zappos                |
-| **Workable**        | Workable           | GraphQL API               | Sephora, Bain Capital, Forbes                       |
-| **SAP SuccessFactors** | SAP SuccessFactors | OData API + HTML fallback | Siemens, Accenture, Deloitte, EY                 |
-| **Oracle Taleo**    | Oracle Taleo       | REST API (JSON)           | JPMorgan Chase, PepsiCo, Intel, Cisco               |
-| **iCIMS**           | iCIMS              | Playwright + JSON gateway | UPS, Uber, Johnson & Johnson, Target                |
-| **ADP Recruiting**  | ADP Workforce Now  | REST API                  | Major enterprises across industries                 |
-| **UKG (UltiPro)**   | UKG Pro Recruiting | REST API                  | Major healthcare and manufacturing organizations    |
-| **Rippling**        | Rippling           | REST API                  |                                                     |
-| **Recruitee**       | Recruitee          | REST API                  |                                                     |
-| **Teamtailor**      | Teamtailor         | REST API                  |                                                     |
-| **BambooHR**        | BambooHR           | REST API (JSON)           |                                                     |
-| **Personio**        | Personio           | XML feed                  |                                                     |
-| **JazzHR**          | JazzHR             | HTML scraping             |                                                     |
+| Source                 | ATS Platform       | Method                    | Notable Users                                                |
+| ---------------------- | ------------------ | ------------------------- | ------------------------------------------------------------ |
+| **Greenhouse**         | Greenhouse         | REST API                  | Airbnb, Coinbase, Datadog, DoorDash, HubSpot, Notion, Stripe |
+| **Lever**              | Lever              | REST API                  | Netflix, Shopify, KPMG, Eventbrite, Atlassian                |
+| **Workday**            | Workday            | REST API                  | Amazon, Salesforce, Target, Bank of America, Visa            |
+| **Ashby**              | Ashby              | REST API                  | Ramp, Figma, Linear, Vercel, Plaid                           |
+| **SmartRecruiters**    | SmartRecruiters    | REST API                  | Visa, Bosch, LinkedIn, Skechers, Equinox                     |
+| **Jobvite**            | Jobvite            | REST API                  | Logitech, Schneider Electric, Zappos                         |
+| **Workable**           | Workable           | GraphQL API               | Sephora, Bain Capital, Forbes                                |
+| **SAP SuccessFactors** | SAP SuccessFactors | OData API + HTML fallback | Siemens, Accenture, Deloitte, EY                             |
+| **Oracle Taleo**       | Oracle Taleo       | REST API (JSON)           | JPMorgan Chase, PepsiCo, Intel, Cisco                        |
+| **iCIMS**              | iCIMS              | Playwright + JSON gateway | UPS, Uber, Johnson & Johnson, Target                         |
+| **ADP Recruiting**     | ADP Workforce Now  | REST API                  | Major enterprises across industries                          |
+| **UKG (UltiPro)**      | UKG Pro Recruiting | REST API                  | Major healthcare and manufacturing organizations             |
+| **Rippling**           | Rippling           | REST API                  |                                                              |
+| **Recruitee**          | Recruitee          | REST API                  |                                                              |
+| **Teamtailor**         | Teamtailor         | REST API                  |                                                              |
+| **BambooHR**           | BambooHR           | REST API (JSON)           |                                                              |
+| **Personio**           | Personio           | XML feed                  |                                                              |
+| **JazzHR**             | JazzHR             | HTML scraping             |                                                              |
 
-### Company-Specific Scrapers (7)
+### Company-Specific Scrapers (12)
 
 Direct integrations with major tech companies' career APIs.
 
@@ -82,13 +85,19 @@ Direct integrations with major tech companies' career APIs.
 | **TikTok**    | `lifeattiktok.com` API            | REST POST        |
 | **Uber**      | `uber.com/api`                    | REST POST        |
 | **Cursor**    | `cursor.com/careers`              | HTML scraping    |
+| **Google**    | `careers.google.com` API          | REST GET         |
+| **Meta**      | `metacareers.com`                 | `__NEXT_DATA__`  |
+| **Netflix**   | `jobs.netflix.com` API            | REST GET         |
+| **Stripe**    | Greenhouse API                    | REST GET         |
+| **OpenAI**    | Ashby API                         | REST POST        |
 
 ---
 
 ## ✨ Features
 
-- 🔍 **Multi-source aggregation** — Search 1 or all 54 sources concurrently
+- 🔍 **Multi-source aggregation** — Search 1 or all 65+ sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
+- 🤖 **MCP server** — [Model Context Protocol](https://modelcontextprotocol.io/) server for ChatGPT, Claude, and Copilot
 - 🌐 **Country-aware** — Indeed & Glassdoor support 65+ countries with automatic domain resolution
 - 🔄 **Proxy rotation** — Built-in rotating proxy support (HTTP, HTTPS, SOCKS5)
 - ⏱️ **Rate limiting** — Configurable min/max delay between requests to avoid detection
@@ -130,7 +139,7 @@ cp .env.example .env   # configure environment variables
 npm run start:dev
 ```
 
-The API will be available at `http://localhost:3000`.
+The API will be available at `http://localhost:3001`.
 
 ### Docker
 
@@ -144,7 +153,29 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 ### Swagger Documentation
 
-Open `http://localhost:3000/api/docs` in your browser for the interactive API explorer.
+Open `http://localhost:3001/api/docs` in your browser for the interactive API explorer.
+
+### MCP Server (AI Agent Integration)
+
+Connect Ever Jobs to ChatGPT, Claude, or Copilot via the MCP server:
+
+```bash
+# Start the MCP server (requires Ever Jobs API running on port 3001)
+cd apps/mcp && npm start
+```
+
+**Available MCP Tools:**
+
+| Tool                  | Description                      |
+| --------------------- | -------------------------------- |
+| `search_jobs`         | Search 65+ sources with filters  |
+| `get_job_details`     | Get full job descriptions        |
+| `list_sources`        | Browse sources by type           |
+| `search_remote_jobs`  | Convenience tool for remote jobs |
+| `get_salary_insights` | Salary market data for a role    |
+| `compare_sources`     | Source catalog breakdown by type |
+
+See [apps/mcp/README.md](apps/mcp/README.md) for Claude Desktop and ChatGPT setup instructions.
 
 ---
 
@@ -286,7 +317,7 @@ Search for jobs across one or more job boards. Returns a wrapped response with c
 #### CSV Export
 
 ```bash
-curl -X POST http://localhost:3000/api/jobs/search?format=csv \
+curl -X POST http://localhost:3001/api/jobs/search?format=csv \
   -H 'Content-Type: application/json' \
   -d '{"searchTerm": "developer", "siteType": ["indeed"]}' -o jobs.csv
 ```
@@ -294,7 +325,7 @@ curl -X POST http://localhost:3000/api/jobs/search?format=csv \
 #### Pagination
 
 ```bash
-curl -X POST "http://localhost:3000/api/jobs/search?paginate=true&page=1&page_size=10" \
+curl -X POST "http://localhost:3001/api/jobs/search?paginate=true&page=1&page_size=10" \
   -H 'Content-Type: application/json' \
   -d '{"searchTerm": "developer"}'
 ```
@@ -319,7 +350,7 @@ curl -X POST "http://localhost:3000/api/jobs/search?paginate=true&page=1&page_si
 Search and analyze jobs — returns summary statistics, company intelligence, and per-site comparison.
 
 ```bash
-curl -X POST http://localhost:3000/api/jobs/analyze \
+curl -X POST http://localhost:3001/api/jobs/analyze \
   -H 'Content-Type: application/json' \
   -d '{"searchTerm": "fullstack", "siteType": ["indeed"], "resultsWanted": 10}'
 ```
@@ -330,32 +361,32 @@ curl -X POST http://localhost:3000/api/jobs/analyze \
 
 All parameters are optional. When `siteType` is omitted, search + company scrapers run (ATS scrapers are skipped unless `companySlug` is provided).
 
-| Parameter                  | Type       | Default    | Description                                                                                                                                                                                                                                                                                                                             |
-| -------------------------- | ---------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter                  | Type       | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------------- | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`, `jobvite`, `adp`, `ukg`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor` |
-| `companySlug`              | `string`   | —          | Company identifier for ATS scrapers (e.g. `stripe`, `notion`). When set without `siteType`, only ATS scrapers run                                                                                                                                                                                                                       |
-| `searchTerm`               | `string`   | —          | Job search keywords                                                                                                                                                                                                                                                                                                                     |
-| `googleSearchTerm`         | `string`   | —          | Google-specific search query override                                                                                                                                                                                                                                                                                                   |
-| `location`                 | `string`   | —          | Location to search near                                                                                                                                                                                                                                                                                                                 |
-| `distance`                 | `number`   | `50`       | Search radius in miles                                                                                                                                                                                                                                                                                                                  |
-| `isRemote`                 | `boolean`  | `false`    | Filter for remote jobs only                                                                                                                                                                                                                                                                                                             |
-| `jobType`                  | `string`   | —          | `fulltime`, `parttime`, `internship`, `contract`                                                                                                                                                                                                                                                                                        |
-| `easyApply`                | `boolean`  | —          | Filter for easy-apply / hosted jobs                                                                                                                                                                                                                                                                                                     |
-| `resultsWanted`            | `number`   | `15`       | Number of results per site                                                                                                                                                                                                                                                                                                              |
-| `offset`                   | `number`   | `0`        | Skip first N results                                                                                                                                                                                                                                                                                                                    |
-| `hoursOld`                 | `number`   | —          | Max job age in hours                                                                                                                                                                                                                                                                                                                    |
-| `country`                  | `string`   | `USA`      | Country for Indeed/Glassdoor domain                                                                                                                                                                                                                                                                                                     |
-| `descriptionFormat`        | `string`   | `markdown` | `markdown`, `html`, or `plain`                                                                                                                                                                                                                                                                                                          |
-| `linkedinFetchDescription` | `boolean`  | `false`    | Fetch full LinkedIn descriptions (slower)                                                                                                                                                                                                                                                                                               |
-| `linkedinCompanyIds`       | `number[]` | —          | Filter LinkedIn by company IDs                                                                                                                                                                                                                                                                                                          |
-| `enforceAnnualSalary`      | `boolean`  | `false`    | Convert all wages to annual equivalent                                                                                                                                                                                                                                                                                                  |
-| `rateDelayMin`             | `number`   | —          | Minimum delay between requests in seconds                                                                                                                                                                                                                                                                                               |
-| `rateDelayMax`             | `number`   | —          | Maximum delay between requests in seconds                                                                                                                                                                                                                                                                                               |
-| `requestTimeout`           | `number`   | `60`       | Request timeout in seconds                                                                                                                                                                                                                                                                                                              |
-| `proxies`                  | `string[]` | —          | Proxy URLs for rotation (`host:port` or `user:pass@host:port`)                                                                                                                                                                                                                                                                          |
-| `caCert`                   | `string`   | —          | Path to CA certificate for proxies                                                                                                                                                                                                                                                                                                      |
-| `userAgent`                | `string`   | —          | Custom User-Agent string                                                                                                                                                                                                                                                                                                                |
-| `clientIp`                 | `string`   | —          | Client IP address for sources that require it (e.g. CareerJet). Also useful for proxy rotation strategies                                                                                                                                                                                                                                |
+| `companySlug`              | `string`   | —          | Company identifier for ATS scrapers (e.g. `stripe`, `notion`). When set without `siteType`, only ATS scrapers run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `searchTerm`               | `string`   | —          | Job search keywords                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `googleSearchTerm`         | `string`   | —          | Google-specific search query override                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `location`                 | `string`   | —          | Location to search near                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `distance`                 | `number`   | `50`       | Search radius in miles                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `isRemote`                 | `boolean`  | `false`    | Filter for remote jobs only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `jobType`                  | `string`   | —          | `fulltime`, `parttime`, `internship`, `contract`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `easyApply`                | `boolean`  | —          | Filter for easy-apply / hosted jobs                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `resultsWanted`            | `number`   | `15`       | Number of results per site                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `offset`                   | `number`   | `0`        | Skip first N results                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `hoursOld`                 | `number`   | —          | Max job age in hours                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `country`                  | `string`   | `USA`      | Country for Indeed/Glassdoor domain                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `descriptionFormat`        | `string`   | `markdown` | `markdown`, `html`, or `plain`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `linkedinFetchDescription` | `boolean`  | `false`    | Fetch full LinkedIn descriptions (slower)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `linkedinCompanyIds`       | `number[]` | —          | Filter LinkedIn by company IDs                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `enforceAnnualSalary`      | `boolean`  | `false`    | Convert all wages to annual equivalent                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `rateDelayMin`             | `number`   | —          | Minimum delay between requests in seconds                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `rateDelayMax`             | `number`   | —          | Maximum delay between requests in seconds                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `requestTimeout`           | `number`   | `60`       | Request timeout in seconds                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `proxies`                  | `string[]` | —          | Proxy URLs for rotation (`host:port` or `user:pass@host:port`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `caCert`                   | `string`   | —          | Path to CA certificate for proxies                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `userAgent`                | `string`   | —          | Custom User-Agent string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `clientIp`                 | `string`   | —          | Client IP address for sources that require it (e.g. CareerJet). Also useful for proxy rotation strategies                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ---
 
@@ -446,9 +477,9 @@ ever-jobs/
 │   ├── models/                       @ever-jobs/models
 │   ├── common/                       @ever-jobs/common (HttpClient, converters, utils)
 │   ├── analytics/                    @ever-jobs/analytics
-│   ├── source-*/                     Search source modules (×28)
+│   ├── source-*/                     Search source modules (×31)
 │   ├── source-ats-*/                 ATS source modules (×18)
-│   └── source-company-*/             Company-specific source modules (×7)
+│   └── source-company-*/             Company-specific source modules (×12)
 │
 ├── .github/
 │   ├── workflows/ci.yml              CI pipeline (build, type-check, Docker)
@@ -595,13 +626,13 @@ Global freelance marketplace. Uses the official [Upwork SDK](https://github.com/
 - **`client_credentials`** — server-to-server, requires only `clientId` + `clientSecret`
 - **`authorization_code`** — user-delegated, requires all four values below
 
-| Variable               | Required                | Description                                                      |
-| ---------------------- | ----------------------- | ---------------------------------------------------------------- |
-| `UPWORK_CLIENT_ID`     | Yes (both flows)        | OAuth2 application client ID                                     |
-| `UPWORK_CLIENT_SECRET` | Yes (both flows)        | OAuth2 application client secret                                 |
-| `UPWORK_GRANT_TYPE`    | No (auto-detected)      | `client_credentials` or `authorization_code`                     |
-| `UPWORK_ACCESS_TOKEN`  | `authorization_code` only | Pre-obtained OAuth2 access token                               |
-| `UPWORK_REFRESH_TOKEN` | `authorization_code` only | Pre-obtained OAuth2 refresh token                              |
+| Variable               | Required                  | Description                                  |
+| ---------------------- | ------------------------- | -------------------------------------------- |
+| `UPWORK_CLIENT_ID`     | Yes (both flows)          | OAuth2 application client ID                 |
+| `UPWORK_CLIENT_SECRET` | Yes (both flows)          | OAuth2 application client secret             |
+| `UPWORK_GRANT_TYPE`    | No (auto-detected)        | `client_credentials` or `authorization_code` |
+| `UPWORK_ACCESS_TOKEN`  | `authorization_code` only | Pre-obtained OAuth2 access token             |
+| `UPWORK_REFRESH_TOKEN` | `authorization_code` only | Pre-obtained OAuth2 refresh token            |
 
 Get API credentials at [developers.upwork.com](https://developers.upwork.com). Without credentials, Upwork searches gracefully return empty results.
 
@@ -760,6 +791,19 @@ npx tsc --project tsconfig.base.json --noEmit
 npm run start:prod
 ```
 
+### Run Tests
+
+```bash
+# Run all unit tests
+npm test
+
+# Run specific test suite
+npx jest packages/common/__tests__/helpers.spec.ts --no-coverage
+
+# Run with verbose output
+npx jest --verbose --no-coverage --testPathPatterns __tests__
+```
+
 ---
 
 ## ChatGPT & LLM Integration
@@ -782,7 +826,7 @@ npm run cli -- search --search-term "machine learning" --site linkedin --bd
 npm run cli -- compare --search-term "backend developer" --results 10
 
 # API endpoint for analysis
-curl -X POST http://localhost:3000/api/jobs/analyze \
+curl -X POST http://localhost:3001/api/jobs/analyze \
   -H 'Content-Type: application/json' \
   -d '{"searchTerm": "fullstack", "siteType": ["indeed"], "resultsWanted": 10}'
 ```
@@ -896,9 +940,9 @@ All other brand and product names are trademarks, registered trademarks, or serv
 
 ## 🍺 Contribute
 
--   Please give us a :star: on Github, it **helps**!
--   You are more than welcome to submit feature requests in the [separate repo](https://github.com/ever-co/feature-requests/issues)
--   Pull requests are always welcome! Please base pull requests against the _develop_ branch and follow the [contributing guide](.github/CONTRIBUTING.MD).
+- Please give us a :star: on Github, it **helps**!
+- You are more than welcome to submit feature requests in the [separate repo](https://github.com/ever-co/feature-requests/issues)
+- Pull requests are always welcome! Please base pull requests against the _develop_ branch and follow the [contributing guide](.github/CONTRIBUTING.MD).
 
 ## 💪 Thanks to our Contributors
 
@@ -923,5 +967,5 @@ You can also view a full list of our [contributors tracked by GitHub](https://gi
 
 ## 🔥 P.S
 
--   If you are running any business or doing freelance, check our new project [Ever Gauzy](https://github.com/ever-co/ever-gauzy) - Open Business Management Platform (ERP/CRM/HRM)
--   [We are Hiring: remote TypeScript / NodeJS / NestJS / Angular & React developers](https://github.com/ever-co/jobs#available-positions)
+- If you are running any business or doing freelance, check our new project [Ever Gauzy](https://github.com/ever-co/ever-gauzy) - Open Business Management Platform (ERP/CRM/HRM)
+- [We are Hiring: remote TypeScript / NodeJS / NestJS / Angular & React developers](https://github.com/ever-co/jobs#available-positions)

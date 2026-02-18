@@ -33,7 +33,7 @@ Client Request
 │          ▼           │
 │  ┌────────────────┐  │
 │  │ Source Modules │  │   ← LinkedIn, Indeed, Glassdoor, etc.
-│  │  (54 sources)  │  │   ← search (28) + ATS (18) + company (7) + 1 analytics
+│  │  (65+ sources) │  │   ← search (31) + ATS (18) + company (12) + analytics
 │  └────────────────┘  │
 └──────────────────────┘
            │

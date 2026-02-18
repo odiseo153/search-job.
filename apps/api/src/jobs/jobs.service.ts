@@ -57,6 +57,17 @@ import { SuccessFactorsService } from '@ever-jobs/source-ats-successfactors';
 import { JobviteService } from '@ever-jobs/source-ats-jobvite';
 import { AdpService } from '@ever-jobs/source-ats-adp';
 import { UkgService } from '@ever-jobs/source-ats-ukg';
+import { GoogleCareersService } from '@ever-jobs/source-company-google';
+import { MetaService } from '@ever-jobs/source-company-meta';
+import { NetflixService } from '@ever-jobs/source-company-netflix';
+import { StripeService } from '@ever-jobs/source-company-stripe';
+import { OpenAIService } from '@ever-jobs/source-company-openai';
+import { BreezyHRService } from '@ever-jobs/source-ats-breezyhr';
+import { ComeetService } from '@ever-jobs/source-ats-comeet';
+import { PinpointService } from '@ever-jobs/source-ats-pinpoint';
+import { BuiltInService } from '@ever-jobs/source-builtin';
+import { SnagajobService } from '@ever-jobs/source-snagajob';
+import { DribbbleService } from '@ever-jobs/source-dribbble';
 
 @Injectable()
 export class JobsService {
@@ -117,6 +128,17 @@ export class JobsService {
     private readonly jobviteService: JobviteService,
     private readonly adpService: AdpService,
     private readonly ukgService: UkgService,
+    private readonly googleCareersService: GoogleCareersService,
+    private readonly metaService: MetaService,
+    private readonly netflixService: NetflixService,
+    private readonly stripeService: StripeService,
+    private readonly openAIService: OpenAIService,
+    private readonly breezyHRService: BreezyHRService,
+    private readonly comeetService: ComeetService,
+    private readonly pinpointService: PinpointService,
+    private readonly builtInService: BuiltInService,
+    private readonly snagajobService: SnagajobService,
+    private readonly dribbbleService: DribbbleService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -172,6 +194,20 @@ export class JobsService {
       [Site.JOBVITE, this.jobviteService],
       [Site.ADP, this.adpService],
       [Site.UKG, this.ukgService],
+      // Phase 6: New company scrapers
+      [Site.GOOGLE_CAREERS, this.googleCareersService],
+      [Site.META, this.metaService],
+      [Site.NETFLIX, this.netflixService],
+      [Site.STRIPE, this.stripeService],
+      [Site.OPENAI, this.openAIService],
+      // Phase 6: New ATS integrations
+      [Site.BREEZYHR, this.breezyHRService],
+      [Site.COMEET, this.comeetService],
+      [Site.PINPOINT, this.pinpointService],
+      // Phase 7: Additional job boards
+      [Site.BUILTIN, this.builtInService],
+      [Site.SNAGAJOB, this.snagajobService],
+      [Site.DRIBBBLE, this.dribbbleService],
     ]);
   }
 
@@ -196,6 +232,9 @@ export class JobsService {
     Site.JOBVITE,
     Site.ADP,
     Site.UKG,
+    Site.BREEZYHR,
+    Site.COMEET,
+    Site.PINPOINT,
   ]);
 
   /** Company scrapers target a single company's career API directly */
@@ -207,6 +246,11 @@ export class JobsService {
     Site.TIKTOK,
     Site.UBER,
     Site.CURSOR,
+    Site.GOOGLE_CAREERS,
+    Site.META,
+    Site.NETFLIX,
+    Site.STRIPE,
+    Site.OPENAI,
   ]);
 
   /**

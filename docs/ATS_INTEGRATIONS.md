@@ -14,12 +14,12 @@ ATS scrapers require a `companySlug` parameter to identify which company's caree
 
 ```bash
 # Search Greenhouse jobs for Stripe
-curl -X POST http://localhost:3000/api/jobs/search \
+curl -X POST http://localhost:3001/api/jobs/search \
   -H 'Content-Type: application/json' \
   -d '{"companySlug": "stripe", "siteType": ["greenhouse"]}'
 
 # Search all ATS platforms for a given company
-curl -X POST http://localhost:3000/api/jobs/search \
+curl -X POST http://localhost:3001/api/jobs/search \
   -H 'Content-Type: application/json' \
   -d '{"companySlug": "notion"}'
 ```

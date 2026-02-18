@@ -74,7 +74,18 @@
       "@ever-jobs/source-ats-successfactors": ["packages/source-ats-successfactors/src/index.ts"],
       "@ever-jobs/source-ats-jobvite": ["packages/source-ats-jobvite/src/index.ts"],
       "@ever-jobs/source-ats-adp": ["packages/source-ats-adp/src/index.ts"],
-      "@ever-jobs/source-ats-ukg": ["packages/source-ats-ukg/src/index.ts"]
+      "@ever-jobs/source-ats-ukg": ["packages/source-ats-ukg/src/index.ts"],
+      "@ever-jobs/source-company-google": ["packages/source-company-google/src/index.ts"],
+      "@ever-jobs/source-company-meta": ["packages/source-company-meta/src/index.ts"],
+      "@ever-jobs/source-company-netflix": ["packages/source-company-netflix/src/index.ts"],
+      "@ever-jobs/source-company-stripe": ["packages/source-company-stripe/src/index.ts"],
+      "@ever-jobs/source-company-openai": ["packages/source-company-openai/src/index.ts"],
+      "@ever-jobs/source-ats-breezyhr": ["packages/source-ats-breezyhr/src/index.ts"],
+      "@ever-jobs/source-ats-comeet": ["packages/source-ats-comeet/src/index.ts"],
+      "@ever-jobs/source-ats-pinpoint": ["packages/source-ats-pinpoint/src/index.ts"],
+      "@ever-jobs/source-builtin": ["packages/source-builtin/src/index.ts"],
+      "@ever-jobs/source-snagajob": ["packages/source-snagajob/src/index.ts"],
+      "@ever-jobs/source-dribbble": ["packages/source-dribbble/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]
