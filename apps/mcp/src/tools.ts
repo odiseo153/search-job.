@@ -164,7 +164,7 @@ export async function searchJobs(params: JobSearchParams): Promise<SearchRespons
   const client = getClient();
 
   try {
-    const response = await client.post('/api/v1/jobs/search', {
+    const response = await client.post('/api/jobs/search', {
       search_term: params.query,
       location: params.location ?? '',
       site_type: params.source ? [params.source] : undefined,
@@ -226,7 +226,7 @@ export async function getJobDetails(params: {
   const client = getClient();
 
   try {
-    const response = await client.get('/api/v1/jobs/details', {
+    const response = await client.get('/api/jobs/details', {
       params: {
         url: params.jobUrl,
         id: params.jobId,
