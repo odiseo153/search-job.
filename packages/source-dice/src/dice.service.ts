@@ -13,6 +13,8 @@ import {
   JobPostDto,
   LocationDto,
   CompensationDto,
+  CompensationInterval,
+  JobType,
   Site,
 } from '@ever-jobs/models';
 import {
@@ -140,7 +142,7 @@ export class DiceService implements IScraper, OnModuleDestroy {
       let compensation = null;
       if (job.payRateRange?.min || job.payRateRange?.max) {
         compensation = new CompensationDto({
-          interval: 'yearly',
+          interval: CompensationInterval.YEARLY,
           minAmount: job.payRateRange.min ?? null,
           maxAmount: job.payRateRange.max ?? null,
           currency: 'USD',
@@ -167,7 +169,7 @@ export class DiceService implements IScraper, OnModuleDestroy {
         compensation: compensation as any,
         datePosted: job.postedDate ?? job.modifiedDate ?? null,
         isRemote,
-        jobType: job.employmentType ? [job.employmentType] : null,
+        jobType: job.employmentType ? [job.employmentType as JobType] : null,
         site: Site.DICE,
       });
     } catch {
