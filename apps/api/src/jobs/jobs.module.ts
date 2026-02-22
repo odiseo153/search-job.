@@ -63,6 +63,21 @@ import { PinpointModule } from '@ever-jobs/source-ats-pinpoint';
 import { BuiltInModule } from '@ever-jobs/source-builtin';
 import { SnagajobModule } from '@ever-jobs/source-snagajob';
 import { DribbbleModule } from '@ever-jobs/source-dribbble';
+// Phase 8: ATS Expansion
+import { ManatalModule } from '@ever-jobs/source-ats-manatal';
+import { PaylocityModule } from '@ever-jobs/source-ats-paylocity';
+import { FreshteamModule } from '@ever-jobs/source-ats-freshteam';
+import { BullhornModule } from '@ever-jobs/source-ats-bullhorn';
+import { TrakstarModule } from '@ever-jobs/source-ats-trakstar';
+import { HiringThingModule } from '@ever-jobs/source-ats-hiringthing';
+import { LoxoModule } from '@ever-jobs/source-ats-loxo';
+import { FountainModule } from '@ever-jobs/source-ats-fountain';
+import { DeelModule } from '@ever-jobs/source-ats-deel';
+import { PhenomModule } from '@ever-jobs/source-ats-phenom';
+// Phase 8: Company scrapers
+import { IbmModule } from '@ever-jobs/source-company-ibm';
+import { BoeingModule } from '@ever-jobs/source-company-boeing';
+import { ZoomModule } from '@ever-jobs/source-company-zoom';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -136,6 +151,21 @@ import { JobsService } from './jobs.service';
     BuiltInModule,
     SnagajobModule,
     DribbbleModule,
+    // Phase 8: ATS Expansion
+    ManatalModule,
+    PaylocityModule,
+    FreshteamModule,
+    BullhornModule,
+    TrakstarModule,
+    HiringThingModule,
+    LoxoModule,
+    FountainModule,
+    DeelModule,
+    PhenomModule,
+    // Phase 8: Company scrapers
+    IbmModule,
+    BoeingModule,
+    ZoomModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],

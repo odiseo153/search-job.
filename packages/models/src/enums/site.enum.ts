@@ -66,6 +66,21 @@ export enum Site {
   BUILTIN = 'builtin',
   SNAGAJOB = 'snagajob',
   DRIBBBLE = 'dribbble',
+  // Phase 8: ATS Expansion
+  MANATAL = 'manatal',
+  PAYLOCITY = 'paylocity',
+  FRESHTEAM = 'freshteam',
+  BULLHORN = 'bullhorn',
+  TRAKSTAR = 'trakstar',
+  HIRINGTHING = 'hiringthing',
+  LOXO = 'loxo',
+  FOUNTAIN = 'fountain',
+  DEEL = 'deel',
+  PHENOM = 'phenom',
+  // Phase 8: Company scrapers
+  IBM = 'ibm',
+  BOEING = 'boeing',
+  ZOOM = 'zoom',
 }
 
 /**

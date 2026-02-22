@@ -94,6 +94,21 @@ jest.mock('@ever-jobs/source-ats-pinpoint', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-builtin', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-snagajob', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-dribbble', () => mockSourceFactory());
+// Phase 8: ATS Expansion
+jest.mock('@ever-jobs/source-ats-manatal', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-paylocity', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-freshteam', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-bullhorn', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-trakstar', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-hiringthing', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-loxo', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-fountain', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-deel', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-phenom', () => mockSourceFactory());
+// Phase 8: Company scrapers
+jest.mock('@ever-jobs/source-company-ibm', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-company-boeing', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-company-zoom', () => mockSourceFactory());
 
 import { JobsService } from '../jobs.service';
 

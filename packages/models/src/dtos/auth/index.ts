@@ -16,4 +16,8 @@ export * from './bamboohr-auth.dto';
 export * from './personio-auth.dto';
 export * from './jazzhr-auth.dto';
 export * from './jobvite-auth.dto';
+export * from './trakstar-auth.dto';
+export * from './deel-auth.dto';
+export * from './loxo-auth.dto';
+export * from './fountain-auth.dto';
 export * from './scraper-auth.dto';

@@ -47,6 +47,7 @@
       "@ever-jobs/source-company-tiktok": ["packages/source-company-tiktok/src/index.ts"],
       "@ever-jobs/source-company-uber": ["packages/source-company-uber/src/index.ts"],
       "@ever-jobs/source-company-cursor": ["packages/source-company-cursor/src/index.ts"],
+      "@ever-jobs/source-company-zoom": ["packages/source-company-zoom/src/index.ts"],
       "@ever-jobs/source-remoteok": ["packages/source-remoteok/src/index.ts"],
       "@ever-jobs/source-remotive": ["packages/source-remotive/src/index.ts"],
       "@ever-jobs/source-jobicy": ["packages/source-jobicy/src/index.ts"],
@@ -85,7 +86,20 @@
       "@ever-jobs/source-ats-pinpoint": ["packages/source-ats-pinpoint/src/index.ts"],
       "@ever-jobs/source-builtin": ["packages/source-builtin/src/index.ts"],
       "@ever-jobs/source-snagajob": ["packages/source-snagajob/src/index.ts"],
-      "@ever-jobs/source-dribbble": ["packages/source-dribbble/src/index.ts"]
+      "@ever-jobs/source-dribbble": ["packages/source-dribbble/src/index.ts"],
+      "@ever-jobs/source-ats-manatal": ["packages/source-ats-manatal/src/index.ts"],
+      "@ever-jobs/source-ats-paylocity": ["packages/source-ats-paylocity/src/index.ts"],
+      "@ever-jobs/source-ats-freshteam": ["packages/source-ats-freshteam/src/index.ts"],
+      "@ever-jobs/source-ats-bullhorn": ["packages/source-ats-bullhorn/src/index.ts"],
+      "@ever-jobs/source-ats-trakstar": ["packages/source-ats-trakstar/src/index.ts"],
+      "@ever-jobs/source-ats-hiringthing": ["packages/source-ats-hiringthing/src/index.ts"],
+      "@ever-jobs/source-ats-loxo": ["packages/source-ats-loxo/src/index.ts"],
+      "@ever-jobs/source-ats-fountain": ["packages/source-ats-fountain/src/index.ts"],
+      "@ever-jobs/source-ats-deel": ["packages/source-ats-deel/src/index.ts"],
+      "@ever-jobs/source-ats-phenom": ["packages/source-ats-phenom/src/index.ts"],
+      "@ever-jobs/source-company-ibm": ["packages/source-company-ibm/src/index.ts"],
+      "@ever-jobs/source-company-boeing": ["packages/source-company-boeing/src/index.ts"],
+      "@ever-jobs/source-company-zoom": ["packages/source-company-zoom/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]

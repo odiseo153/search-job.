@@ -68,6 +68,21 @@ import { PinpointService } from '@ever-jobs/source-ats-pinpoint';
 import { BuiltInService } from '@ever-jobs/source-builtin';
 import { SnagajobService } from '@ever-jobs/source-snagajob';
 import { DribbbleService } from '@ever-jobs/source-dribbble';
+// Phase 8: ATS Expansion
+import { ManatalService } from '@ever-jobs/source-ats-manatal';
+import { PaylocityService } from '@ever-jobs/source-ats-paylocity';
+import { FreshteamService } from '@ever-jobs/source-ats-freshteam';
+import { BullhornService } from '@ever-jobs/source-ats-bullhorn';
+import { TrakstarService } from '@ever-jobs/source-ats-trakstar';
+import { HiringThingService } from '@ever-jobs/source-ats-hiringthing';
+import { LoxoService } from '@ever-jobs/source-ats-loxo';
+import { FountainService } from '@ever-jobs/source-ats-fountain';
+import { DeelService } from '@ever-jobs/source-ats-deel';
+import { PhenomService } from '@ever-jobs/source-ats-phenom';
+// Phase 8: Company scrapers
+import { IbmService } from '@ever-jobs/source-company-ibm';
+import { BoeingService } from '@ever-jobs/source-company-boeing';
+import { ZoomService } from '@ever-jobs/source-company-zoom';
 
 @Injectable()
 export class JobsService {
@@ -139,6 +154,21 @@ export class JobsService {
     private readonly builtInService: BuiltInService,
     private readonly snagajobService: SnagajobService,
     private readonly dribbbleService: DribbbleService,
+    // Phase 8: ATS Expansion
+    private readonly manatalService: ManatalService,
+    private readonly paylocityService: PaylocityService,
+    private readonly freshteamService: FreshteamService,
+    private readonly bullhornService: BullhornService,
+    private readonly trakstarService: TrakstarService,
+    private readonly hiringThingService: HiringThingService,
+    private readonly loxoService: LoxoService,
+    private readonly fountainService: FountainService,
+    private readonly deelService: DeelService,
+    private readonly phenomService: PhenomService,
+    // Phase 8: Company scrapers
+    private readonly ibmService: IbmService,
+    private readonly boeingService: BoeingService,
+    private readonly zoomService: ZoomService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -208,6 +238,21 @@ export class JobsService {
       [Site.BUILTIN, this.builtInService],
       [Site.SNAGAJOB, this.snagajobService],
       [Site.DRIBBBLE, this.dribbbleService],
+      // Phase 8: ATS Expansion
+      [Site.MANATAL, this.manatalService],
+      [Site.PAYLOCITY, this.paylocityService],
+      [Site.FRESHTEAM, this.freshteamService],
+      [Site.BULLHORN, this.bullhornService],
+      [Site.TRAKSTAR, this.trakstarService],
+      [Site.HIRINGTHING, this.hiringThingService],
+      [Site.LOXO, this.loxoService],
+      [Site.FOUNTAIN, this.fountainService],
+      [Site.DEEL, this.deelService],
+      [Site.PHENOM, this.phenomService],
+      // Phase 8: Company scrapers
+      [Site.IBM, this.ibmService],
+      [Site.BOEING, this.boeingService],
+      [Site.ZOOM, this.zoomService],
     ]);
   }
 
@@ -235,6 +280,17 @@ export class JobsService {
     Site.BREEZYHR,
     Site.COMEET,
     Site.PINPOINT,
+    // Phase 8: ATS Expansion
+    Site.MANATAL,
+    Site.PAYLOCITY,
+    Site.FRESHTEAM,
+    Site.BULLHORN,
+    Site.TRAKSTAR,
+    Site.HIRINGTHING,
+    Site.LOXO,
+    Site.FOUNTAIN,
+    Site.DEEL,
+    Site.PHENOM,
   ]);
 
   /** Company scrapers target a single company's career API directly */
@@ -251,6 +307,10 @@ export class JobsService {
     Site.NETFLIX,
     Site.STRIPE,
     Site.OPENAI,
+    // Phase 8: Company scrapers
+    Site.IBM,
+    Site.BOEING,
+    Site.ZOOM,
   ]);
 
   /**

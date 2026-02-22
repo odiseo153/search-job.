@@ -19,6 +19,11 @@ import { BambooHRAuthDto } from './bamboohr-auth.dto';
 import { PersonioAuthDto } from './personio-auth.dto';
 import { JazzHRAuthDto } from './jazzhr-auth.dto';
 import { JobviteAuthDto } from './jobvite-auth.dto';
+import { TrakstarAuthDto } from './trakstar-auth.dto';
+import { DeelAuthDto } from './deel-auth.dto';
+import { LoxoAuthDto } from './loxo-auth.dto';
+import { FountainAuthDto } from './fountain-auth.dto';
+import { BullhornAuthDto } from './bullhorn-auth.dto';
 
 /**
  * Per-request authentication credentials for individual sources.
@@ -199,6 +204,51 @@ export class ScraperAuthDto {
   @ValidateNested()
   @Type(() => JobviteAuthDto)
   jobvite?: JobviteAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => TrakstarAuthDto,
+    description: 'Trakstar Hire API key — enables access to job openings via authenticated API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => TrakstarAuthDto)
+  trakstar?: TrakstarAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => DeelAuthDto,
+    description: 'Deel ATS API token — enables access to job postings via authenticated API',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => DeelAuthDto)
+  deel?: DeelAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => LoxoAuthDto,
+    description: 'Loxo API token — enables authenticated access to recruiting firm job boards',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => LoxoAuthDto)
+  loxo?: LoxoAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => FountainAuthDto,
+    description: 'Fountain API key (Bearer token) — enables access to high-volume hourly hiring openings',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => FountainAuthDto)
+  fountain?: FountainAuthDto;
+
+  @ApiPropertyOptional({
+    type: () => BullhornAuthDto,
+    description: 'Bullhorn corp token — overrides BULLHORN_CORP_TOKEN env var',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => BullhornAuthDto)
+  bullhorn?: BullhornAuthDto;
 
   // Future sources:
   // linkedin?: LinkedInAuthDto;
