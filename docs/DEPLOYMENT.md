@@ -19,7 +19,7 @@ curl http://localhost:3001/health
 docker build -t ever-jobs-api .
 docker run -d \
   --name ever-jobs-api \
-  -p 3000:3000 \
+  -p 3001:3001 \
   --env-file .env \
   ever-jobs-api
 ```
@@ -60,20 +60,20 @@ spec:
         - name: api
           image: ever-jobs-api:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 3001
           envFrom:
             - configMapRef:
                 name: ever-jobs-config
           livenessProbe:
             httpGet:
               path: /health
-              port: 3000
+              port: 3001
             initialDelaySeconds: 10
             periodSeconds: 30
           readinessProbe:
             httpGet:
               path: /ping
-              port: 3000
+              port: 3001
             initialDelaySeconds: 5
             periodSeconds: 10
 ---
@@ -86,7 +86,7 @@ spec:
     app: ever-jobs-api
   ports:
     - port: 80
-      targetPort: 3000
+      targetPort: 3001
   type: LoadBalancer
 ```
 

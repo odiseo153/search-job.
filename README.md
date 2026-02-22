@@ -254,7 +254,7 @@ All settings are configurable via environment variables. Copy `.env.example` to 
 | `CORS_ORIGINS`         | `*`         | Allowed CORS origins           |
 | `LOG_LEVEL`            | `info`      | Logging level                  |
 | `ENABLE_SWAGGER`       | `true`      | Enable Swagger UI              |
-| `PORT`                 | `3000`      | Server port                    |
+| `PORT`                 | `3001`      | Server port                    |
 
 See [`.env.example`](.env.example) for the full list.
 

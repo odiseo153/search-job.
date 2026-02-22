@@ -78,7 +78,7 @@ Results are cached (when enabled) to improve performance and reduce load on job 
     // ── Swagger UI ───────────────────────
     if (swaggerEnabled) {
       SwaggerModule.setup(swaggerPath, app, document);
-      logger.log(`Swagger UI docs: http://localhost:${config.get('port', 3000)}/${swaggerPath}`);
+      logger.log(`Swagger UI docs: http://localhost:${config.get('port', 3001)}/${swaggerPath}`);
     }
 
     // ── Scalar API Reference ─────────────
@@ -87,12 +87,12 @@ Results are cached (when enabled) to improve performance and reduce load on job 
         `/${scalarPath}`,
         apiReference({ content: document }),
       );
-      logger.log(`Scalar API docs: http://localhost:${config.get('port', 3000)}/${scalarPath}`);
+      logger.log(`Scalar API docs: http://localhost:${config.get('port', 3001)}/${scalarPath}`);
     }
   }
 
   // ── Start ──────────────────────────────
-  const port = config.get<number>('port', 3000);
+  const port = config.get<number>('port', 3001);
   await app.listen(port);
 
   const authEnabled = config.get<boolean>('auth.enabled', false);
