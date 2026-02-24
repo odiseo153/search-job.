@@ -3,7 +3,7 @@
  * Ever Jobs MCP Server
  *
  * Model Context Protocol server that allows AI assistants (ChatGPT, Claude,
- * Copilot, etc.) to search for jobs across 94+ sources via the Ever Jobs API.
+ * Copilot, etc.) to search for jobs across 166+ sources via the Ever Jobs API.
  *
  * Transport: stdio (standard input/output)
  * Protocol: MCP v1.0
@@ -47,8 +47,13 @@ function createServer(): Server {
       {
         name: 'search_jobs',
         description:
-          'Search for jobs across 94+ sources including LinkedIn, Indeed, Glassdoor, ' +
+          'Search for jobs across 166+ sources including LinkedIn, Indeed, Glassdoor, ' +
           'Google Careers, Meta, Netflix, Stripe, OpenAI, IBM, Boeing, Zoom, BuiltIn, ' +
+          'HeadHunter (Russia/CIS), Djinni (Ukraine), Habr Career, MyCareersFuture (Singapore), ' +
+          'Duunitori (Finland), Jobs.ch (Switzerland), Jobs in Japan, ' +
+          'Guardian Jobs (UK), AndroidJobs, iOS Dev Jobs, ' +
+          'DevOpsJobs, Functional Works, PowerToFly, Clojure Jobs, EcoJobs, ' +
+          'TechCareers, JobsDB (Asia-Pacific), Sercanto (Europe), ' +
           'remote job boards, and 28+ ATS platforms (Greenhouse, Lever, Workday, Manatal, ' +
           'Phenom, Bullhorn, Deel, etc.). Returns titles, companies, locations, and descriptions.',
         inputSchema: {
@@ -272,7 +277,7 @@ function createServer(): Server {
       {
         uri: 'everjobs://sources',
         name: 'Available Job Sources',
-        description: 'List of all 94+ job sources available for searching',
+        description: 'List of all 163+ job sources available for searching',
         mimeType: 'application/json',
       },
       {
@@ -350,11 +355,11 @@ Filter for remote positions:
   search_jobs(query: "frontend developer", remote_only: true)
 
 ## Source Types
-- **Job Boards**: linkedin, indeed, glassdoor, ziprecruiter, dice, monster, builtin, snagajob, dribbble, themuse, startupjobs, fourdayweek, web3career, echojobs, jobstreet, careeronestop, arbeitsagentur
-- **Remote Boards**: remoteok, remotive, weworkremotely, jobicy, himalayas, arbeitnow, workingnomads, nodesk
-- **ATS Platforms**: greenhouse, lever, ashby, workable, workday, manatal, paylocity, bullhorn, phenom, deel, fountain, loxo, breezyhr, comeet, pinpoint, jobylon, homerun, and more
+- **Job Boards**: linkedin, indeed, glassdoor, ziprecruiter, dice, monster, builtin, snagajob, dribbble, themuse, startupjobs, fourdayweek, web3career, echojobs, jobstreet, careeronestop, arbeitsagentur, hackernews, landingjobs, authenticjobs, cryptojobslist, higheredjobs, fossjobs, larajobs, pythonjobs, drupaljobs, golangjobs, wordpressjobs, infojobs, jobtechdev, francetravail, navjobs, jobsacuk, jobindex, getonboard, freelancercom, joinrise, canadajobbank, reliefweb, undpjobs, devitjobs, pyjobs, vuejobs, conservationjobs, coroflot, berlinstartupjobs, railsjobs, elixirjobs, crunchboard, cryptocurrencyjobs, hasjob, icrunchdata, swissdevjobs, germantechjobs, nofluffjobs, greenjobsboard, eurojobs, opensourcedesignjobs, academiccareers, djinni, headhunter, habrcareer, mycareersfuture, duunitori, jobsinjapan, jobsch, guardianjobs, androidjobs, iosdevjobs, devopsjobs, functionalworks, powertofly, clojurejobs, ecojobs, techcareers, jobsdb, sercanto
+- **Remote Boards**: remoteok, remotive, weworkremotely, jobicy, himalayas, arbeitnow, workingnomads, nodesk, jobspresso, realworkfromanywhere, virtualvocations, remotefirstjobs
+- **ATS Platforms**: greenhouse, lever, ashby, workable, workday, manatal, paylocity, bullhorn, phenom, deel, fountain, loxo, breezyhr, comeet, pinpoint, jobylon, homerun, jobscore, talentlyft, crelate, ismartrecruit, recruiterflow, and more
+- **API Aggregators**: adzuna, reed, jooble, careerjet, usajobs, findwork, jobdataapi, talroo
 - **Company Pages**: google_careers, meta, netflix, stripe, openai, amazon, apple, microsoft, ibm, boeing, zoom
-- **API Aggregators**: adzuna, reed, jooble, careerjet, usajobs
 
 ## Salary Research
 Use get_salary_insights to research compensation:

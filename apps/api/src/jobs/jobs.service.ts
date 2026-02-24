@@ -97,6 +97,92 @@ import { CareerOneStopService } from '@ever-jobs/source-careeronestop';
 import { ArbeitsagenturService } from '@ever-jobs/source-arbeitsagentur';
 import { JobylonService } from '@ever-jobs/source-ats-jobylon';
 import { HomerunService } from '@ever-jobs/source-ats-homerun';
+// Phase 11: Niche boards & developer API expansion
+import { HackerNewsService } from '@ever-jobs/source-hackernews';
+import { LandingJobsService } from '@ever-jobs/source-landingjobs';
+import { FindWorkService } from '@ever-jobs/source-findwork';
+import { JobDataApiService } from '@ever-jobs/source-jobdataapi';
+// Phase 12: ATS & niche board expansion
+import { AuthenticJobsService } from '@ever-jobs/source-authenticjobs';
+import { JobScoreService } from '@ever-jobs/source-ats-jobscore';
+import { TalentLyftService } from '@ever-jobs/source-ats-talentlyft';
+// Phase 13: RSS niche board expansion
+import { CryptoJobsListService } from '@ever-jobs/source-cryptojobslist';
+import { JobspressoService } from '@ever-jobs/source-jobspresso';
+import { HigherEdJobsService } from '@ever-jobs/source-higheredjobs';
+import { FossJobsService } from '@ever-jobs/source-fossjobs';
+import { LaraJobsService } from '@ever-jobs/source-larajobs';
+import { PythonJobsService } from '@ever-jobs/source-pythonjobs';
+import { DrupalJobsService } from '@ever-jobs/source-drupaljobs';
+import { RealWorkFromAnywhereService } from '@ever-jobs/source-realworkfromanywhere';
+import { GolangJobsService } from '@ever-jobs/source-golangjobs';
+import { WordPressJobsService } from '@ever-jobs/source-wordpressjobs';
+// Phase 14: API-key sources & ATS expansion
+import { TalrooService } from '@ever-jobs/source-talroo';
+import { InfoJobsService } from '@ever-jobs/source-infojobs';
+import { CrelateService } from '@ever-jobs/source-ats-crelate';
+import { ISmartRecruitService } from '@ever-jobs/source-ats-ismartrecruit';
+import { RecruiterflowService } from '@ever-jobs/source-ats-recruiterflow';
+// Phase 15: European government & regional boards
+import { JobTechDevService } from '@ever-jobs/source-jobtechdev';
+import { FranceTravailService } from '@ever-jobs/source-francetravail';
+import { NavJobsService } from '@ever-jobs/source-navjobs';
+import { JobsAcUkService } from '@ever-jobs/source-jobsacuk';
+import { JobindexService } from '@ever-jobs/source-jobindex';
+// Phase 16: Global expansion (LatAm, gig, startup, Canada)
+import { GetOnBoardService } from '@ever-jobs/source-getonboard';
+import { FreelancerComService } from '@ever-jobs/source-freelancercom';
+import { JoinRiseService } from '@ever-jobs/source-joinrise';
+import { CanadaJobBankService } from '@ever-jobs/source-canadajobbank';
+// Phase 17: Niche & international expansion (NGO, UN, IT)
+import { ReliefWebService } from '@ever-jobs/source-reliefweb';
+import { UndpJobsService } from '@ever-jobs/source-undpjobs';
+import { DevITJobsService } from '@ever-jobs/source-devitjobs';
+// Phase 18: Niche RSS expansion (tech, design, environment, regional)
+import { PyJobsService } from '@ever-jobs/source-pyjobs';
+import { VueJobsService } from '@ever-jobs/source-vuejobs';
+import { ConservationJobsService } from '@ever-jobs/source-conservationjobs';
+import { CoroflotService } from '@ever-jobs/source-coroflot';
+import { BerlinStartupJobsService } from '@ever-jobs/source-berlinstartupjobs';
+// Phase 19: Tech niche, crypto, regional expansion
+import { RailsJobsService } from '@ever-jobs/source-railsjobs';
+import { ElixirJobsService } from '@ever-jobs/source-elixirjobs';
+import { CrunchboardService } from '@ever-jobs/source-crunchboard';
+import { CryptocurrencyJobsService } from '@ever-jobs/source-cryptocurrencyjobs';
+import { HasJobService } from '@ever-jobs/source-hasjob';
+// Phase 20: European regional & niche expansion
+import { IcrunchdataService } from '@ever-jobs/source-icrunchdata';
+import { SwissdevjobsService } from '@ever-jobs/source-swissdevjobs';
+import { GermantechjobsService } from '@ever-jobs/source-germantechjobs';
+import { VirtualVocationsService } from '@ever-jobs/source-virtualvocations';
+import { NoFluffJobsService } from '@ever-jobs/source-nofluffjobs';
+// Phase 21: Niche & academic expansion
+import { GreenJobsBoardService } from '@ever-jobs/source-greenjobsboard';
+import { EurojobsService } from '@ever-jobs/source-eurojobs';
+import { OpensourcedesignjobsService } from '@ever-jobs/source-opensourcedesignjobs';
+import { AcademiccareersService } from '@ever-jobs/source-academiccareers';
+import { RemotefirstjobsService } from '@ever-jobs/source-remotefirstjobs';
+// Phase 22: Eastern European, CIS & Singapore expansion
+import { DjinniService } from '@ever-jobs/source-djinni';
+import { HeadhunterService } from '@ever-jobs/source-headhunter';
+import { HabrcareerService } from '@ever-jobs/source-habrcareer';
+import { MycareersfutureService } from '@ever-jobs/source-mycareersfuture';
+// Phase 23: Japan, Nordic & Swiss expansion
+import { JobsInJapanService } from '@ever-jobs/source-jobsinjapan';
+import { DuunitoriService } from '@ever-jobs/source-duunitori';
+import { JobsChService } from '@ever-jobs/source-jobsch';
+// Phase 24: UK & mobile dev expansion
+import { GuardianjobsService } from '@ever-jobs/source-guardianjobs';
+import { AndroidjobsService } from '@ever-jobs/source-androidjobs';
+import { IosdevjobsService } from '@ever-jobs/source-iosdevjobs';
+// Phase 25: DevOps niche expansion
+import { DevopsjobsService } from '@ever-jobs/source-devopsjobs';
+// Phase 25: FP, diversity & niche expansion
+import { FunctionalworksService } from '@ever-jobs/source-functionalworks';
+import { PowertoflyService } from '@ever-jobs/source-powertofly';
+import { ClojurejobsService } from '@ever-jobs/source-clojurejobs';
+// Phase 26: Sustainability & niche expansion
+import { EcojobsService } from '@ever-jobs/source-ecojobs';
 
 @Injectable()
 export class JobsService {
@@ -197,6 +283,92 @@ export class JobsService {
     private readonly arbeitsagenturService: ArbeitsagenturService,
     private readonly jobylonService: JobylonService,
     private readonly homerunService: HomerunService,
+    // Phase 11: Niche boards & developer API expansion
+    private readonly hackerNewsService: HackerNewsService,
+    private readonly landingJobsService: LandingJobsService,
+    private readonly findWorkService: FindWorkService,
+    private readonly jobDataApiService: JobDataApiService,
+    // Phase 12: ATS & niche board expansion
+    private readonly authenticJobsService: AuthenticJobsService,
+    private readonly jobScoreService: JobScoreService,
+    private readonly talentLyftService: TalentLyftService,
+    // Phase 13: RSS niche board expansion
+    private readonly cryptoJobsListService: CryptoJobsListService,
+    private readonly jobspressoService: JobspressoService,
+    private readonly higherEdJobsService: HigherEdJobsService,
+    private readonly fossJobsService: FossJobsService,
+    private readonly laraJobsService: LaraJobsService,
+    private readonly pythonJobsService: PythonJobsService,
+    private readonly drupalJobsService: DrupalJobsService,
+    private readonly realWorkFromAnywhereService: RealWorkFromAnywhereService,
+    private readonly golangJobsService: GolangJobsService,
+    private readonly wordPressJobsService: WordPressJobsService,
+    // Phase 14: API-key sources & ATS expansion
+    private readonly talrooService: TalrooService,
+    private readonly infoJobsService: InfoJobsService,
+    private readonly crelateService: CrelateService,
+    private readonly iSmartRecruitService: ISmartRecruitService,
+    private readonly recruiterflowService: RecruiterflowService,
+    // Phase 15: European government & regional boards
+    private readonly jobTechDevService: JobTechDevService,
+    private readonly franceTravailService: FranceTravailService,
+    private readonly navJobsService: NavJobsService,
+    private readonly jobsAcUkService: JobsAcUkService,
+    private readonly jobindexService: JobindexService,
+    // Phase 16: Global expansion (LatAm, gig, startup, Canada)
+    private readonly getOnBoardService: GetOnBoardService,
+    private readonly freelancerComService: FreelancerComService,
+    private readonly joinRiseService: JoinRiseService,
+    private readonly canadaJobBankService: CanadaJobBankService,
+    // Phase 17: Niche & international expansion (NGO, UN, IT)
+    private readonly reliefWebService: ReliefWebService,
+    private readonly undpJobsService: UndpJobsService,
+    private readonly devITJobsService: DevITJobsService,
+    // Phase 18: Niche RSS expansion (tech, design, environment, regional)
+    private readonly pyJobsService: PyJobsService,
+    private readonly vueJobsService: VueJobsService,
+    private readonly conservationJobsService: ConservationJobsService,
+    private readonly coroflotService: CoroflotService,
+    private readonly berlinStartupJobsService: BerlinStartupJobsService,
+    // Phase 19: Tech niche, crypto, regional expansion
+    private readonly railsJobsService: RailsJobsService,
+    private readonly elixirJobsService: ElixirJobsService,
+    private readonly crunchboardService: CrunchboardService,
+    private readonly cryptocurrencyJobsService: CryptocurrencyJobsService,
+    private readonly hasJobService: HasJobService,
+    // Phase 20: European regional & niche expansion
+    private readonly iCrunchDataService: IcrunchdataService,
+    private readonly swissDevJobsService: SwissdevjobsService,
+    private readonly germanTechJobsService: GermantechjobsService,
+    private readonly virtualVocationsService: VirtualVocationsService,
+    private readonly noFluffJobsService: NoFluffJobsService,
+    // Phase 21: Niche & academic expansion
+    private readonly greenJobsBoardService: GreenJobsBoardService,
+    private readonly eurojobsService: EurojobsService,
+    private readonly opensourcedesignjobsService: OpensourcedesignjobsService,
+    private readonly academiccareersService: AcademiccareersService,
+    private readonly remotefirstjobsService: RemotefirstjobsService,
+    // Phase 22: Eastern European, CIS & Singapore expansion
+    private readonly djinniService: DjinniService,
+    private readonly headhunterService: HeadhunterService,
+    private readonly habrCareerService: HabrcareerService,
+    private readonly myCareersFutureService: MycareersfutureService,
+    // Phase 23: Nordic & international expansion
+    private readonly duunitoriService: DuunitoriService,
+    private readonly jobsInJapanService: JobsInJapanService,
+    private readonly jobsChService: JobsChService,
+    // Phase 24: UK & mobile dev expansion
+    private readonly guardianjobsService: GuardianjobsService,
+    private readonly androidjobsService: AndroidjobsService,
+    private readonly iosdevjobsService: IosdevjobsService,
+    // Phase 25: DevOps niche expansion
+    private readonly devopsjobsService: DevopsjobsService,
+    // Phase 25: FP, diversity & niche expansion
+    private readonly functionalworksService: FunctionalworksService,
+    private readonly powertoflyService: PowertoflyService,
+    private readonly clojurejobsService: ClojurejobsService,
+    // Phase 26: Sustainability & niche expansion
+    private readonly ecojobsService: EcojobsService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -295,6 +467,92 @@ export class JobsService {
       [Site.ARBEITSAGENTUR, this.arbeitsagenturService],
       [Site.JOBYLON, this.jobylonService],
       [Site.HOMERUN, this.homerunService],
+      // Phase 11: Niche boards & developer API expansion
+      [Site.HACKERNEWS, this.hackerNewsService],
+      [Site.LANDINGJOBS, this.landingJobsService],
+      [Site.FINDWORK, this.findWorkService],
+      [Site.JOBDATAAPI, this.jobDataApiService],
+      // Phase 12: ATS & niche board expansion
+      [Site.AUTHENTICJOBS, this.authenticJobsService],
+      [Site.JOBSCORE, this.jobScoreService],
+      [Site.TALENTLYFT, this.talentLyftService],
+      // Phase 13: RSS niche board expansion
+      [Site.CRYPTOJOBSLIST, this.cryptoJobsListService],
+      [Site.JOBSPRESSO, this.jobspressoService],
+      [Site.HIGHEREDJOBS, this.higherEdJobsService],
+      [Site.FOSSJOBS, this.fossJobsService],
+      [Site.LARAJOBS, this.laraJobsService],
+      [Site.PYTHONJOBS, this.pythonJobsService],
+      [Site.DRUPALJOBS, this.drupalJobsService],
+      [Site.REALWORKFROMANYWHERE, this.realWorkFromAnywhereService],
+      [Site.GOLANGJOBS, this.golangJobsService],
+      [Site.WORDPRESSJOBS, this.wordPressJobsService],
+      // Phase 14: API-key sources & ATS expansion
+      [Site.TALROO, this.talrooService],
+      [Site.INFOJOBS, this.infoJobsService],
+      [Site.CRELATE, this.crelateService],
+      [Site.ISMARTRECRUIT, this.iSmartRecruitService],
+      [Site.RECRUITERFLOW, this.recruiterflowService],
+      // Phase 15: European government & regional boards
+      [Site.JOBTECHDEV, this.jobTechDevService],
+      [Site.FRANCETRAVAIL, this.franceTravailService],
+      [Site.NAVJOBS, this.navJobsService],
+      [Site.JOBSACUK, this.jobsAcUkService],
+      [Site.JOBINDEX, this.jobindexService],
+      // Phase 16: Global expansion (LatAm, gig, startup, Canada)
+      [Site.GETONBOARD, this.getOnBoardService],
+      [Site.FREELANCERCOM, this.freelancerComService],
+      [Site.JOINRISE, this.joinRiseService],
+      [Site.CANADAJOBBANK, this.canadaJobBankService],
+      // Phase 17: Niche & international expansion (NGO, UN, IT)
+      [Site.RELIEFWEB, this.reliefWebService],
+      [Site.UNDPJOBS, this.undpJobsService],
+      [Site.DEVITJOBS, this.devITJobsService],
+      // Phase 18: Niche RSS expansion (tech, design, environment, regional)
+      [Site.PYJOBS, this.pyJobsService],
+      [Site.VUEJOBS, this.vueJobsService],
+      [Site.CONSERVATIONJOBS, this.conservationJobsService],
+      [Site.COROFLOT, this.coroflotService],
+      [Site.BERLINSTARTUPJOBS, this.berlinStartupJobsService],
+      // Phase 19: Tech niche, crypto, regional expansion
+      [Site.RAILSJOBS, this.railsJobsService],
+      [Site.ELIXIRJOBS, this.elixirJobsService],
+      [Site.CRUNCHBOARD, this.crunchboardService],
+      [Site.CRYPTOCURRENCYJOBS, this.cryptocurrencyJobsService],
+      [Site.HASJOB, this.hasJobService],
+      // Phase 20: European regional & niche expansion
+      [Site.ICRUNCHDATA, this.iCrunchDataService],
+      [Site.SWISSDEVJOBS, this.swissDevJobsService],
+      [Site.GERMANTECHJOBS, this.germanTechJobsService],
+      [Site.VIRTUALVOCATIONS, this.virtualVocationsService],
+      [Site.NOFLUFFJOBS, this.noFluffJobsService],
+      // Phase 21: Niche & academic expansion
+      [Site.GREENJOBSBOARD, this.greenJobsBoardService],
+      [Site.EUROJOBS, this.eurojobsService],
+      [Site.OPENSOURCEDESIGNJOBS, this.opensourcedesignjobsService],
+      [Site.ACADEMICCAREERS, this.academiccareersService],
+      [Site.REMOTEFIRSTJOBS, this.remotefirstjobsService],
+      // Phase 22: Eastern European, CIS & Singapore expansion
+      [Site.DJINNI, this.djinniService],
+      [Site.HEADHUNTER, this.headhunterService],
+      [Site.HABRCAREER, this.habrCareerService],
+      [Site.MYCAREERSFUTURE, this.myCareersFutureService],
+      // Phase 23: Nordic & international expansion
+      [Site.DUUNITORI, this.duunitoriService],
+      [Site.JOBSINJAPAN, this.jobsInJapanService],
+      [Site.JOBSCH, this.jobsChService],
+      // Phase 24: UK & mobile dev expansion
+      [Site.GUARDIANJOBS, this.guardianjobsService],
+      [Site.ANDROIDJOBS, this.androidjobsService],
+      [Site.IOSDEVJOBS, this.iosdevjobsService],
+      // Phase 25: DevOps niche expansion
+      [Site.DEVOPSJOBS, this.devopsjobsService],
+      // Phase 25: FP, diversity & niche expansion
+      [Site.FUNCTIONALWORKS, this.functionalworksService],
+      [Site.POWERTOFLY, this.powertoflyService],
+      [Site.CLOJUREJOBS, this.clojurejobsService],
+      // Phase 26: Sustainability & niche expansion
+      [Site.ECOJOBS, this.ecojobsService],
     ]);
   }
 
@@ -336,6 +594,13 @@ export class JobsService {
     // Phase 10: ATS expansion
     Site.JOBYLON,
     Site.HOMERUN,
+    // Phase 12: ATS expansion
+    Site.JOBSCORE,
+    Site.TALENTLYFT,
+    // Phase 14: ATS expansion
+    Site.CRELATE,
+    Site.ISMARTRECRUIT,
+    Site.RECRUITERFLOW,
   ]);
 
   /** Company scrapers target a single company's career API directly */

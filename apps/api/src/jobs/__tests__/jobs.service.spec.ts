@@ -123,6 +123,92 @@ jest.mock('@ever-jobs/source-careeronestop', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-arbeitsagentur', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-ats-jobylon', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-ats-homerun', () => mockSourceFactory());
+// Phase 11: Niche boards & developer API expansion
+jest.mock('@ever-jobs/source-hackernews', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-landingjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-findwork', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-jobdataapi', () => mockSourceFactory());
+// Phase 12: ATS & niche board expansion
+jest.mock('@ever-jobs/source-authenticjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-jobscore', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-talentlyft', () => mockSourceFactory());
+// Phase 13: RSS niche board expansion
+jest.mock('@ever-jobs/source-cryptojobslist', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-jobspresso', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-higheredjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-fossjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-larajobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-pythonjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-drupaljobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-realworkfromanywhere', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-golangjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-wordpressjobs', () => mockSourceFactory());
+// Phase 14: API-key sources & ATS expansion
+jest.mock('@ever-jobs/source-talroo', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-infojobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-crelate', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-ismartrecruit', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-recruiterflow', () => mockSourceFactory());
+// Phase 15: European government & regional boards
+jest.mock('@ever-jobs/source-jobtechdev', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-francetravail', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-navjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-jobsacuk', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-jobindex', () => mockSourceFactory());
+// Phase 16: Global expansion (LatAm, gig, startup, Canada)
+jest.mock('@ever-jobs/source-getonboard', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-freelancercom', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-joinrise', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-canadajobbank', () => mockSourceFactory());
+// Phase 17: Niche & international expansion (NGO, UN, IT)
+jest.mock('@ever-jobs/source-reliefweb', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-undpjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-devitjobs', () => mockSourceFactory());
+// Phase 18: Niche RSS expansion (tech, design, environment, regional)
+jest.mock('@ever-jobs/source-pyjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-vuejobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-conservationjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-coroflot', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-berlinstartupjobs', () => mockSourceFactory());
+// Phase 19: Tech niche, crypto, regional expansion
+jest.mock('@ever-jobs/source-railsjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-elixirjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-crunchboard', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-cryptocurrencyjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-hasjob', () => mockSourceFactory());
+// Phase 20: European regional & niche expansion
+jest.mock('@ever-jobs/source-icrunchdata', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-swissdevjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-germantechjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-virtualvocations', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-nofluffjobs', () => mockSourceFactory());
+// Phase 21: Niche & academic expansion
+jest.mock('@ever-jobs/source-greenjobsboard', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-eurojobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-opensourcedesignjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-academiccareers', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-remotefirstjobs', () => mockSourceFactory());
+// Phase 22: Eastern European, CIS & Singapore expansion
+jest.mock('@ever-jobs/source-djinni', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-headhunter', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-habrcareer', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-mycareersfuture', () => mockSourceFactory());
+// Phase 23: Japan, Nordic & Swiss expansion
+jest.mock('@ever-jobs/source-jobsinjapan', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-duunitori', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-jobsch', () => mockSourceFactory());
+// Phase 24: UK & mobile dev expansion
+jest.mock('@ever-jobs/source-guardianjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-androidjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-iosdevjobs', () => mockSourceFactory());
+// Phase 25: DevOps niche expansion
+jest.mock('@ever-jobs/source-devopsjobs', () => mockSourceFactory());
+// Phase 25: FP, diversity & niche expansion
+jest.mock('@ever-jobs/source-functionalworks', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-powertofly', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-clojurejobs', () => mockSourceFactory());
+// Phase 26: Sustainability & niche expansion
+jest.mock('@ever-jobs/source-ecojobs', () => mockSourceFactory());
 
 import { JobsService } from '../jobs.service';
 

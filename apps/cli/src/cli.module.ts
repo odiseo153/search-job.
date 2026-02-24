@@ -91,6 +91,92 @@ import { CareerOneStopModule } from '@ever-jobs/source-careeronestop';
 import { ArbeitsagenturModule } from '@ever-jobs/source-arbeitsagentur';
 import { JobylonModule } from '@ever-jobs/source-ats-jobylon';
 import { HomerunModule } from '@ever-jobs/source-ats-homerun';
+// Phase 11: Niche boards & developer API expansion
+import { HackerNewsModule } from '@ever-jobs/source-hackernews';
+import { LandingJobsModule } from '@ever-jobs/source-landingjobs';
+import { FindWorkModule } from '@ever-jobs/source-findwork';
+import { JobDataApiModule } from '@ever-jobs/source-jobdataapi';
+// Phase 12: ATS & niche board expansion
+import { AuthenticJobsModule } from '@ever-jobs/source-authenticjobs';
+import { JobScoreModule } from '@ever-jobs/source-ats-jobscore';
+import { TalentLyftModule } from '@ever-jobs/source-ats-talentlyft';
+// Phase 13: RSS niche board expansion
+import { CryptoJobsListModule } from '@ever-jobs/source-cryptojobslist';
+import { JobspressoModule } from '@ever-jobs/source-jobspresso';
+import { HigherEdJobsModule } from '@ever-jobs/source-higheredjobs';
+import { FossJobsModule } from '@ever-jobs/source-fossjobs';
+import { LaraJobsModule } from '@ever-jobs/source-larajobs';
+import { PythonJobsModule } from '@ever-jobs/source-pythonjobs';
+import { DrupalJobsModule } from '@ever-jobs/source-drupaljobs';
+import { RealWorkFromAnywhereModule } from '@ever-jobs/source-realworkfromanywhere';
+import { GolangJobsModule } from '@ever-jobs/source-golangjobs';
+import { WordPressJobsModule } from '@ever-jobs/source-wordpressjobs';
+// Phase 14: API-key sources & ATS expansion
+import { TalrooModule } from '@ever-jobs/source-talroo';
+import { InfoJobsModule } from '@ever-jobs/source-infojobs';
+import { CrelateModule } from '@ever-jobs/source-ats-crelate';
+import { ISmartRecruitModule } from '@ever-jobs/source-ats-ismartrecruit';
+import { RecruiterflowModule } from '@ever-jobs/source-ats-recruiterflow';
+// Phase 15: European government & regional boards
+import { JobTechDevModule } from '@ever-jobs/source-jobtechdev';
+import { FranceTravailModule } from '@ever-jobs/source-francetravail';
+import { NavJobsModule } from '@ever-jobs/source-navjobs';
+import { JobsAcUkModule } from '@ever-jobs/source-jobsacuk';
+import { JobindexModule } from '@ever-jobs/source-jobindex';
+// Phase 16: Global expansion (LatAm, gig, startup, Canada)
+import { GetOnBoardModule } from '@ever-jobs/source-getonboard';
+import { FreelancerComModule } from '@ever-jobs/source-freelancercom';
+import { JoinRiseModule } from '@ever-jobs/source-joinrise';
+import { CanadaJobBankModule } from '@ever-jobs/source-canadajobbank';
+// Phase 17: Niche & international expansion (NGO, UN, IT)
+import { ReliefWebModule } from '@ever-jobs/source-reliefweb';
+import { UndpJobsModule } from '@ever-jobs/source-undpjobs';
+import { DevITJobsModule } from '@ever-jobs/source-devitjobs';
+// Phase 18: Niche RSS expansion (tech, design, environment, regional)
+import { PyJobsModule } from '@ever-jobs/source-pyjobs';
+import { VueJobsModule } from '@ever-jobs/source-vuejobs';
+import { ConservationJobsModule } from '@ever-jobs/source-conservationjobs';
+import { CoroflotModule } from '@ever-jobs/source-coroflot';
+import { BerlinStartupJobsModule } from '@ever-jobs/source-berlinstartupjobs';
+// Phase 19: Tech niche, crypto, regional expansion
+import { RailsJobsModule } from '@ever-jobs/source-railsjobs';
+import { ElixirJobsModule } from '@ever-jobs/source-elixirjobs';
+import { CrunchboardModule } from '@ever-jobs/source-crunchboard';
+import { CryptocurrencyJobsModule } from '@ever-jobs/source-cryptocurrencyjobs';
+import { HasJobModule } from '@ever-jobs/source-hasjob';
+// Phase 20: European regional & niche expansion
+import { IcrunchdataModule } from '@ever-jobs/source-icrunchdata';
+import { SwissdevjobsModule } from '@ever-jobs/source-swissdevjobs';
+import { GermantechjobsModule } from '@ever-jobs/source-germantechjobs';
+import { VirtualVocationsModule } from '@ever-jobs/source-virtualvocations';
+import { NoFluffJobsModule } from '@ever-jobs/source-nofluffjobs';
+// Phase 21: Niche & academic expansion
+import { GreenJobsBoardModule } from '@ever-jobs/source-greenjobsboard';
+import { EurojobsModule } from '@ever-jobs/source-eurojobs';
+import { OpensourcedesignjobsModule } from '@ever-jobs/source-opensourcedesignjobs';
+import { AcademiccareersModule } from '@ever-jobs/source-academiccareers';
+import { RemotefirstjobsModule } from '@ever-jobs/source-remotefirstjobs';
+// Phase 22: Eastern European, CIS & Singapore expansion
+import { DjinniModule } from '@ever-jobs/source-djinni';
+import { HeadhunterModule } from '@ever-jobs/source-headhunter';
+import { HabrcareerModule } from '@ever-jobs/source-habrcareer';
+import { MycareersfutureModule } from '@ever-jobs/source-mycareersfuture';
+// Phase 23: Japan, Nordic & Swiss expansion
+import { JobsInJapanModule } from '@ever-jobs/source-jobsinjapan';
+import { DuunitoriModule } from '@ever-jobs/source-duunitori';
+import { JobsChModule } from '@ever-jobs/source-jobsch';
+// Phase 24: UK & mobile dev expansion
+import { GuardianjobsModule } from '@ever-jobs/source-guardianjobs';
+import { AndroidjobsModule } from '@ever-jobs/source-androidjobs';
+import { IosdevjobsModule } from '@ever-jobs/source-iosdevjobs';
+// Phase 25: DevOps niche expansion
+import { DevopsjobsModule } from '@ever-jobs/source-devopsjobs';
+// Phase 25: FP, diversity & niche expansion
+import { FunctionalworksModule } from '@ever-jobs/source-functionalworks';
+import { PowertoflyModule } from '@ever-jobs/source-powertofly';
+import { ClojurejobsModule } from '@ever-jobs/source-clojurejobs';
+// Phase 26: Sustainability & niche expansion
+import { EcojobsModule } from '@ever-jobs/source-ecojobs';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsService } from '../../api/src/jobs/jobs.service';
 import { SearchCommand } from './commands/search.command';
@@ -204,6 +290,92 @@ import { CompareCommand } from './commands/compare.command';
     ArbeitsagenturModule,
     JobylonModule,
     HomerunModule,
+    // Phase 11: Niche boards & developer API expansion
+    HackerNewsModule,
+    LandingJobsModule,
+    FindWorkModule,
+    JobDataApiModule,
+    // Phase 12: ATS & niche board expansion
+    AuthenticJobsModule,
+    JobScoreModule,
+    TalentLyftModule,
+    // Phase 13: RSS niche board expansion
+    CryptoJobsListModule,
+    JobspressoModule,
+    HigherEdJobsModule,
+    FossJobsModule,
+    LaraJobsModule,
+    PythonJobsModule,
+    DrupalJobsModule,
+    RealWorkFromAnywhereModule,
+    GolangJobsModule,
+    WordPressJobsModule,
+    // Phase 14: API-key sources & ATS expansion
+    TalrooModule,
+    InfoJobsModule,
+    CrelateModule,
+    ISmartRecruitModule,
+    RecruiterflowModule,
+    // Phase 15: European government & regional boards
+    JobTechDevModule,
+    FranceTravailModule,
+    NavJobsModule,
+    JobsAcUkModule,
+    JobindexModule,
+    // Phase 16: Global expansion (LatAm, gig, startup, Canada)
+    GetOnBoardModule,
+    FreelancerComModule,
+    JoinRiseModule,
+    CanadaJobBankModule,
+    // Phase 17: Niche & international expansion (NGO, UN, IT)
+    ReliefWebModule,
+    UndpJobsModule,
+    DevITJobsModule,
+    // Phase 18: Niche RSS expansion (tech, design, environment, regional)
+    PyJobsModule,
+    VueJobsModule,
+    ConservationJobsModule,
+    CoroflotModule,
+    BerlinStartupJobsModule,
+    // Phase 19: Tech niche, crypto, regional expansion
+    RailsJobsModule,
+    ElixirJobsModule,
+    CrunchboardModule,
+    CryptocurrencyJobsModule,
+    HasJobModule,
+    // Phase 20: European regional & niche expansion
+    IcrunchdataModule,
+    SwissdevjobsModule,
+    GermantechjobsModule,
+    VirtualVocationsModule,
+    NoFluffJobsModule,
+    // Phase 21: Niche & academic expansion
+    GreenJobsBoardModule,
+    EurojobsModule,
+    OpensourcedesignjobsModule,
+    AcademiccareersModule,
+    RemotefirstjobsModule,
+    // Phase 22: Eastern European, CIS & Singapore expansion
+    DjinniModule,
+    HeadhunterModule,
+    HabrcareerModule,
+    MycareersfutureModule,
+    // Phase 23: Japan, Nordic & Swiss expansion
+    JobsInJapanModule,
+    DuunitoriModule,
+    JobsChModule,
+    // Phase 24: UK & mobile dev expansion
+    GuardianjobsModule,
+    AndroidjobsModule,
+    IosdevjobsModule,
+    // Phase 25: DevOps niche expansion
+    DevopsjobsModule,
+    // Phase 25: FP, diversity & niche expansion
+    FunctionalworksModule,
+    PowertoflyModule,
+    ClojurejobsModule,
+    // Phase 26: Sustainability & niche expansion
+    EcojobsModule,
     // Analytics
     AnalyticsModule,
   ],

@@ -2,7 +2,7 @@
 
 **Author:** AI Assistant
 **Date:** 2026-02-14
-**Status:** Phase 10 Complete
+**Status:** Phase 11 Complete
 **Epic:** Source Expansion
 
 ---
@@ -244,6 +244,23 @@ API Request
 | **Phase 8 (ATS Expansion)** | Manatal ✅, Paylocity ✅, Freshteam ✅, Bullhorn ✅, Trakstar ✅, HiringThing ✅, Loxo ✅, Fountain ✅, Deel ✅, Phenom ✅, IBM ✅, Boeing ✅, Zoom ✅ | ✅ **Complete** (10 ATS + 3 Company)    |
 | **Phase 9 (Board Expansion)** | The Muse ✅, Working Nomads ✅, 4 Day Week ✅, Startup.jobs ✅, NoDesk ✅, Web3 Career ✅, Echojobs ✅, Jobstreet ✅ | ✅ **Complete** (8 job boards)          |
 | **Phase 10 (Gov + ATS)**     | CareerOneStop ✅, Arbeitsagentur ✅, Jobylon ✅, Homerun ✅                                                       | ✅ **Complete** (2 gov + 2 ATS)        |
+| **Phase 11 (Niche + Dev)**   | Hacker News ✅, Landing.jobs ✅, FindWork ✅, JobDataAPI ✅                                                       | ✅ **Complete** (2 boards + 2 aggregators) |
+| **Phase 12 (ATS + Niche)**   | Authentic Jobs ✅, JobScore ✅, TalentLyft ✅                                                                     | ✅ **Complete** (1 board + 2 ATS)          |
+| **Phase 13 (RSS Niche)**     | CryptoJobsList ✅, Jobspresso ✅, HigherEdJobs ✅, FOSS Jobs ✅, LaraJobs ✅, Python.org ✅, Drupal Jobs ✅, Real Work From Anywhere ✅, Golang Projects ✅, WordPress Jobs ✅ | ✅ **Complete** (10 RSS boards)           |
+| **Phase 14 (API + ATS)**    | Talroo ✅, InfoJobs ✅, Crelate ✅, iSmartRecruit ✅, Recruiterflow ✅                                             | ✅ **Complete** (2 boards + 3 ATS)       |
+| **Phase 15 (EU Govt/Reg)**  | JobTech Dev ✅, France Travail ✅, NAV Arbeidsplassen ✅, jobs.ac.uk ✅, Jobindex ✅                               | ✅ **Complete** (5 EU govt/regional boards) |
+| **Phase 16 (Global)**       | Get on Board ✅, Freelancer.com ✅, JoinRise ✅, Canada Job Bank ✅                                               | ✅ **Complete** (4 global boards)          |
+| **Phase 17 (Niche/Intl)**  | ReliefWeb ✅, UNDP Jobs ✅, DevITjobs ✅                                                                          | ✅ **Complete** (3 niche/intl boards)      |
+| **Phase 18 (Niche RSS)**   | PyJobs ✅, VueJobs ✅, Conservation Job Board ✅, Coroflot ✅, Berlin Startup Jobs ✅                               | ✅ **Complete** (5 niche RSS boards)       |
+| **Phase 19 (Tech/Crypto/Regional)** | Rails Job Board ✅, Elixir Jobs ✅, Crunchboard ✅, Cryptocurrency Jobs ✅, HasJob ✅                         | ✅ **Complete** (5 niche boards)           |
+| **Phase 20 (EU Regional/Niche)**    | iCrunchData ✅, SwissDevJobs ✅, GermanTechJobs ✅, VirtualVocations ✅, NoFluffJobs ✅                       | ✅ **Complete** (5 regional/niche boards)  |
+| **Phase 21 (Niche/Academic)**       | Green Jobs Board ✅, EuroJobs ✅, Open Source Design Jobs ✅, Academic Careers ✅, RemoteFirstJobs ✅          | ✅ **Complete** (5 niche/academic boards)  |
+| **Phase 22 (Eastern Europe/CIS/SG)**| Djinni ✅, HeadHunter ✅, Habr Career ✅, MyCareersFuture ✅                                                  | ✅ **Complete** (4 regional boards)        |
+| **Phase 23 (Japan/Nordic/Swiss)**   | Duunitori ✅, Jobs in Japan ✅, Jobs.ch ✅                                                                    | ✅ **Complete** (3 regional boards)        |
+| **Phase 24 (Media/Mobile Niche)**   | Guardian Jobs ✅, Android Jobs ✅, iOS Dev Jobs ✅                                                             | ✅ **Complete** (3 niche boards)           |
+| **Phase 25 (DevOps/FP/Diversity)**  | DevOpsJobs ✅, Functional Works ✅, PowerToFly ✅, Clojure Jobs ✅                                             | ✅ **Complete** (4 niche boards)           |
+| **Phase 26 (Environmental)**        | EcoJobs ✅                                                                                                    | ✅ **Complete** (1 environmental board)    |
+| **Phase 27 (Tech, APAC, EU)**       | TechCareers ✅, JobsDB ✅, Sercanto ✅                                                                        | ✅ **Complete** (3 sources: tech, Asia-Pacific, European) |
 
 ---
 

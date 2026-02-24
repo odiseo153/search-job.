@@ -9,9 +9,9 @@
 
 ## ⭐️ Overview
 
-**Ever® Jobs™** searches job postings from **94+ sources** concurrently and returns aggregated, normalized results through a single REST API, **CLI**, or **MCP server** for AI assistants. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
+**Ever® Jobs™** searches job postings from **166+ sources** concurrently and returns aggregated, normalized results through a single REST API, **CLI**, or **MCP server** for AI assistants. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
-### Search-Based Job Boards (41)
+### Search-Based Job Boards (109)
 
 | Source               | Method                 | Region                      |
 | -------------------- | ---------------------- | --------------------------- |
@@ -37,6 +37,8 @@
 | **Reed**             | REST API (API key)     | UK                          |
 | **Jooble**           | REST API (API key)     | 70+ countries               |
 | **CareerJet**        | REST API (affiliate)   | 80+ countries               |
+| **FindWork**         | REST API (API key)     | Global (developer jobs)     |
+| **JobDataAPI**       | REST API (API key)     | Global (all industries)     |
 | **Dice**             | REST API + Playwright  | US (tech jobs)              |
 | **SimplyHired**      | HTML + Playwright      | Global                      |
 | **Wellfound**        | Playwright SPA         | Global (startups)           |
@@ -56,8 +58,73 @@
 | **Jobstreet**        | REST API (JSON)        | Southeast Asia (SEEK)       |
 | **CareerOneStop**    | REST API (Bearer)      | US (DOL/NLx)                |
 | **Arbeitsagentur**   | REST API (API key)     | Germany                     |
+| **Hacker News**      | Firebase API (free)    | YC startups (Global)        |
+| **Landing.jobs**     | REST API (public)      | Europe (tech/relocation)    |
+| **Authentic Jobs**   | REST API (API key)     | Global (creative/dev)       |
+| **CryptoJobsList**   | RSS feed               | Global (crypto/Web3)        |
+| **Jobspresso**       | RSS feed (WordPress)   | Global (remote, curated)    |
+| **HigherEdJobs**     | RSS feed               | US (higher education)       |
+| **FOSS Jobs**        | RSS feed               | Global (open source)        |
+| **LaraJobs**         | RSS feed               | Global (Laravel/PHP)        |
+| **Python.org Jobs**  | RSS feed               | Global (Python)             |
+| **Drupal Jobs**      | RSS feed               | Global (Drupal/CMS)         |
+| **Real Work From Anywhere** | RSS feed        | Global (remote)             |
+| **Golang Projects**  | RSS feed               | Global (Go/Golang)          |
+| **WordPress Jobs**   | RSS feed               | Global (WordPress)          |
+| **Talroo**           | REST API (publisher)   | Global (millions of jobs)   |
+| **InfoJobs**         | REST API (Basic Auth)  | Spain / Italy               |
+| **JobTech Dev**      | REST API (API key)     | Sweden (50-80K jobs)        |
+| **France Travail**   | REST API (OAuth2)      | France (800K+ jobs)         |
+| **NAV Arbeidsplassen** | JSON Feed (Bearer)   | Norway                      |
+| **jobs.ac.uk**       | RSS feed               | UK (academic/education)     |
+| **Jobindex**         | RSS feed               | Denmark                     |
+| **Get on Board**     | REST API (public)      | Latin America (tech)        |
+| **Freelancer.com**   | REST API (public)      | Global (freelance/gig)      |
+| **JoinRise**         | REST API (public)      | Global (tech startups)      |
+| **Canada Job Bank**  | CKAN Open Data API     | Canada (government)         |
+| **ReliefWeb**        | REST API (JSON)        | Global (NGO/humanitarian)   |
+| **UNDP Jobs**        | RSS 1.0 feed           | Global (UN/international)   |
+| **DevITjobs**        | XML feed               | Europe (IT/dev, salary data)|
+| **PyJobs**           | RSS feed               | Global (Python developer)   |
+| **VueJobs**          | RSS feed               | Global (Vue.js/frontend)    |
+| **Conservation Jobs**| RSS feed               | Global (environmental)      |
+| **Coroflot**         | RSS feed               | Global (design/creative)    |
+| **Berlin Startup Jobs**| RSS feed (WordPress) | Germany (Berlin startups)   |
+| **Rails Job Board**  | RSS feed               | Global (Ruby/Rails)         |
+| **Elixir Jobs**      | RSS feed               | Global (Elixir/Phoenix)     |
+| **Crunchboard**      | RSS feed               | Global (TechCrunch)         |
+| **Cryptocurrency Jobs** | RSS feed (Atom)     | Global (blockchain/Web3)    |
+| **HasJob**           | Atom feed              | India/South Asia (tech)     |
+| **iCrunchData**      | RSS feed               | US (data science/analytics) |
+| **SwissDevJobs**     | RSS feed               | Switzerland (tech, salary)  |
+| **GermanTechJobs**   | RSS feed               | Germany (tech, salary)      |
+| **VirtualVocations** | RSS feed               | Global (remote/WFH)         |
+| **NoFluffJobs**      | JSON API               | Poland/CEE (tech, salary)   |
+| **Green Jobs Board** | RSS                    | Global (environmental)      |
+| **EuroJobs**         | RSS                    | Europe (multi-country)      |
+| **Open Source Design**| RSS                   | Global (open source design) |
+| **Academic Careers** | RSS                    | US (higher education)       |
+| **RemoteFirstJobs**  | RSS                    | Global (remote-first)       |
+| **Djinni**           | RSS feed               | Ukraine (tech)              |
+| **HeadHunter**       | REST API (JSON)        | Russia/CIS (140K+ jobs)     |
+| **Habr Career**      | REST API (JSON)        | Russia (tech community)     |
+| **MyCareersFuture**  | REST API (JSON)        | Singapore (government)      |
+| **Duunitori**        | REST API (JSON)        | Finland                     |
+| **Jobs in Japan**    | RSS feed               | Japan (English tech jobs)   |
+| **Jobs.ch**          | REST API (JSON)        | Switzerland                 |
+| **Guardian Jobs**    | RSS feed               | UK (The Guardian)           |
+| **AndroidJobs**      | RSS feed               | Android developer jobs      |
+| **iOS Dev Jobs**     | RSS feed               | iOS/Swift developer jobs    |
+| **DevOpsJobs**       | RSS feed               | Global (DevOps/infra)       |
+| **Functional Works** | GraphQL API            | Global (Haskell/Scala/FP)   |
+| **PowerToFly**       | JSON API               | Global (diversity-focused)  |
+| **Clojure Jobs**     | RSS feed               | Global (Clojure/ClojureScript) |
+| **EcoJobs**          | RSS feed               | Global (environmental/conservation) |
+| **TechCareers**      | RSS feed               | United States (tech)        |
+| **JobsDB**           | JSON API               | Asia-Pacific (SG, HK, TH, ID, PH, MY) |
+| **Sercanto**         | RSS feed               | Europe (multi-country)      |
 
-### ATS Job Boards (30)
+### ATS Job Boards (35)
 
 ATS scrapers require a `companySlug` to target a specific company's job board. Ever Jobs integrates directly with each ATS platform's structured API, detecting new postings at the source — often hours before they appear on aggregated job boards like LinkedIn or Indeed.
 
@@ -96,6 +163,11 @@ ATS scrapers require a `companySlug` to target a specific company's job board. E
 | **Phenom**             | Phenom People      | REST API                  | 900+ enterprises (Boeing, Hilton, Nestle, Verizon)           |
 | **Jobylon**            | Jobylon            | JSON Feed                 | Hundreds of Nordic companies                                 |
 | **Homerun**            | Homerun            | REST API (Bearer)         | Thousands of European SMBs                                   |
+| **JobScore**           | JobScore           | JSON Feed (public)        | Thousands of companies                                       |
+| **TalentLyft**         | TalentLyft         | REST API (Bearer)         | European companies                                           |
+| **Crelate**            | Crelate            | REST API (API Key)        | Recruiting firms                                             |
+| **iSmartRecruit**      | iSmartRecruit      | REST API (API Key)        | Global ATS                                                   |
+| **Recruiterflow**      | Recruiterflow      | REST API (API Key)        | Recruiting agencies                                          |
 
 ### Company-Specific Scrapers (15)
 
@@ -123,7 +195,7 @@ Direct integrations with major tech companies' career APIs.
 
 ## ✨ Features
 
-- 🔍 **Multi-source aggregation** — Search 1 or all 94+ sources concurrently
+- 🔍 **Multi-source aggregation** — Search 1 or all 166+ sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
 - 🤖 **MCP server** — [Model Context Protocol](https://modelcontextprotocol.io/) server for ChatGPT, Claude, and Copilot
 - 🌐 **Country-aware** — Indeed & Glassdoor support 65+ countries with automatic domain resolution
@@ -196,7 +268,7 @@ cd apps/mcp && npm start
 
 | Tool                  | Description                      |
 | --------------------- | -------------------------------- |
-| `search_jobs`         | Search 94+ sources with filters  |
+| `search_jobs`         | Search 166+ sources with filters  |
 | `get_job_details`     | Get full job descriptions        |
 | `list_sources`        | Browse sources by type           |
 | `search_remote_jobs`  | Convenience tool for remote jobs |
@@ -391,7 +463,7 @@ All parameters are optional. When `siteType` is omitted, search + company scrape
 
 | Parameter                  | Type       | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | -------------------------- | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`, `builtin`, `snagajob`, `dribbble`, `themuse`, `workingnomads`, `fourdayweek`, `startupjobs`, `nodesk`, `web3career`, `echojobs`, `jobstreet`, `careeronestop`, `arbeitsagentur`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`, `jobvite`, `adp`, `ukg`, `breezyhr`, `comeet`, `pinpoint`, `manatal`, `paylocity`, `freshteam`, `bullhorn`, `trakstar`, `hiringthing`, `loxo`, `fountain`, `deel`, `phenom`, `jobylon`, `homerun`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor`, `google_careers`, `meta`, `netflix`, `stripe`, `openai`, `ibm`, `boeing`, `zoom` |
+| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`, `builtin`, `snagajob`, `dribbble`, `themuse`, `workingnomads`, `fourdayweek`, `startupjobs`, `nodesk`, `web3career`, `echojobs`, `jobstreet`, `careeronestop`, `arbeitsagentur`, `hackernews`, `landingjobs`, `findwork`, `jobdataapi`, `authenticjobs`, `cryptojobslist`, `jobspresso`, `higheredjobs`, `fossjobs`, `larajobs`, `pythonjobs`, `drupaljobs`, `realworkfromanywhere`, `golangjobs`, `wordpressjobs`, `talroo`, `infojobs`, `jobtechdev`, `francetravail`, `navjobs`, `jobsacuk`, `jobindex`, `getonboard`, `freelancercom`, `joinrise`, `canadajobbank`, `reliefweb`, `undpjobs`, `devitjobs`, `pyjobs`, `vuejobs`, `conservationjobs`, `coroflot`, `berlinstartupjobs`, `railsjobs`, `elixirjobs`, `crunchboard`, `cryptocurrencyjobs`, `hasjob`, `icrunchdata`, `swissdevjobs`, `germantechjobs`, `virtualvocations`, `nofluffjobs`, `greenjobsboard`, `eurojobs`, `opensourcedesignjobs`, `academiccareers`, `remotefirstjobs`, `djinni`, `headhunter`, `habrcareer`, `mycareersfuture`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`, `jobvite`, `adp`, `ukg`, `breezyhr`, `comeet`, `pinpoint`, `manatal`, `paylocity`, `freshteam`, `bullhorn`, `trakstar`, `hiringthing`, `loxo`, `fountain`, `deel`, `phenom`, `jobylon`, `homerun`, `jobscore`, `talentlyft`, `crelate`, `ismartrecruit`, `recruiterflow`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor`, `google_careers`, `meta`, `netflix`, `stripe`, `openai`, `ibm`, `boeing`, `zoom` |
 | `companySlug`              | `string`   | —          | Company identifier for ATS scrapers (e.g. `stripe`, `notion`). When set without `siteType`, only ATS scrapers run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `searchTerm`               | `string`   | —          | Job search keywords                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `googleSearchTerm`         | `string`   | —          | Google-specific search query override                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |

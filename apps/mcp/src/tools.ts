@@ -2,7 +2,7 @@
  * Ever Jobs MCP Server — Tool implementations
  *
  * These functions connect to the Ever Jobs REST API (or can be used standalone)
- * to search for jobs across 94+ sources.
+ * to search for jobs across 166+ sources.
  */
 
 import axios, { AxiosInstance } from 'axios';
@@ -186,6 +186,91 @@ const SOURCES: SourceInfo[] = [
   { name: 'Arbeitsagentur', id: 'arbeitsagentur', type: 'job_board', requires_company_slug: false, description: 'German Federal Employment Agency' },
   { name: 'Jobylon', id: 'jobylon', type: 'ats', requires_company_slug: true, description: 'Scandinavian ATS (Nordic companies)' },
   { name: 'Homerun', id: 'homerun', type: 'ats', requires_company_slug: true, description: 'European SMB ATS' },
+  // Phase 11: Niche boards & developer API expansion
+  { name: 'Hacker News', id: 'hackernews', type: 'job_board', requires_company_slug: false, description: 'YC startup job postings via HN' },
+  { name: 'Landing.jobs', id: 'landingjobs', type: 'job_board', requires_company_slug: false, description: 'European tech jobs with salary data' },
+  { name: 'FindWork', id: 'findwork', type: 'aggregator', requires_company_slug: false, description: 'Developer/tech jobs aggregator' },
+  { name: 'JobDataAPI', id: 'jobdataapi', type: 'aggregator', requires_company_slug: false, description: 'Global jobs aggregator API' },
+  // Phase 12: ATS & niche board expansion
+  { name: 'Authentic Jobs', id: 'authenticjobs', type: 'job_board', requires_company_slug: false, description: 'Creative/dev job board' },
+  { name: 'JobScore', id: 'jobscore', type: 'ats', requires_company_slug: true, description: 'JobScore ATS (public JSON feed)' },
+  { name: 'TalentLyft', id: 'talentlyft', type: 'ats', requires_company_slug: true, description: 'TalentLyft ATS (European)' },
+  // Phase 13: RSS niche board expansion
+  { name: 'CryptoJobsList', id: 'cryptojobslist', type: 'job_board', requires_company_slug: false, description: 'Crypto, blockchain & Web3 jobs' },
+  { name: 'Jobspresso', id: 'jobspresso', type: 'remote', requires_company_slug: false, description: 'Curated remote jobs' },
+  { name: 'HigherEdJobs', id: 'higheredjobs', type: 'job_board', requires_company_slug: false, description: 'Higher education jobs' },
+  { name: 'FOSS Jobs', id: 'fossjobs', type: 'job_board', requires_company_slug: false, description: 'Free & open source software jobs' },
+  { name: 'LaraJobs', id: 'larajobs', type: 'job_board', requires_company_slug: false, description: 'Laravel/PHP jobs' },
+  { name: 'Python.org Jobs', id: 'pythonjobs', type: 'job_board', requires_company_slug: false, description: 'Official Python job board' },
+  { name: 'Drupal Jobs', id: 'drupaljobs', type: 'job_board', requires_company_slug: false, description: 'Drupal community jobs' },
+  { name: 'Real Work From Anywhere', id: 'realworkfromanywhere', type: 'remote', requires_company_slug: false, description: 'Remote jobs with category feeds' },
+  { name: 'Golang Projects', id: 'golangjobs', type: 'job_board', requires_company_slug: false, description: 'Go/Golang jobs' },
+  { name: 'WordPress Jobs', id: 'wordpressjobs', type: 'job_board', requires_company_slug: false, description: 'Official WordPress job board' },
+  // Phase 14: API-key sources & ATS expansion
+  { name: 'Talroo', id: 'talroo', type: 'aggregator', requires_company_slug: false, description: 'Major job aggregator (millions of jobs)' },
+  { name: 'InfoJobs', id: 'infojobs', type: 'job_board', requires_company_slug: false, description: 'Largest job site in Spain/Southern Europe' },
+  { name: 'Crelate', id: 'crelate', type: 'ats', requires_company_slug: true, description: 'Crelate ATS (recruiting firms)' },
+  { name: 'iSmartRecruit', id: 'ismartrecruit', type: 'ats', requires_company_slug: true, description: 'iSmartRecruit ATS' },
+  { name: 'Recruiterflow', id: 'recruiterflow', type: 'ats', requires_company_slug: true, description: 'Recruiterflow ATS' },
+  // Phase 15: European government & regional boards
+  { name: 'JobTech Dev', id: 'jobtechdev', type: 'job_board', requires_company_slug: false, description: 'Swedish Employment Service (50-80K jobs)' },
+  { name: 'France Travail', id: 'francetravail', type: 'job_board', requires_company_slug: false, description: 'French National Employment Service (800K+ jobs)' },
+  { name: 'NAV Arbeidsplassen', id: 'navjobs', type: 'job_board', requires_company_slug: false, description: 'Norwegian Labour and Welfare Administration' },
+  { name: 'jobs.ac.uk', id: 'jobsacuk', type: 'job_board', requires_company_slug: false, description: 'UK academic/higher education jobs' },
+  { name: 'Jobindex', id: 'jobindex', type: 'job_board', requires_company_slug: false, description: "Denmark's largest job board" },
+  // Phase 16: Global expansion (LatAm, gig, startup, Canada)
+  { name: 'Get on Board', id: 'getonboard', type: 'job_board', requires_company_slug: false, description: 'Latin American tech job board (6K+ jobs)' },
+  { name: 'Freelancer.com', id: 'freelancercom', type: 'job_board', requires_company_slug: false, description: 'Freelance/gig marketplace (8K+ projects)' },
+  { name: 'JoinRise', id: 'joinrise', type: 'job_board', requires_company_slug: false, description: 'Tech startup job aggregator (10K+ jobs)' },
+  { name: 'Canada Job Bank', id: 'canadajobbank', type: 'job_board', requires_company_slug: false, description: 'Canadian government job bank (51K+ jobs)' },
+  // Phase 17: Niche & international expansion (NGO, UN, IT)
+  { name: 'ReliefWeb', id: 'reliefweb', type: 'job_board', requires_company_slug: false, description: 'NGO/humanitarian jobs across 195+ countries' },
+  { name: 'UNDP Jobs', id: 'undpjobs', type: 'job_board', requires_company_slug: false, description: 'United Nations Development Programme jobs' },
+  { name: 'DevITjobs', id: 'devitjobs', type: 'job_board', requires_company_slug: false, description: 'IT/developer jobs with salary transparency' },
+  // Phase 18: Niche RSS expansion (tech, design, environment, regional)
+  { name: 'PyJobs', id: 'pyjobs', type: 'job_board', requires_company_slug: false, description: 'Python developer job board' },
+  { name: 'VueJobs', id: 'vuejobs', type: 'job_board', requires_company_slug: false, description: 'Vue.js/frontend developer jobs' },
+  { name: 'Conservation Job Board', id: 'conservationjobs', type: 'job_board', requires_company_slug: false, description: 'Conservation/environmental sector jobs' },
+  { name: 'Coroflot', id: 'coroflot', type: 'job_board', requires_company_slug: false, description: 'Design/creative industry job board' },
+  { name: 'Berlin Startup Jobs', id: 'berlinstartupjobs', type: 'job_board', requires_company_slug: false, description: 'Berlin tech startup jobs' },
+  // Phase 19: Tech niche, crypto, regional expansion
+  { name: 'Rails Job Board', id: 'railsjobs', type: 'job_board', requires_company_slug: false, description: 'Ruby on Rails developer jobs' },
+  { name: 'Elixir Jobs', id: 'elixirjobs', type: 'job_board', requires_company_slug: false, description: 'Elixir/Phoenix developer jobs' },
+  { name: 'Crunchboard', id: 'crunchboard', type: 'job_board', requires_company_slug: false, description: 'TechCrunch job board' },
+  { name: 'Cryptocurrency Jobs', id: 'cryptocurrencyjobs', type: 'job_board', requires_company_slug: false, description: 'Blockchain/Web3/crypto jobs' },
+  { name: 'HasJob', id: 'hasjob', type: 'job_board', requires_company_slug: false, description: 'India/South Asia tech job board' },
+  // Phase 20: European regional & niche expansion
+  { name: 'iCrunchData', id: 'icrunchdata', type: 'job_board', requires_company_slug: false, description: 'Data science & analytics jobs' },
+  { name: 'SwissDevJobs', id: 'swissdevjobs', type: 'job_board', requires_company_slug: false, description: 'Swiss IT jobs with salary transparency' },
+  { name: 'GermanTechJobs', id: 'germantechjobs', type: 'job_board', requires_company_slug: false, description: 'German IT jobs with salary transparency' },
+  { name: 'VirtualVocations', id: 'virtualvocations', type: 'remote', requires_company_slug: false, description: 'Screened remote/work-from-home jobs' },
+  { name: 'NoFluffJobs', id: 'nofluffjobs', type: 'job_board', requires_company_slug: false, description: 'Polish/CEE tech jobs with salary transparency' },
+  // Phase 21: Niche & academic expansion
+  { name: 'Green Jobs Board', id: 'greenjobsboard', type: 'job_board', requires_company_slug: false, description: 'Environmental & sustainability jobs' },
+  { name: 'EuroJobs', id: 'eurojobs', type: 'job_board', requires_company_slug: false, description: 'European multi-country job board' },
+  { name: 'Open Source Design Jobs', id: 'opensourcedesignjobs', type: 'job_board', requires_company_slug: false, description: 'Design jobs for open source projects' },
+  { name: 'Academic Careers', id: 'academiccareers', type: 'job_board', requires_company_slug: false, description: 'Higher education & academic positions' },
+  { name: 'RemoteFirstJobs', id: 'remotefirstjobs', type: 'remote', requires_company_slug: false, description: 'Remote-first job listings' },
+  // Phase 22: Eastern European, CIS & Singapore expansion
+  { name: 'Djinni', id: 'djinni', type: 'job_board', requires_company_slug: false, description: 'Ukrainian tech job board' },
+  { name: 'HeadHunter', id: 'headhunter', type: 'job_board', requires_company_slug: false, description: 'Russian/CIS job board (140K+ vacancies)' },
+  { name: 'Habr Career', id: 'habrcareer', type: 'job_board', requires_company_slug: false, description: 'Russian tech job board (Habr community)' },
+  { name: 'MyCareersFuture', id: 'mycareersfuture', type: 'job_board', requires_company_slug: false, description: 'Singapore government job portal (77K+ jobs)' },
+  // Phase 23: Japan, Nordic & Swiss expansion
+  { name: 'Jobs in Japan', id: 'jobsinjapan', type: 'job_board', requires_company_slug: false, description: 'English-language Japan tech jobs' },
+  { name: 'Duunitori', id: 'duunitori', type: 'job_board', requires_company_slug: false, description: 'Finnish job board' },
+  { name: 'Jobs.ch', id: 'jobsch', type: 'job_board', requires_company_slug: false, description: 'Swiss job board' },
+  // Phase 24: UK & mobile dev expansion
+  { name: 'Guardian Jobs', id: 'guardianjobs', type: 'job_board', requires_company_slug: false, description: 'UK job board (The Guardian newspaper)' },
+  { name: 'AndroidJobs', id: 'androidjobs', type: 'job_board', requires_company_slug: false, description: 'Android developer job board' },
+  { name: 'iOS Dev Jobs', id: 'iosdevjobs', type: 'job_board', requires_company_slug: false, description: 'iOS/Swift developer job board' },
+  // Phase 25: DevOps, FP, diversity & niche expansion
+  { name: 'DevOpsJobs', id: 'devopsjobs', type: 'job_board', requires_company_slug: false, description: 'DevOps & infrastructure job board (875+ jobs)' },
+  { name: 'Functional Works', id: 'functionalworks', type: 'job_board', requires_company_slug: false, description: 'Functional programming job board (Haskell, Scala, Clojure, Erlang)' },
+  { name: 'PowerToFly', id: 'powertofly', type: 'job_board', requires_company_slug: false, description: 'Diversity-focused remote job board' },
+  { name: 'Clojure Jobs', id: 'clojurejobs', type: 'job_board', requires_company_slug: false, description: 'Clojure programming language job board' },
+  // Phase 26: Sustainability & niche expansion
+  { name: 'EcoJobs', id: 'ecojobs', type: 'job_board', requires_company_slug: false, description: 'Environmental and conservation job board' },
 ];
 
 // ── Tool Implementations ───────────────────────────────────────────────
