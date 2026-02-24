@@ -2,7 +2,7 @@
  * Ever Jobs MCP Server — Tool implementations
  *
  * These functions connect to the Ever Jobs REST API (or can be used standalone)
- * to search for jobs across 65+ sources.
+ * to search for jobs across 94+ sources.
  */
 
 import axios, { AxiosInstance } from 'axios';
@@ -153,6 +153,39 @@ const SOURCES: SourceInfo[] = [
   { name: 'BuiltIn', id: 'builtin', type: 'job_board', requires_company_slug: false, description: 'Tech-focused job board for startups and tech companies' },
   { name: 'Snagajob', id: 'snagajob', type: 'job_board', requires_company_slug: false, description: 'Hourly and part-time job board' },
   { name: 'Dribbble Jobs', id: 'dribbble', type: 'job_board', requires_company_slug: false, description: 'Design-focused job board' },
+
+  // Phase 8: ATS Expansion
+  { name: 'Manatal', id: 'manatal', type: 'ats', requires_company_slug: true, description: 'ATS for 160K+ orgs (Asia-Pacific, global SMB)' },
+  { name: 'Paylocity', id: 'paylocity', type: 'ats', requires_company_slug: true, description: 'US mid-market ATS (30K+ companies)' },
+  { name: 'Freshteam', id: 'freshteam', type: 'ats', requires_company_slug: true, description: 'Freshworks HR platform with ATS' },
+  { name: 'Bullhorn', id: 'bullhorn', type: 'ats', requires_company_slug: true, description: '#1 ATS for staffing agencies (10K+)' },
+  { name: 'Trakstar Hire', id: 'trakstar', type: 'ats', requires_company_slug: true, description: 'Formerly RecruiterBox ATS' },
+  { name: 'HiringThing', id: 'hiringthing', type: 'ats', requires_company_slug: true, description: 'White-label ATS platform' },
+  { name: 'Loxo', id: 'loxo', type: 'ats', requires_company_slug: true, description: 'AI-powered recruiting platform' },
+  { name: 'Fountain', id: 'fountain', type: 'ats', requires_company_slug: true, description: 'High-volume hourly hiring ATS' },
+  { name: 'Deel', id: 'deel', type: 'ats', requires_company_slug: true, description: 'Global hiring/EOR platform with ATS' },
+  { name: 'Phenom', id: 'phenom', type: 'ats', requires_company_slug: true, description: 'Enterprise talent experience platform (900+ enterprises)' },
+
+  // Phase 8: Company Scrapers
+  { name: 'IBM', id: 'ibm', type: 'company', requires_company_slug: false, description: 'IBM Careers' },
+  { name: 'Boeing', id: 'boeing', type: 'company', requires_company_slug: false, description: 'Boeing careers (Phenom-powered)' },
+  { name: 'Zoom', id: 'zoom', type: 'company', requires_company_slug: false, description: 'Zoom Video careers (Eightfold)' },
+
+  // Phase 9: Job Board Expansion
+  { name: 'The Muse', id: 'themuse', type: 'job_board', requires_company_slug: false, description: 'Career advice and curated job listings' },
+  { name: 'Working Nomads', id: 'workingnomads', type: 'remote', requires_company_slug: false, description: 'Curated remote jobs worldwide' },
+  { name: '4 Day Week', id: 'fourdayweek', type: 'job_board', requires_company_slug: false, description: '4-day work week job listings' },
+  { name: 'Startup.jobs', id: 'startupjobs', type: 'job_board', requires_company_slug: false, description: 'Startup jobs worldwide' },
+  { name: 'NoDesk', id: 'nodesk', type: 'remote', requires_company_slug: false, description: 'Remote and flexible jobs' },
+  { name: 'Web3 Career', id: 'web3career', type: 'job_board', requires_company_slug: false, description: 'Web3/crypto/blockchain jobs' },
+  { name: 'Echojobs', id: 'echojobs', type: 'job_board', requires_company_slug: false, description: 'Curated tech jobs from top companies' },
+  { name: 'Jobstreet', id: 'jobstreet', type: 'job_board', requires_company_slug: false, description: 'Major Southeast Asian job board (SEEK)' },
+
+  // Phase 10: Government Boards & ATS Expansion
+  { name: 'CareerOneStop', id: 'careeronestop', type: 'job_board', requires_company_slug: false, description: 'US Dept of Labor job search (NLx)' },
+  { name: 'Arbeitsagentur', id: 'arbeitsagentur', type: 'job_board', requires_company_slug: false, description: 'German Federal Employment Agency' },
+  { name: 'Jobylon', id: 'jobylon', type: 'ats', requires_company_slug: true, description: 'Scandinavian ATS (Nordic companies)' },
+  { name: 'Homerun', id: 'homerun', type: 'ats', requires_company_slug: true, description: 'European SMB ATS' },
 ];
 
 // ── Tool Implementations ───────────────────────────────────────────────

@@ -9,9 +9,9 @@
 
 ## ⭐️ Overview
 
-**Ever® Jobs™** searches job postings from **65+ sources** concurrently and returns aggregated, normalized results through a single REST API, **CLI**, or **MCP server** for AI assistants. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
+**Ever® Jobs™** searches job postings from **94+ sources** concurrently and returns aggregated, normalized results through a single REST API, **CLI**, or **MCP server** for AI assistants. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
-### Search-Based Job Boards (31)
+### Search-Based Job Boards (41)
 
 | Source               | Method                 | Region                      |
 | -------------------- | ---------------------- | --------------------------- |
@@ -46,8 +46,18 @@
 | **BuiltIn**          | `__NEXT_DATA__` JSON   | US (tech startups)          |
 | **Snagajob**         | Search API             | US (hourly/part-time)       |
 | **Dribbble Jobs**    | JSON API + HTML        | Global (design)             |
+| **The Muse**         | REST API (JSON)        | Global (career advice)      |
+| **Working Nomads**   | REST API (JSON)        | Global (remote)             |
+| **4 Day Week**       | REST API (JSON)        | Global (4-day work week)    |
+| **Startup.jobs**     | REST API (JSON)        | Global (startups)           |
+| **NoDesk**           | REST API (JSON)        | Global (remote/flexible)    |
+| **Web3 Career**      | REST API (JSON)        | Global (Web3/crypto)        |
+| **Echojobs**         | REST API (JSON)        | Global (curated tech)       |
+| **Jobstreet**        | REST API (JSON)        | Southeast Asia (SEEK)       |
+| **CareerOneStop**    | REST API (Bearer)      | US (DOL/NLx)                |
+| **Arbeitsagentur**   | REST API (API key)     | Germany                     |
 
-### ATS Job Boards (18)
+### ATS Job Boards (30)
 
 ATS scrapers require a `companySlug` to target a specific company's job board. Ever Jobs integrates directly with each ATS platform's structured API, detecting new postings at the source — often hours before they appear on aggregated job boards like LinkedIn or Indeed.
 
@@ -71,8 +81,23 @@ ATS scrapers require a `companySlug` to target a specific company's job board. E
 | **BambooHR**           | BambooHR           | REST API (JSON)           |                                                              |
 | **Personio**           | Personio           | XML feed                  |                                                              |
 | **JazzHR**             | JazzHR             | HTML scraping             |                                                              |
+| **Breezy HR**          | Breezy HR          | REST API                  |                                                              |
+| **Comeet**             | Comeet             | REST API                  |                                                              |
+| **Pinpoint**           | Pinpoint           | REST API                  |                                                              |
+| **Manatal**            | Manatal            | REST API                  | 160K+ organizations (Asia-Pacific, global SMB)               |
+| **Paylocity**          | Paylocity          | REST API (GUID)           | 30K+ US mid-market companies                                 |
+| **Freshteam**          | Freshworks         | REST API (Bearer)         | 1K-5K companies globally                                     |
+| **Bullhorn**           | Bullhorn           | REST API (Corp Token)     | 10K+ staffing agencies (#1 staffing ATS)                     |
+| **Trakstar Hire**      | Trakstar           | REST API (Basic Auth)     | 5K+ companies (formerly RecruiterBox)                        |
+| **HiringThing**        | HiringThing        | REST API (Basic Auth)     | 500+ companies (white-label ATS)                             |
+| **Loxo**               | Loxo               | REST API                  | 1K-3K recruiting firms                                       |
+| **Fountain**           | Fountain           | REST API (Bearer)         | 300+ enterprises (high-volume hourly hiring)                 |
+| **Deel**               | Deel               | REST API (Bearer)         | 35K+ customers (global hiring/EOR platform)                  |
+| **Phenom**             | Phenom People      | REST API                  | 900+ enterprises (Boeing, Hilton, Nestle, Verizon)           |
+| **Jobylon**            | Jobylon            | JSON Feed                 | Hundreds of Nordic companies                                 |
+| **Homerun**            | Homerun            | REST API (Bearer)         | Thousands of European SMBs                                   |
 
-### Company-Specific Scrapers (12)
+### Company-Specific Scrapers (15)
 
 Direct integrations with major tech companies' career APIs.
 
@@ -90,12 +115,15 @@ Direct integrations with major tech companies' career APIs.
 | **Netflix**   | `jobs.netflix.com` API            | REST GET         |
 | **Stripe**    | Greenhouse API                    | REST GET         |
 | **OpenAI**    | Ashby API                         | REST POST        |
+| **IBM**       | `careers.ibm.com`                 | `__NEXT_DATA__`  |
+| **Boeing**    | `jobs.boeing.com/api`             | REST GET         |
+| **Zoom**      | Eightfold/PCSX API                | REST GET         |
 
 ---
 
 ## ✨ Features
 
-- 🔍 **Multi-source aggregation** — Search 1 or all 65+ sources concurrently
+- 🔍 **Multi-source aggregation** — Search 1 or all 94+ sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
 - 🤖 **MCP server** — [Model Context Protocol](https://modelcontextprotocol.io/) server for ChatGPT, Claude, and Copilot
 - 🌐 **Country-aware** — Indeed & Glassdoor support 65+ countries with automatic domain resolution
@@ -168,7 +196,7 @@ cd apps/mcp && npm start
 
 | Tool                  | Description                      |
 | --------------------- | -------------------------------- |
-| `search_jobs`         | Search 65+ sources with filters  |
+| `search_jobs`         | Search 94+ sources with filters  |
 | `get_job_details`     | Get full job descriptions        |
 | `list_sources`        | Browse sources by type           |
 | `search_remote_jobs`  | Convenience tool for remote jobs |
@@ -363,7 +391,7 @@ All parameters are optional. When `siteType` is omitted, search + company scrape
 
 | Parameter                  | Type       | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | -------------------------- | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`, `jobvite`, `adp`, `ukg`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor` |
+| `siteType`                 | `string[]` | all        | Sites to search. **Search**: `linkedin`, `indeed`, `zip_recruiter`, `glassdoor`, `google`, `bayt`, `naukri`, `bdjobs`, `internshala`, `exa`, `upwork`, `remoteok`, `remotive`, `jobicy`, `himalayas`, `arbeitnow`, `weworkremotely`, `usajobs`, `adzuna`, `reed`, `jooble`, `careerjet`, `dice`, `simplyhired`, `wellfound`, `stepstone`, `monster`, `careerbuilder`, `builtin`, `snagajob`, `dribbble`, `themuse`, `workingnomads`, `fourdayweek`, `startupjobs`, `nodesk`, `web3career`, `echojobs`, `jobstreet`, `careeronestop`, `arbeitsagentur`. **ATS**: `ashby`, `greenhouse`, `lever`, `workable`, `smartrecruiters`, `rippling`, `workday`, `recruitee`, `teamtailor`, `bamboohr`, `personio`, `jazzhr`, `icims`, `taleo`, `successfactors`, `jobvite`, `adp`, `ukg`, `breezyhr`, `comeet`, `pinpoint`, `manatal`, `paylocity`, `freshteam`, `bullhorn`, `trakstar`, `hiringthing`, `loxo`, `fountain`, `deel`, `phenom`, `jobylon`, `homerun`. **Company**: `amazon`, `apple`, `microsoft`, `nvidia`, `tiktok`, `uber`, `cursor`, `google_careers`, `meta`, `netflix`, `stripe`, `openai`, `ibm`, `boeing`, `zoom` |
 | `companySlug`              | `string`   | —          | Company identifier for ATS scrapers (e.g. `stripe`, `notion`). When set without `siteType`, only ATS scrapers run                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `searchTerm`               | `string`   | —          | Job search keywords                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `googleSearchTerm`         | `string`   | —          | Google-specific search query override                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -477,9 +505,9 @@ ever-jobs/
 │   ├── models/                       @ever-jobs/models
 │   ├── common/                       @ever-jobs/common (HttpClient, converters, utils)
 │   ├── analytics/                    @ever-jobs/analytics
-│   ├── source-*/                     Search source modules (×31)
-│   ├── source-ats-*/                 ATS source modules (×18)
-│   └── source-company-*/             Company-specific source modules (×12)
+│   ├── source-*/                     Search source modules (×41)
+│   ├── source-ats-*/                 ATS source modules (×30)
+│   └── source-company-*/             Company-specific source modules (×15)
 │
 ├── .github/
 │   ├── workflows/ci.yml              CI pipeline (build, type-check, Docker)

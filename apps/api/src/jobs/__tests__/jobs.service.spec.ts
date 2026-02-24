@@ -109,6 +109,20 @@ jest.mock('@ever-jobs/source-ats-phenom', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-company-ibm', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-company-boeing', () => mockSourceFactory());
 jest.mock('@ever-jobs/source-company-zoom', () => mockSourceFactory());
+// Phase 9: Job board expansion
+jest.mock('@ever-jobs/source-themuse', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-workingnomads', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-4dayweek', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-startupjobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-nodesk', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-web3career', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-echojobs', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-jobstreet', () => mockSourceFactory());
+// Phase 10: Government boards & ATS expansion
+jest.mock('@ever-jobs/source-careeronestop', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-arbeitsagentur', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-jobylon', () => mockSourceFactory());
+jest.mock('@ever-jobs/source-ats-homerun', () => mockSourceFactory());
 
 import { JobsService } from '../jobs.service';
 

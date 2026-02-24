@@ -63,6 +63,34 @@ import { PinpointModule } from '@ever-jobs/source-ats-pinpoint';
 import { BuiltInModule } from '@ever-jobs/source-builtin';
 import { SnagajobModule } from '@ever-jobs/source-snagajob';
 import { DribbbleModule } from '@ever-jobs/source-dribbble';
+// Phase 8: ATS Expansion
+import { ManatalModule } from '@ever-jobs/source-ats-manatal';
+import { PaylocityModule } from '@ever-jobs/source-ats-paylocity';
+import { FreshteamModule } from '@ever-jobs/source-ats-freshteam';
+import { BullhornModule } from '@ever-jobs/source-ats-bullhorn';
+import { TrakstarModule } from '@ever-jobs/source-ats-trakstar';
+import { HiringThingModule } from '@ever-jobs/source-ats-hiringthing';
+import { LoxoModule } from '@ever-jobs/source-ats-loxo';
+import { FountainModule } from '@ever-jobs/source-ats-fountain';
+import { DeelModule } from '@ever-jobs/source-ats-deel';
+import { PhenomModule } from '@ever-jobs/source-ats-phenom';
+import { IbmModule } from '@ever-jobs/source-company-ibm';
+import { BoeingModule } from '@ever-jobs/source-company-boeing';
+import { ZoomModule } from '@ever-jobs/source-company-zoom';
+// Phase 9: Job board expansion
+import { TheMuseModule } from '@ever-jobs/source-themuse';
+import { WorkingNomadsModule } from '@ever-jobs/source-workingnomads';
+import { FourDayWeekModule } from '@ever-jobs/source-4dayweek';
+import { StartupJobsModule } from '@ever-jobs/source-startupjobs';
+import { NoDeskModule } from '@ever-jobs/source-nodesk';
+import { Web3CareerModule } from '@ever-jobs/source-web3career';
+import { EchoJobsModule } from '@ever-jobs/source-echojobs';
+import { JobstreetModule } from '@ever-jobs/source-jobstreet';
+// Phase 10: Government boards & ATS expansion
+import { CareerOneStopModule } from '@ever-jobs/source-careeronestop';
+import { ArbeitsagenturModule } from '@ever-jobs/source-arbeitsagentur';
+import { JobylonModule } from '@ever-jobs/source-ats-jobylon';
+import { HomerunModule } from '@ever-jobs/source-ats-homerun';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsService } from '../../api/src/jobs/jobs.service';
 import { SearchCommand } from './commands/search.command';
@@ -147,6 +175,35 @@ import { CompareCommand } from './commands/compare.command';
     BuiltInModule,
     SnagajobModule,
     DribbbleModule,
+    // Phase 8: ATS Expansion
+    ManatalModule,
+    PaylocityModule,
+    FreshteamModule,
+    BullhornModule,
+    TrakstarModule,
+    HiringThingModule,
+    LoxoModule,
+    FountainModule,
+    DeelModule,
+    PhenomModule,
+    // Phase 8: Company scrapers
+    IbmModule,
+    BoeingModule,
+    ZoomModule,
+    // Phase 9: Job board expansion
+    TheMuseModule,
+    WorkingNomadsModule,
+    FourDayWeekModule,
+    StartupJobsModule,
+    NoDeskModule,
+    Web3CareerModule,
+    EchoJobsModule,
+    JobstreetModule,
+    // Phase 10: Government boards & ATS expansion
+    CareerOneStopModule,
+    ArbeitsagenturModule,
+    JobylonModule,
+    HomerunModule,
     // Analytics
     AnalyticsModule,
   ],

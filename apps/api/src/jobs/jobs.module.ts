@@ -78,6 +78,20 @@ import { PhenomModule } from '@ever-jobs/source-ats-phenom';
 import { IbmModule } from '@ever-jobs/source-company-ibm';
 import { BoeingModule } from '@ever-jobs/source-company-boeing';
 import { ZoomModule } from '@ever-jobs/source-company-zoom';
+// Phase 9: Job board expansion
+import { TheMuseModule } from '@ever-jobs/source-themuse';
+import { WorkingNomadsModule } from '@ever-jobs/source-workingnomads';
+import { FourDayWeekModule } from '@ever-jobs/source-4dayweek';
+import { StartupJobsModule } from '@ever-jobs/source-startupjobs';
+import { NoDeskModule } from '@ever-jobs/source-nodesk';
+import { Web3CareerModule } from '@ever-jobs/source-web3career';
+import { EchoJobsModule } from '@ever-jobs/source-echojobs';
+import { JobstreetModule } from '@ever-jobs/source-jobstreet';
+// Phase 10: Government boards & ATS expansion
+import { CareerOneStopModule } from '@ever-jobs/source-careeronestop';
+import { ArbeitsagenturModule } from '@ever-jobs/source-arbeitsagentur';
+import { JobylonModule } from '@ever-jobs/source-ats-jobylon';
+import { HomerunModule } from '@ever-jobs/source-ats-homerun';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -166,6 +180,20 @@ import { JobsService } from './jobs.service';
     IbmModule,
     BoeingModule,
     ZoomModule,
+    // Phase 9: Job board expansion
+    TheMuseModule,
+    WorkingNomadsModule,
+    FourDayWeekModule,
+    StartupJobsModule,
+    NoDeskModule,
+    Web3CareerModule,
+    EchoJobsModule,
+    JobstreetModule,
+    // Phase 10: Government boards & ATS expansion
+    CareerOneStopModule,
+    ArbeitsagenturModule,
+    JobylonModule,
+    HomerunModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],

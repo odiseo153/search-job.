@@ -1,6 +1,6 @@
 # ATS Integrations
 
-Ever Jobs integrates directly with **18 applicant tracking systems** that power career pages at thousands of companies worldwide. When a recruiter publishes a new role through any supported ATS, Ever Jobs detects the posting at the source — often hours before it appears on aggregated job boards like LinkedIn or Indeed.
+Ever Jobs integrates directly with **28 applicant tracking systems** that power career pages at thousands of companies worldwide. When a recruiter publishes a new role through any supported ATS, Ever Jobs detects the posting at the source — often hours before it appears on aggregated job boards like LinkedIn or Indeed.
 
 ## How ATS Integration Works
 
@@ -24,7 +24,7 @@ curl -X POST http://localhost:3001/api/jobs/search \
   -d '{"companySlug": "notion"}'
 ```
 
-When `companySlug` is provided without an explicit `siteType`, all 18 ATS scrapers run concurrently. Each one independently checks whether the company exists on its platform and returns results accordingly.
+When `companySlug` is provided without an explicit `siteType`, all 28 ATS scrapers run concurrently. Each one independently checks whether the company exists on its platform and returns results accordingly.
 
 ---
 
@@ -167,6 +167,113 @@ Recruiting software for small businesses. JazzHR provides career pages with job 
 
 - **Method**: HTML scraping
 - **Data Format**: HTML with job details, location, department
+
+### Breezy HR
+
+Visual hiring pipeline ATS with a focus on simplicity and employer branding.
+
+- **Method**: REST API
+- **Data Format**: JSON
+
+### Comeet
+
+Collaborative hiring platform that helps teams make data-driven hiring decisions.
+
+- **Method**: REST API
+- **Data Format**: JSON
+
+### Pinpoint
+
+Smart recruiting software with employer branding and analytics.
+
+- **Method**: REST API
+- **Data Format**: JSON
+
+### Manatal
+
+AI-powered ATS serving 160,000+ organizations, particularly strong in Asia-Pacific and global SMB markets. Manatal offers public career page APIs that require no authentication.
+
+- **Method**: REST API (`api.manatal.com/open/v1/career-page/{slug}/jobs/`)
+- **Data Format**: JSON with salary, location, department
+- **Notable Users**: 160K+ organizations globally
+
+### Paylocity
+
+US mid-market HR and payroll platform with integrated recruiting. Career page jobs are accessible via GUID-based public endpoints.
+
+- **Method**: REST API (`recruiting.paylocity.com/recruiting/api/feed/jobs/{guid}`)
+- **Data Format**: JSON
+- **Notable Users**: 30K+ US mid-market companies
+
+### Freshteam
+
+Freshworks' HR platform with applicant tracking. Requires API key authentication for job listing access.
+
+- **Method**: REST API (`{company}.freshteam.com/api/job_postings`)
+- **Auth**: Bearer token (API key)
+- **Data Format**: JSON
+
+### Bullhorn
+
+The #1 ATS for staffing and recruiting agencies. Uses corp token authentication for public job search endpoints.
+
+- **Method**: REST API (`public-rest{cls}.bullhornstaffing.com/rest-services/{token}/search/JobOrder`)
+- **Auth**: Corp Token (static per-company)
+- **Data Format**: JSON
+- **Notable Users**: 10K+ staffing agencies
+
+### Trakstar Hire
+
+Formerly RecruiterBox. Provides API access with basic authentication for job listings.
+
+- **Method**: REST API (`{slug}.hire.trakstar.com/api/v1/openings`)
+- **Auth**: API Key (Basic Auth)
+- **Data Format**: JSON
+- **Notable Users**: 5K+ companies
+
+### HiringThing
+
+White-label ATS platform (also branded as ATS Anywhere). API key required for access.
+
+- **Method**: REST API (`api.hiringthing.com/api/v1/jobs`)
+- **Auth**: API Key (Basic Auth)
+- **Data Format**: JSON
+
+### Loxo
+
+AI-powered recruiting platform with public career board endpoints and optional API token for full access.
+
+- **Method**: REST API (`app.loxo.co/api/{slug}/jobs`)
+- **Auth**: Optional API token (public career board works without)
+- **Data Format**: JSON
+- **Notable Users**: 1K-3K recruiting firms
+
+### Fountain
+
+High-volume hourly hiring ATS used by major enterprises for frontline workforce hiring.
+
+- **Method**: REST API (`api.fountain.com/v2/openings`)
+- **Auth**: Bearer token
+- **Data Format**: JSON
+- **Notable Users**: 300+ enterprises (Uber, Amazon for frontline hiring)
+
+### Deel
+
+Global hiring and EOR (Employer of Record) platform with an integrated ATS module for job posting management.
+
+- **Method**: REST API (`api.letsdeel.com/rest/v2/ats/job-postings/`)
+- **Auth**: Bearer token
+- **Data Format**: JSON
+- **Notable Users**: 35K+ customers globally
+
+### Phenom
+
+Enterprise talent experience platform powering career sites for 900+ large enterprises. Each company has a Phenom-powered career site with REST API access.
+
+- **Method**: REST API (`jobs.{company}.com/api/jobs` — per-company domain)
+- **Auth**: None (public per-company career site)
+- **Data Format**: JSON
+- **Notable Users**: Boeing, Hilton, Nestle, Comcast, Verizon
 
 ---
 

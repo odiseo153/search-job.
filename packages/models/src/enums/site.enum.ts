@@ -81,6 +81,20 @@ export enum Site {
   IBM = 'ibm',
   BOEING = 'boeing',
   ZOOM = 'zoom',
+  // Phase 9: Job board expansion
+  THEMUSE = 'themuse',
+  WORKINGNOMADS = 'workingnomads',
+  FOURDAYWEEK = 'fourdayweek',
+  STARTUPJOBS = 'startupjobs',
+  NODESK = 'nodesk',
+  WEB3CAREER = 'web3career',
+  ECHOJOBS = 'echojobs',
+  JOBSTREET = 'jobstreet',
+  // Phase 10: Government boards & ATS expansion
+  CAREERONESTOP = 'careeronestop',
+  ARBEITSAGENTUR = 'arbeitsagentur',
+  JOBYLON = 'jobylon',
+  HOMERUN = 'homerun',
 }
 
 /**

@@ -99,7 +99,19 @@
       "@ever-jobs/source-ats-phenom": ["packages/source-ats-phenom/src/index.ts"],
       "@ever-jobs/source-company-ibm": ["packages/source-company-ibm/src/index.ts"],
       "@ever-jobs/source-company-boeing": ["packages/source-company-boeing/src/index.ts"],
-      "@ever-jobs/source-company-zoom": ["packages/source-company-zoom/src/index.ts"]
+      "@ever-jobs/source-company-zoom": ["packages/source-company-zoom/src/index.ts"],
+      "@ever-jobs/source-themuse": ["packages/source-themuse/src/index.ts"],
+      "@ever-jobs/source-workingnomads": ["packages/source-workingnomads/src/index.ts"],
+      "@ever-jobs/source-4dayweek": ["packages/source-4dayweek/src/index.ts"],
+      "@ever-jobs/source-startupjobs": ["packages/source-startupjobs/src/index.ts"],
+      "@ever-jobs/source-nodesk": ["packages/source-nodesk/src/index.ts"],
+      "@ever-jobs/source-web3career": ["packages/source-web3career/src/index.ts"],
+      "@ever-jobs/source-echojobs": ["packages/source-echojobs/src/index.ts"],
+      "@ever-jobs/source-jobstreet": ["packages/source-jobstreet/src/index.ts"],
+      "@ever-jobs/source-careeronestop": ["packages/source-careeronestop/src/index.ts"],
+      "@ever-jobs/source-arbeitsagentur": ["packages/source-arbeitsagentur/src/index.ts"],
+      "@ever-jobs/source-ats-jobylon": ["packages/source-ats-jobylon/src/index.ts"],
+      "@ever-jobs/source-ats-homerun": ["packages/source-ats-homerun/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]

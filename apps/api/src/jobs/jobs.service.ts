@@ -83,6 +83,20 @@ import { PhenomService } from '@ever-jobs/source-ats-phenom';
 import { IbmService } from '@ever-jobs/source-company-ibm';
 import { BoeingService } from '@ever-jobs/source-company-boeing';
 import { ZoomService } from '@ever-jobs/source-company-zoom';
+// Phase 9: Job board expansion
+import { TheMuseService } from '@ever-jobs/source-themuse';
+import { WorkingNomadsService } from '@ever-jobs/source-workingnomads';
+import { FourDayWeekService } from '@ever-jobs/source-4dayweek';
+import { StartupJobsService } from '@ever-jobs/source-startupjobs';
+import { NoDeskService } from '@ever-jobs/source-nodesk';
+import { Web3CareerService } from '@ever-jobs/source-web3career';
+import { EchoJobsService } from '@ever-jobs/source-echojobs';
+import { JobstreetService } from '@ever-jobs/source-jobstreet';
+// Phase 10: Government boards & ATS expansion
+import { CareerOneStopService } from '@ever-jobs/source-careeronestop';
+import { ArbeitsagenturService } from '@ever-jobs/source-arbeitsagentur';
+import { JobylonService } from '@ever-jobs/source-ats-jobylon';
+import { HomerunService } from '@ever-jobs/source-ats-homerun';
 
 @Injectable()
 export class JobsService {
@@ -169,6 +183,20 @@ export class JobsService {
     private readonly ibmService: IbmService,
     private readonly boeingService: BoeingService,
     private readonly zoomService: ZoomService,
+    // Phase 9: Job board expansion
+    private readonly theMuseService: TheMuseService,
+    private readonly workingNomadsService: WorkingNomadsService,
+    private readonly fourDayWeekService: FourDayWeekService,
+    private readonly startupJobsService: StartupJobsService,
+    private readonly noDeskService: NoDeskService,
+    private readonly web3CareerService: Web3CareerService,
+    private readonly echoJobsService: EchoJobsService,
+    private readonly jobstreetService: JobstreetService,
+    // Phase 10: Government boards & ATS expansion
+    private readonly careerOneStopService: CareerOneStopService,
+    private readonly arbeitsagenturService: ArbeitsagenturService,
+    private readonly jobylonService: JobylonService,
+    private readonly homerunService: HomerunService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -253,6 +281,20 @@ export class JobsService {
       [Site.IBM, this.ibmService],
       [Site.BOEING, this.boeingService],
       [Site.ZOOM, this.zoomService],
+      // Phase 9: Job board expansion
+      [Site.THEMUSE, this.theMuseService],
+      [Site.WORKINGNOMADS, this.workingNomadsService],
+      [Site.FOURDAYWEEK, this.fourDayWeekService],
+      [Site.STARTUPJOBS, this.startupJobsService],
+      [Site.NODESK, this.noDeskService],
+      [Site.WEB3CAREER, this.web3CareerService],
+      [Site.ECHOJOBS, this.echoJobsService],
+      [Site.JOBSTREET, this.jobstreetService],
+      // Phase 10: Government boards & ATS expansion
+      [Site.CAREERONESTOP, this.careerOneStopService],
+      [Site.ARBEITSAGENTUR, this.arbeitsagenturService],
+      [Site.JOBYLON, this.jobylonService],
+      [Site.HOMERUN, this.homerunService],
     ]);
   }
 
@@ -291,6 +333,9 @@ export class JobsService {
     Site.FOUNTAIN,
     Site.DEEL,
     Site.PHENOM,
+    // Phase 10: ATS expansion
+    Site.JOBYLON,
+    Site.HOMERUN,
   ]);
 
   /** Company scrapers target a single company's career API directly */

@@ -3,7 +3,7 @@
  * Ever Jobs MCP Server
  *
  * Model Context Protocol server that allows AI assistants (ChatGPT, Claude,
- * Copilot, etc.) to search for jobs across 65+ sources via the Ever Jobs API.
+ * Copilot, etc.) to search for jobs across 94+ sources via the Ever Jobs API.
  *
  * Transport: stdio (standard input/output)
  * Protocol: MCP v1.0
@@ -47,9 +47,10 @@ function createServer(): Server {
       {
         name: 'search_jobs',
         description:
-          'Search for jobs across 65+ sources including LinkedIn, Indeed, Glassdoor, ' +
-          'Google Careers, Meta, Netflix, Stripe, OpenAI, BuiltIn, Snagajob, Dribbble, ' +
-          'remote job boards, and ATS platforms. Returns titles, companies, locations, and descriptions.',
+          'Search for jobs across 94+ sources including LinkedIn, Indeed, Glassdoor, ' +
+          'Google Careers, Meta, Netflix, Stripe, OpenAI, IBM, Boeing, Zoom, BuiltIn, ' +
+          'remote job boards, and 28+ ATS platforms (Greenhouse, Lever, Workday, Manatal, ' +
+          'Phenom, Bullhorn, Deel, etc.). Returns titles, companies, locations, and descriptions.',
         inputSchema: {
           type: 'object' as const,
           properties: {
@@ -271,7 +272,7 @@ function createServer(): Server {
       {
         uri: 'everjobs://sources',
         name: 'Available Job Sources',
-        description: 'List of all 65+ job sources available for searching',
+        description: 'List of all 94+ job sources available for searching',
         mimeType: 'application/json',
       },
       {
@@ -349,10 +350,10 @@ Filter for remote positions:
   search_jobs(query: "frontend developer", remote_only: true)
 
 ## Source Types
-- **Job Boards**: linkedin, indeed, glassdoor, ziprecruiter, dice, monster, builtin, snagajob, dribbble
-- **Remote Boards**: remoteok, remotive, weworkremotely, jobicy, himalayas, arbeitnow
-- **ATS Platforms**: greenhouse, lever, ashby, workable, breezyhr, comeet, pinpoint
-- **Company Pages**: google_careers, meta, netflix, stripe, openai, amazon, apple, microsoft
+- **Job Boards**: linkedin, indeed, glassdoor, ziprecruiter, dice, monster, builtin, snagajob, dribbble, themuse, startupjobs, fourdayweek, web3career, echojobs, jobstreet, careeronestop, arbeitsagentur
+- **Remote Boards**: remoteok, remotive, weworkremotely, jobicy, himalayas, arbeitnow, workingnomads, nodesk
+- **ATS Platforms**: greenhouse, lever, ashby, workable, workday, manatal, paylocity, bullhorn, phenom, deel, fountain, loxo, breezyhr, comeet, pinpoint, jobylon, homerun, and more
+- **Company Pages**: google_careers, meta, netflix, stripe, openai, amazon, apple, microsoft, ibm, boeing, zoom
 - **API Aggregators**: adzuna, reed, jooble, careerjet, usajobs
 
 ## Salary Research
