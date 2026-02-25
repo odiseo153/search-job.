@@ -8,7 +8,7 @@ import { AppConfigModule } from './config/config.module';
 import { AppCacheModule } from './cache/cache.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { MetricsInterceptor } from './metrics/metrics.interceptor';
-import { PluginsModule } from './plugins/plugins.module';
+
 import { HealthModule } from './health/health.module';
 import { JobsModule } from './jobs/jobs.module';
 import { ApiKeyGuard } from './auth/api-key.guard';
@@ -64,8 +64,7 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
     // Metrics tracking
     MetricsModule,
 
-    // Dynamic plugins
-    PluginsModule,
+
   ],
   providers: [
     // Global API key guard
