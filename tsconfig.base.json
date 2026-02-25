@@ -180,7 +180,9 @@
       "@ever-jobs/source-functionalworks": ["packages/source-functionalworks/src/index.ts"],
       "@ever-jobs/source-powertofly": ["packages/source-powertofly/src/index.ts"],
       "@ever-jobs/source-clojurejobs": ["packages/source-clojurejobs/src/index.ts"],
-      "@ever-jobs/source-ecojobs": ["packages/source-ecojobs/src/index.ts"]
+      "@ever-jobs/source-ecojobs": ["packages/source-ecojobs/src/index.ts"],
+      "@ever-jobs/source-jobsdb": ["packages/source-jobsdb/src/index.ts"],
+      "@ever-jobs/source-techcareers": ["packages/source-techcareers/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]

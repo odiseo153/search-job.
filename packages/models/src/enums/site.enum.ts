@@ -180,6 +180,9 @@ export enum Site {
   CLOJUREJOBS = 'clojurejobs',
   // Phase 26: Environmental & conservation
   ECOJOBS = 'ecojobs',
+  // Phase 27: Asia-Pacific & US tech expansion
+  JOBSDB = 'jobsdb',
+  TECHCAREERS = 'techcareers',
 }
 
 /**

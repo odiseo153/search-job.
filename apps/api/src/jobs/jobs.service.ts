@@ -183,6 +183,9 @@ import { PowertoflyService } from '@ever-jobs/source-powertofly';
 import { ClojurejobsService } from '@ever-jobs/source-clojurejobs';
 // Phase 26: Sustainability & niche expansion
 import { EcojobsService } from '@ever-jobs/source-ecojobs';
+// Phase 27: Asia-Pacific & US tech expansion
+import { JobsdbService } from '@ever-jobs/source-jobsdb';
+import { TechcareersService } from '@ever-jobs/source-techcareers';
 
 @Injectable()
 export class JobsService {
@@ -369,6 +372,9 @@ export class JobsService {
     private readonly clojurejobsService: ClojurejobsService,
     // Phase 26: Sustainability & niche expansion
     private readonly ecojobsService: EcojobsService,
+    // Phase 27: Asia-Pacific & US tech expansion
+    private readonly jobsdbService: JobsdbService,
+    private readonly techcareersService: TechcareersService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -553,6 +559,9 @@ export class JobsService {
       [Site.CLOJUREJOBS, this.clojurejobsService],
       // Phase 26: Sustainability & niche expansion
       [Site.ECOJOBS, this.ecojobsService],
+      // Phase 27: Asia-Pacific & US tech expansion
+      [Site.JOBSDB, this.jobsdbService],
+      [Site.TECHCAREERS, this.techcareersService],
     ]);
   }
 

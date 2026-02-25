@@ -247,7 +247,7 @@ function failingScraper(error = 'Network timeout'): IScraper {
 
 /**
  * Create a JobsService instance with a custom scraperMap.
- * Bypasses the 65-arg constructor by using Object.create.
+ * Bypasses the 182-arg constructor by using Object.create.
  */
 function createService(scraperEntries: [Site, IScraper][]): JobsService {
   const service = Object.create(JobsService.prototype);

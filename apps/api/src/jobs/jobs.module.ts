@@ -178,6 +178,9 @@ import { PowertoflyModule } from '@ever-jobs/source-powertofly';
 import { ClojurejobsModule } from '@ever-jobs/source-clojurejobs';
 // Phase 26: Sustainability & niche expansion
 import { EcojobsModule } from '@ever-jobs/source-ecojobs';
+// Phase 27: Asia-Pacific & US tech expansion
+import { JobsdbModule } from '@ever-jobs/source-jobsdb';
+import { TechcareersModule } from '@ever-jobs/source-techcareers';
 import { AnalyticsModule } from '@ever-jobs/analytics';
 import { JobsController } from './jobs.controller';
 import { JobsService } from './jobs.service';
@@ -366,6 +369,9 @@ import { JobsService } from './jobs.service';
     ClojurejobsModule,
     // Phase 26: Sustainability & niche expansion
     EcojobsModule,
+    // Phase 27: Asia-Pacific & US tech expansion
+    JobsdbModule,
+    TechcareersModule,
     AnalyticsModule,
   ],
   controllers: [JobsController],

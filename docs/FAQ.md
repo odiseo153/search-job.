@@ -2,7 +2,7 @@
 
 ## How do I enable Swagger UI?
 
-Set `ENABLE_SWAGGER=true` (default) in your `.env` file. The docs are available at `http://localhost:3001/api/docs`. You can change the path with `SWAGGER_PATH`.
+Set `ENABLE_SWAGGER=true` (default) in your `.env` file. Swagger UI is at `http://localhost:3001/swg` and the Scalar API docs are at `http://localhost:3001/docs`. You can change the paths with `SWAGGER_PATH` and `SCALAR_PATH`.
 
 ## Where are logs stored?
 
@@ -43,10 +43,12 @@ RATE_LIMIT_TIMEFRAME=3600  # per this many seconds
 
 ## Can I export results as CSV?
 
-Yes — use the GET endpoint with `?format=csv`:
+Yes — add `?format=csv` to the search endpoint:
 
-```
-GET /api/v1/search_jobs?search_term=developer&format=csv
+```bash
+curl -X POST http://localhost:3001/api/jobs/search?format=csv \
+  -H 'Content-Type: application/json' \
+  -d '{"searchTerm": "developer"}'
 ```
 
 ## How does caching work?
@@ -55,7 +57,7 @@ When `ENABLE_CACHE=true`, search results are cached in memory using an MD5 hash 
 
 ## How many job sources are supported?
 
-Currently **34 sources**: 17 search-based job boards, 9 ATS integrations, and 7 company-specific scrapers. See the [README](../README.md) for the full list.
+Currently **160 sources**: 107 search-based job boards, 38 ATS integrations, and 15 company-specific scrapers. See the [README](../README.md) for the full list.
 
 ## How do I search remote job boards?
 
@@ -65,17 +67,19 @@ The remote-focused job boards (RemoteOK, Remotive, Jobicy, Himalayas, Arbeitnow,
 npm run cli -- search --search-term "typescript" --site remoteok --site remotive --site jobicy
 ```
 
-## How do I use the new ATS sources (Recruitee, Teamtailor)?
+## How do I use ATS sources?
 
-Like all ATS scrapers, they require a `companySlug` parameter:
+All 38 ATS scrapers require a `companySlug` parameter to target a specific company's career board:
 
 ```bash
-# Search a specific company's Recruitee board
-npm run cli -- search --company-slug "mycompany" --site recruitee
+# Search a specific company's Greenhouse board
+npm run cli -- search --company-slug "stripe" --site greenhouse
 
-# Search a specific company's Teamtailor board
-npm run cli -- search --company-slug "mycompany" --site teamtailor
+# Search a specific company's Lever board
+npm run cli -- search --company-slug "figma" --site lever
 ```
+
+When `companySlug` is provided without explicit `siteType`, all ATS scrapers run automatically.
 
 ## What remote job boards have salary data?
 

@@ -45,7 +45,7 @@ async function bootstrap() {
       .setDescription(
         `# Ever Jobs API
 
-Multi-source job scraping API. Aggregates job listings from LinkedIn, Indeed, Glassdoor, ZipRecruiter, Google, Bayt, Naukri, BDJobs, Internshala, Exa, and Upwork.
+Multi-source job scraping API. Aggregates job listings from 158+ sources including LinkedIn, Indeed, Glassdoor, ZipRecruiter, and 150+ more job boards, ATS platforms, and company career pages.
 
 ## Authentication
 

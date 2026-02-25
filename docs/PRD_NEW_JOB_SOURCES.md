@@ -2,7 +2,7 @@
 
 **Author:** AI Assistant
 **Date:** 2026-02-14
-**Status:** All Phases Complete (5-26)
+**Status:** All Phases Complete (5-27)
 **Epic:** Source Expansion
 
 ---
@@ -260,6 +260,7 @@ API Request
 | **Phase 24 (Media/Mobile Niche)**    | Guardian Jobs ✅, Android Jobs ✅, iOS Dev Jobs ✅                                                                                                                             | ✅ **Complete** (3 niche boards)            |
 | **Phase 25 (DevOps/FP/Diversity)**   | DevOpsJobs ✅, Functional Works ✅, PowerToFly ✅, Clojure Jobs ✅                                                                                                             | ✅ **Complete** (4 niche boards)            |
 | **Phase 26 (Environmental)**         | EcoJobs ✅                                                                                                                                                                     | ✅ **Complete** (1 environmental board)     |
+| **Phase 27 (APAC/US Tech)**          | JobsDB ✅, TechCareers ✅                                                                                                                                                      | ✅ **Complete** (2 search boards)           |
 
 ---
 
@@ -283,7 +284,7 @@ The MCP (Model Context Protocol) server (`apps/mcp/`) enables AI assistants to s
 
 | Tool              | Description                                                              |
 | ----------------- | ------------------------------------------------------------------------ |
-| `search_jobs`     | Search across 158+ sources with query, location, source, company filters |
+| `search_jobs`     | Search across 160+ sources with query, location, source, company filters |
 | `get_job_details` | Get full job description and application link                            |
 | `list_sources`    | Browse all available sources by type                                     |
 

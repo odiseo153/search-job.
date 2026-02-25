@@ -1,5 +1,126 @@
 # API Changelog
 
+## [1.1.0] — 2026-02-25
+
+### Phase 27: Asia-Pacific & US Tech Expansion (2 sources)
+
+**JobsDB** (Asia-Pacific — SG, HK, TH) and **TechCareers** (US tech niche)
+
+Total sources expanded from 158 to 160.
+
+### New `siteType` Values
+
+`jobsdb`, `techcareers`
+
+---
+
+## [1.0.0] — 2026-02-25
+
+### Phases 23–26: Global & Niche Expansion (14 sources)
+
+**Phase 23 — Japan, Nordic & Swiss (3):** Jobs in Japan, Duunitori (Finland), Jobs.ch (Switzerland)
+**Phase 24 — UK & Mobile Dev (3):** Guardian Jobs, AndroidJobs, iOSDevJobs
+**Phase 25 — DevOps, FP & Diversity (4):** DevOpsJobs, FunctionalWorks, PowerToFly, ClojureJobs
+**Phase 26 — Sustainability (1):** EcoJobs
+
+Total sources expanded from 144 to 158.
+
+### New `siteType` Values
+
+`jobsinjapan`, `duunitori`, `jobsch`, `guardianjobs`, `androidjobs`, `iosdevjobs`, `devopsjobs`, `functionalworks`, `powertofly`, `clojurejobs`, `ecojobs`
+
+## [0.9.0] — 2026-02-22
+
+### Phases 19–22: European & CIS Expansion (18 sources)
+
+**Phase 19 — Tech niche & crypto (5):** RailsJobs, ElixirJobs, Crunchboard, CryptocurrencyJobs, HasJob
+**Phase 20 — European regional (5):** iCrunchdata, SwissDevJobs, GermanTechJobs, VirtualVocations, NoFluffJobs
+**Phase 21 — Niche & academic (5):** GreenJobsBoard, EuroJobs, OpenSourceDesignJobs, AcademicCareers, RemoteFirstJobs
+**Phase 22 — Eastern European, CIS & Singapore (4):** Djinni (Ukraine), HeadHunter (Russia/CIS), HabrCareer (Russia), MyCareersFuture (Singapore)
+
+Total sources expanded from 126 to 144.
+
+## [0.8.0] — 2026-02-20
+
+### Phases 15–18: European Government & RSS Expansion (19 sources)
+
+**Phase 15 — European government & regional (5):** JobTechDev (Sweden), France Travail, NAV Jobs (Norway), Jobs.ac.uk, Jobindex (Denmark)
+**Phase 16 — Global expansion (4):** GetOnBoard (LatAm), Freelancer.com, JoinRise, Canada Job Bank
+**Phase 17 — NGO & international (3):** ReliefWeb, UNDP Jobs, DevITJobs
+**Phase 18 — Niche RSS (5):** PyJobs, VueJobs, ConservationJobs, Coroflot, BerlinStartupJobs
+
+Total sources expanded from 107 to 126.
+
+### New Environment Variables
+
+| Variable                         | Purpose                               |
+| -------------------------------- | ------------------------------------- |
+| `JOBTECHDEV_API_KEY`             | Swedish Employment Service API key    |
+| `FRANCETRAVAIL_CLIENT_ID/SECRET` | France Travail OAuth2 credentials     |
+| `NAVJOBS_TOKEN`                  | Norwegian NAV bearer token (optional) |
+
+## [0.7.0] — 2026-02-19
+
+### Phases 12–14: ATS & API-Key Expansion (13 sources)
+
+**Phase 12 — ATS & niche board (3):** AuthenticJobs, JobScore (ATS), TalentLyft (ATS)
+**Phase 13 — RSS niche boards (10):** CryptoJobsList, Jobspresso, HigherEdJobs, FOSSJobs, LaraJobs, PythonJobs, DrupalJobs, RealWorkFromAnywhere, GolangJobs, WordPressJobs
+**Phase 14 — API-key sources & ATS (5):** Talroo, InfoJobs, Crelate (ATS), iSmartRecruit (ATS), Recruiterflow (ATS)
+
+Total sources expanded from 89 to 107 (ATS count: 28 → 38).
+
+### New Environment Variables
+
+| Variable                    | Purpose                      |
+| --------------------------- | ---------------------------- |
+| `AUTHENTICJOBS_API_KEY`     | Authentic Jobs API key       |
+| `TALENTLYFT_API_KEY`        | TalentLyft Bearer token      |
+| `TALROO_PUBLISHER_ID/PASS`  | Talroo publisher credentials |
+| `INFOJOBS_CLIENT_ID/SECRET` | InfoJobs OAuth credentials   |
+
+## [0.6.0] — 2026-02-17
+
+### Phases 9–11: Job Board & Government Expansion (16 sources)
+
+**Phase 9 — Job board expansion (8):** The Muse, Working Nomads, 4 Day Week, StartupJobs, NoDesk, Web3Career, EchoJobs, JobStreet
+**Phase 10 — Government boards & ATS (4):** CareerOneStop (US), Arbeitsagentur (Germany), Jobylon (ATS), Homerun (ATS)
+**Phase 11 — Niche boards & developer APIs (4):** Hacker News, Landing.jobs, FindWork, JobDataAPI
+
+Total sources expanded from 73 to 89.
+
+### New Environment Variables
+
+| Variable                 | Purpose                       |
+| ------------------------ | ----------------------------- |
+| `CAREERONESTOP_API_KEY`  | CareerOneStop Bearer token    |
+| `ARBEITSAGENTUR_API_KEY` | German Arbeitsagentur API key |
+| `FINDWORK_API_KEY`       | FindWork.dev API token        |
+| `JOBDATAAPI_API_KEY`     | JobDataAPI key (optional)     |
+
+## [0.5.0] — 2026-02-16
+
+### Phases 6–8: ATS, Company & Board Expansion (22 sources)
+
+**Phase 6 — New company scrapers (5):** Google Careers, Meta, Netflix, Stripe, OpenAI
+**Phase 6 — New ATS integrations (3):** BreezyHR, Comeet, Pinpoint
+**Phase 7 — Additional job boards (3):** BuiltIn, Snagajob, Dribbble
+**Phase 8 — ATS expansion (10):** Manatal, Paylocity, Freshteam, Bullhorn, Trakstar, HiringThing, Loxo, Fountain, Deel, Phenom
+**Phase 8 — Company scrapers (3):** IBM, Boeing, Zoom
+
+Total sources expanded from 51 to 73.
+
+### New Environment Variables
+
+| Variable              | Purpose                   |
+| --------------------- | ------------------------- |
+| `FRESHTEAM_API_KEY`   | Freshteam API key         |
+| `BULLHORN_CORP_TOKEN` | Bullhorn corp token       |
+| `TRAKSTAR_API_KEY`    | Trakstar Hire API key     |
+| `HIRINGTHING_API_KEY` | HiringThing API key       |
+| `LOXO_API_TOKEN`      | Loxo API token (optional) |
+| `FOUNTAIN_API_KEY`    | Fountain API key          |
+| `DEEL_API_TOKEN`      | Deel API token            |
+
 ## [0.4.0] — 2026-02-15
 
 ### New Sources (5)
@@ -7,13 +128,15 @@
 Added 5 new job source integrations (Tier 3 — heavy anti-bot / enterprise ATS):
 
 **ATS (3):**
+
 - **Oracle Taleo** — REST API (JSON), `{company}:{careerSection}` slug format
-- **iCIMS** *(WIP)* — JSON gateway + Playwright fallback with stealth mode
-- **SAP SuccessFactors** *(WIP)* — OData API + HTML fallback, `{instance}:{companyId}` slug format
+- **iCIMS** _(WIP)_ — JSON gateway + Playwright fallback with stealth mode
+- **SAP SuccessFactors** _(WIP)_ — OData API + HTML fallback, `{instance}:{companyId}` slug format
 
 **Job Boards (2):**
-- **Monster** *(WIP)* — `appsapi.monster.io` JSON API + Playwright stealth fallback (DataDome protected)
-- **CareerBuilder** *(WIP)* — Cheerio + Playwright stealth fallback (Cloudflare protected)
+
+- **Monster** _(WIP)_ — `appsapi.monster.io` JSON API + Playwright stealth fallback (DataDome protected)
+- **CareerBuilder** _(WIP)_ — Cheerio + Playwright stealth fallback (Cloudflare protected)
 
 Total sources expanded from 46 to 51.
 
@@ -25,6 +148,7 @@ Total sources expanded from 46 to 51.
 ### BrowserPool Stealth Mode
 
 New `stealth: true` option for `BrowserPool.getPage()` enables anti-bot evasion:
+
 - User-Agent rotation (6 recent Chrome UAs across Mac/Win/Linux)
 - Viewport randomization (5 common resolutions)
 - JavaScript injection to mask `navigator.webdriver`, fake `window.chrome.runtime`, override `navigator.plugins`, patch canvas fingerprinting, and spoof WebGL renderer info
@@ -32,6 +156,7 @@ New `stealth: true` option for `BrowserPool.getPage()` enables anti-bot evasion:
 ### Proxy Support
 
 All 5 sources wire proxies through:
+
 - HTTP sources: via `createHttpClient({ proxies })`
 - Playwright sources: via `BrowserPool.getPage({ proxy, stealth: true })`
 
@@ -46,15 +171,17 @@ All 5 sources wire proxies through:
 Added 7 new job source integrations (Tier 2 — HTML scraping / Playwright):
 
 **ATS (3):**
+
 - **BambooHR** — Public JSON API, `{companySlug}.bamboohr.com/careers/list`
 - **Personio** — Public XML feed, `{companySlug}.jobs.personio.de/xml`
-- **JazzHR** *(WIP)* — HTML scraping, `{companySlug}.applytojob.com/apply/jobs/`
+- **JazzHR** _(WIP)_ — HTML scraping, `{companySlug}.applytojob.com/apply/jobs/`
 
 **Job Boards (4):**
-- **Dice** *(WIP)* — Cheerio + Playwright fallback, US tech jobs
-- **SimplyHired** *(WIP)* — Cheerio + Playwright fallback, global
-- **Wellfound** *(WIP)* — Playwright SPA (`__NEXT_DATA__` extraction), startup jobs
-- **StepStone** *(WIP)* — Playwright SPA, Germany (`.de`) initially
+
+- **Dice** _(WIP)_ — Cheerio + Playwright fallback, US tech jobs
+- **SimplyHired** _(WIP)_ — Cheerio + Playwright fallback, global
+- **Wellfound** _(WIP)_ — Playwright SPA (`__NEXT_DATA__` extraction), startup jobs
+- **StepStone** _(WIP)_ — Playwright SPA, Germany (`.de`) initially
 
 Total sources expanded from 39 to 46.
 
@@ -66,6 +193,7 @@ Total sources expanded from 39 to 46.
 ### Proxy Support
 
 All 7 sources wire proxies through:
+
 - HTTP sources: via `createHttpClient({ proxies })`
 - Playwright sources: via `BrowserPool.getPage({ proxy })`
 

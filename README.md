@@ -9,9 +9,9 @@
 
 ## ⭐️ Overview
 
-**Ever® Jobs™** searches job postings from **158+ sources** concurrently and returns aggregated, normalized results through a single REST API, **CLI**, or **MCP server** for AI assistants. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
+**Ever® Jobs™** searches job postings from **160+ sources** concurrently and returns aggregated, normalized results through a single REST API, **CLI**, or **MCP server** for AI assistants. Sources span search-based job boards, ATS (Applicant Tracking System) boards, and company-specific career APIs. Each source is an independent, reusable NestJS package — making it easy to add new sources, consume individual packages in other projects, or deploy the full API.
 
-### Search-Based Job Boards (105)
+### Search-Based Job Boards (107)
 
 | Source                      | Method                 | Region                              |
 | --------------------------- | ---------------------- | ----------------------------------- |
@@ -120,6 +120,8 @@
 | **PowerToFly**              | JSON API               | Global (diversity-focused)          |
 | **Clojure Jobs**            | RSS feed               | Global (Clojure/ClojureScript)      |
 | **EcoJobs**                 | RSS feed               | Global (environmental/conservation) |
+| **JobsDB**                  | JSON API (Chalice)     | Asia-Pacific (SG, HK, TH)           |
+| **TechCareers**             | HTML scraping          | US (tech niche)                     |
 
 ### ATS Job Boards (38)
 
@@ -192,7 +194,7 @@ Direct integrations with major tech companies' career APIs.
 
 ## ✨ Features
 
-- 🔍 **Multi-source aggregation** — Search 1 or all 158+ sources concurrently
+- 🔍 **Multi-source aggregation** — Search 1 or all 160+ sources concurrently
 - 🖥️ **CLI & API** — Use via REST API or command-line with JSON, CSV, table, or summary output
 - 🤖 **MCP server** — [Model Context Protocol](https://modelcontextprotocol.io/) server for ChatGPT, Claude, and Copilot
 - 🌐 **Country-aware** — Indeed & Glassdoor support 65+ countries with automatic domain resolution
@@ -265,7 +267,7 @@ cd apps/mcp && npm start
 
 | Tool                  | Description                      |
 | --------------------- | -------------------------------- |
-| `search_jobs`         | Search 158+ sources with filters |
+| `search_jobs`         | Search 160+ sources with filters |
 | `get_job_details`     | Get full job descriptions        |
 | `list_sources`        | Browse sources by type           |
 | `search_remote_jobs`  | Convenience tool for remote jobs |
