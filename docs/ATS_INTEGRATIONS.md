@@ -1,6 +1,6 @@
 # ATS Integrations
 
-Ever Jobs integrates directly with **28 applicant tracking systems** that power career pages at thousands of companies worldwide. When a recruiter publishes a new role through any supported ATS, Ever Jobs detects the posting at the source — often hours before it appears on aggregated job boards like LinkedIn or Indeed.
+Ever Jobs integrates directly with **38 applicant tracking systems** that power career pages at thousands of companies worldwide. When a recruiter publishes a new role through any supported ATS, Ever Jobs detects the posting at the source — often hours before it appears on aggregated job boards like LinkedIn or Indeed.
 
 ## How ATS Integration Works
 
@@ -24,7 +24,7 @@ curl -X POST http://localhost:3001/api/jobs/search \
   -d '{"companySlug": "notion"}'
 ```
 
-When `companySlug` is provided without an explicit `siteType`, all 28 ATS scrapers run concurrently. Each one independently checks whether the company exists on its platform and returns results accordingly.
+When `companySlug` is provided without an explicit `siteType`, all 38 ATS scrapers run concurrently. Each one independently checks whether the company exists on its platform and returns results accordingly.
 
 ---
 

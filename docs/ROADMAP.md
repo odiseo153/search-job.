@@ -2,7 +2,7 @@
 
 ## Current (v0.5.x)
 
-- ✅ Multi-source job searching (166+ sources)
+- ✅ Multi-source job searching (158+ sources)
 - ✅ API key authentication
 - ✅ Rate limiting
 - ✅ In-memory caching
@@ -12,7 +12,7 @@
 - ✅ Swagger / OpenAPI docs
 - ✅ CLI application
 - ✅ MCP server for AI assistants (ChatGPT, Claude, Copilot)
-- ✅ ATS integrations (32 platforms: Ashby, Greenhouse, Lever, Workable, SmartRecruiters, Rippling, Workday, Recruitee, Teamtailor, BambooHR, Personio, JazzHR, iCIMS, Taleo, SuccessFactors, Jobvite, ADP, UKG, BreezyHR, Comeet, Pinpoint, Manatal, Paylocity, Freshteam, Bullhorn, Trakstar, HiringThing, Loxo, Fountain, Deel, Phenom, Jobylon, Homerun, JobScore, TalentLyft)
+- ✅ ATS integrations (38 platforms: Ashby, Greenhouse, Lever, Workable, SmartRecruiters, Rippling, Workday, Recruitee, Teamtailor, BambooHR, Personio, JazzHR, iCIMS, Taleo, SuccessFactors, Jobvite, ADP, UKG, BreezyHR, Comeet, Pinpoint, Manatal, Paylocity, Freshteam, Bullhorn, Trakstar, HiringThing, Loxo, Fountain, Deel, Phenom, Jobylon, Homerun, JobScore, TalentLyft, Crelate, iSmartRecruit, Recruiterflow)
 - ✅ Company-specific scrapers (15: Amazon, Apple, Microsoft, Nvidia, TikTok, Uber, Cursor, Google, Meta, Netflix, Stripe, OpenAI, IBM, Boeing, Zoom)
 - ✅ Remote job boards (RemoteOK, Remotive, Jobicy, Himalayas, Arbeitnow, We Work Remotely)
 - ✅ API-key sources (USAJobs, Adzuna, Reed, Jooble, CareerJet)
@@ -40,7 +40,6 @@
 - ✅ Phase 24 UK & mobile dev expansion (Guardian Jobs, AndroidJobs, iOS Dev Jobs)
 - ✅ Phase 25 DevOps, FP, diversity & niche expansion (DevOpsJobs, Functional Works, PowerToFly, Clojure Jobs)
 - ✅ Phase 26 Environmental & conservation expansion (EcoJobs)
-- ✅ Phase 27 Tech, Asia-Pacific & European expansion (TechCareers, JobsDB, Sercanto)
 
 ## Planned (v0.6.0)
 
