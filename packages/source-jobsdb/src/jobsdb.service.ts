@@ -26,11 +26,7 @@ export class JobsdbService implements IScraper {
     const searchTerm = input.searchTerm ?? '';
     const location = input.location ?? '';
 
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
     client.setHeaders(JOBSDB_HEADERS);
 
     this.logger.log(

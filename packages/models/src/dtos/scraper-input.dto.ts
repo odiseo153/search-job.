@@ -134,6 +134,26 @@ export class ScraperInputDto {
   @IsNumber()
   maxConcurrentCompanies?: number;
 
+  @ApiPropertyOptional({ description: 'Number of retries for failed requests', default: 3 })
+  @IsOptional()
+  @IsNumber()
+  retries?: number;
+
+  @ApiPropertyOptional({ description: 'Delay between retries in milliseconds', default: 1000 })
+  @IsOptional()
+  @IsNumber()
+  retryDelay?: number;
+
+  @ApiPropertyOptional({ enum: ['linear', 'exponential'], description: 'Backoff strategy for retries', default: 'linear' })
+  @IsOptional()
+  @IsString()
+  retryBackoff?: 'linear' | 'exponential';
+
+  @ApiPropertyOptional({ description: 'Maximum delay between retries in milliseconds', default: 30000 })
+  @IsOptional()
+  @IsNumber()
+  retryMaxDelay?: number;
+
   @ApiPropertyOptional({
     type: () => ScraperAuthDto,
     description: 'Per-request authentication credentials for individual sources (overrides env vars)',

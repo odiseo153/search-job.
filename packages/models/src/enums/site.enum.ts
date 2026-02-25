@@ -193,5 +193,6 @@ export function mapStringToSite(siteName: string): Site {
   if (Site[key] !== undefined) {
     return Site[key];
   }
-  throw new Error(`Invalid site name: ${siteName}`);
+  // Fallback for custom plugins/scrapers
+  return siteName.toLowerCase() as Site;
 }

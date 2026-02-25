@@ -23,7 +23,7 @@ Client Request
 │  └───────┬────────┘  │
 │          ▼           │
 │  ┌────────────────┐  │
-│  │ Cache Service  │──┼── ← check in-memory TTL cache
+│  │ Cache Service  │──┼── ← Redis or in-memory TTL cache
 │  └───────┬────────┘  │
 │          ▼           │
 │  ┌────────────────┐  │
@@ -50,11 +50,12 @@ Client Request
 | `ThrottlerGuard`      | Configurable request rate limiting             |
 | `LoggingInterceptor`  | Request logging with IDs and timing            |
 | `HttpExceptionFilter` | Structured JSON error responses                |
-| `CacheService`        | In-memory TTL cache (MD5-keyed)                |
+| `CacheService`        | TTL cache backed by Redis or in-memory         |
 | `HealthController`    | `/health` and `/ping` endpoints                |
 | `JobsService`         | Orchestrates concurrent multi-source searching |
 | `JobsController`      | `POST /api/jobs/search` and `/analyze`         |
-| Source Modules (×158) | Search (×105) + ATS (×38) + Company (×15)      |
+| `JobsResolver`        | GraphQL API at `/graphql` (Apollo)             |
+| Source Modules (×160) | Search (×107) + ATS (×38) + Company (×15)      |
 | `AnalyticsModule`     | Job data analysis and aggregation              |
 
 ## Project Structure

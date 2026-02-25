@@ -1,9 +1,14 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppConfigModule } from './config/config.module';
 import { AppCacheModule } from './cache/cache.module';
+import { MetricsModule } from './metrics/metrics.module';
+import { MetricsInterceptor } from './metrics/metrics.interceptor';
+import { PluginsModule } from './plugins/plugins.module';
 import { HealthModule } from './health/health.module';
 import { JobsModule } from './jobs/jobs.module';
 import { ApiKeyGuard } from './auth/api-key.guard';
@@ -31,7 +36,23 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
       }),
     }),
 
-    // Global cache
+    // GraphQL API (alongside REST)
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        autoSchemaFile: true,
+        sortSchema: true,
+        playground: config.get<boolean>('graphql.playground', true),
+        path: config.get<string>('graphql.path', 'graphql'),
+        introspection: true,
+        // Disable GraphQL module entirely if env var is set
+        ...(config.get<boolean>('graphql.enabled', true) ? {} : { autoSchemaFile: false }),
+      }),
+    }),
+
+    // Global cache (Redis or in-memory)
     AppCacheModule,
 
     // Health endpoints
@@ -39,6 +60,12 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
 
     // Job scraping
     JobsModule,
+
+    // Metrics tracking
+    MetricsModule,
+
+    // Dynamic plugins
+    PluginsModule,
   ],
   providers: [
     // Global API key guard
@@ -50,6 +77,11 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    // Global metrics tracking
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: MetricsInterceptor,
     },
     // Global request logging
     {

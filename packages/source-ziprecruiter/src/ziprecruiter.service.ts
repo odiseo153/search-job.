@@ -18,11 +18,7 @@ export class ZipRecruiterService implements IScraper {
   private readonly bandDelay = 5;
 
   async scrape(input: ScraperInputDto): Promise<JobResponseDto> {
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
     client.setHeaders(ZIPRECRUITER_HEADERS);
 
     // Initialize session

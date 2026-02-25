@@ -41,15 +41,14 @@
 - ✅ Phase 25 DevOps, FP, diversity & niche expansion (DevOpsJobs, Functional Works, PowerToFly, Clojure Jobs)
 - ✅ Phase 26 Environmental & conservation expansion (EcoJobs)
 
-## Planned (v0.6.0)
+## Planned### v0.6.0: Resiliency & API Expansion (current)
 
-- Redis-backed caching (scalable, persistent). Make sure REDIS support is OPTIONAL. I.e. if no env vars are set, we don't use REDIS and all keep working (or use some RAM memory cache etc). Use NestJs packages for caching / redis etc.
-- GraphQL API alongside REST
-- Configurable retry policies per source
-- Prometheus metrics endpoint (`/metrics`)
-- Plugin architecture for community-contributed source modules
-- Government job boards from additional countries (EU, UK, Canada, Australia)
-- Industry-specific job board integrations (healthcare, finance, education)
+- [x] Redis-backed optional caching (GET/SET async)
+- [x] GraphQL API implementation (searchJobs, listSources)
+- [x] Prometheus metrics (HTTP tracking, scraper performance)
+- [x] Configurable retry policies (linear/exponential backoff)
+- [x] Plugin Architecture (Runtime scraper loading)
+- [x] Expanded sources (JobsDB, Techcareers)
 
 ## Future Considerations (v0.7.0+)
 

@@ -26,11 +26,7 @@ export class TechcareersService implements IScraper {
     const searchTerm = input.searchTerm ?? '';
     const location = input.location ?? '';
 
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
     client.setHeaders(TECHCAREERS_HEADERS);
 
     this.logger.log(

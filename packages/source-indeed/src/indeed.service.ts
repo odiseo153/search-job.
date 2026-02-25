@@ -29,11 +29,7 @@ export class IndeedService implements IScraper {
   private readonly bandDelay = 5;
 
   async scrape(input: ScraperInputDto): Promise<JobResponseDto> {
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
 
     const country = input.country ?? Country.USA;
     const { subdomain, apiCountryCode } = getIndeedDomain(country);

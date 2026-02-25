@@ -20,11 +20,7 @@ export class GlassdoorService implements IScraper {
     const country = input.country ?? Country.USA;
     const baseUrl = getGlassdoorUrl(country);
 
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
     client.setHeaders(GLASSDOOR_HEADERS);
 
     // Fetch CSRF token

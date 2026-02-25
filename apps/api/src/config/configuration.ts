@@ -58,6 +58,40 @@ export default () => {
     cache: {
       enabled: parseBool(process.env.ENABLE_CACHE, false),
       expirySec: parseInt(process.env.CACHE_EXPIRY, 3600),
+      redisUrl: process.env.REDIS_URL || null,
+      maxItems: parseInt(process.env.CACHE_MAX_ITEMS, 500),
+    },
+
+    // Retry policies
+    retry: {
+      defaultRetries: parseInt(process.env.RETRY_DEFAULT_RETRIES, 3),
+      defaultDelayMs: parseInt(process.env.RETRY_DEFAULT_DELAY_MS, 1000),
+      defaultBackoff: process.env.RETRY_DEFAULT_BACKOFF || 'linear',
+      perSource: (() => {
+        try {
+          return JSON.parse(process.env.RETRY_PER_SOURCE || '{}');
+        } catch {
+          return {};
+        }
+      })(),
+    },
+
+    // GraphQL
+    graphql: {
+      enabled: parseBool(process.env.ENABLE_GRAPHQL, true),
+      playground: parseBool(process.env.GRAPHQL_PLAYGROUND, true),
+      path: process.env.GRAPHQL_PATH || 'graphql',
+    },
+
+    // Prometheus Metrics
+    metrics: {
+      enabled: parseBool(process.env.ENABLE_METRICS, true),
+    },
+
+    // Plugins
+    plugins: {
+      enabled: parseBool(process.env.ENABLE_PLUGINS, false),
+      dir: process.env.PLUGINS_DIR || null,
     },
 
     // Logging

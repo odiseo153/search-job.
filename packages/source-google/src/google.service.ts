@@ -28,11 +28,7 @@ export class GoogleService implements IScraper {
   private readonly bandDelay = 3;
 
   async scrape(input: ScraperInputDto): Promise<JobResponseDto> {
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
 
     const jobList: JobPostDto[] = [];
     const resultsWanted = input.resultsWanted ?? 15;

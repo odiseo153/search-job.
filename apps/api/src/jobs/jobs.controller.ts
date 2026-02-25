@@ -77,7 +77,7 @@ export class JobsController {
 
     // ── Cache check ───────────────────────
     const cacheParams = { ...input, endpoint: 'search' };
-    const cached = this.cacheService.get<JobPostDto[]>(cacheParams);
+    const cached = await this.cacheService.get<JobPostDto[]>(cacheParams);
     let jobs: JobPostDto[];
     let fromCache = false;
 
@@ -87,7 +87,7 @@ export class JobsController {
       this.logger.log(`Cache hit — returning ${jobs.length} cached results`);
     } else {
       jobs = await this.jobsService.searchJobs(input);
-      this.cacheService.set(cacheParams, jobs);
+      await this.cacheService.set(cacheParams, jobs);
     }
 
     this.logger.log(`Returning ${jobs.length} jobs (cached=${fromCache})`);

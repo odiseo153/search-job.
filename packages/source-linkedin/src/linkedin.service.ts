@@ -32,11 +32,7 @@ export class LinkedInService implements IScraper {
   private readonly bandDelay = 4;
 
   async scrape(input: ScraperInputDto): Promise<JobResponseDto> {
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
     client.setHeaders(LINKEDIN_HEADERS);
 
     const jobList: JobPostDto[] = [];

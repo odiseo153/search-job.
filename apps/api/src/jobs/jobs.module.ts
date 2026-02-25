@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { JobsResolver } from './jobs.resolver';
 import { LinkedInModule } from '@ever-jobs/source-linkedin';
 import { IndeedModule } from '@ever-jobs/source-indeed';
 import { GlassdoorModule } from '@ever-jobs/source-glassdoor';
@@ -375,7 +376,7 @@ import { JobsService } from './jobs.service';
     AnalyticsModule,
   ],
   controllers: [JobsController],
-  providers: [JobsService],
+  providers: [JobsService, JobsResolver],
   exports: [JobsService],
 })
 export class JobsModule {}

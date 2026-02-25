@@ -1,5 +1,34 @@
 # API Changelog
 
+### [v0.6.0-alpha] - 2026-02-25
+
+#### Added
+
+- **Redis-Backed Caching**: Optional Redis support via `REDIS_URL`. Falls back to in-memory if not configured.
+- **GraphQL API**: New endpoint at `/graphql` (configurable path) with Apollo Playground.
+- **Prometheus Metrics**: Export application metrics at `/metrics` for Prometheus scraping.
+- **Retry Policies**: Configurable retries with linear and exponential backoff strategies for all job scrapers.
+- **Plugin Architecture**: Runtime loading of community scrapers from a `plugins/` directory.
+- **Expanded Sources**: Integrated JobsDB and Techcareers sources.
+
+#### Changed
+
+- `AppCacheModule` now uses `registerAsync` for dynamic configuration.
+- `JobsService` now supports dynamic scraper registration.
+- `HttpClient` standardizes request handling with built-in retries.
+
+New environment variables: `REDIS_URL`, `CACHE_MAX_ITEMS`.
+
+A full GraphQL API is now available alongside REST at `/graphql`:
+
+- **Queries:** `searchJobs`, `listSources`
+- **Apollo Playground** enabled by default (configurable via `ENABLE_GRAPHQL`, `GRAPHQL_PLAYGROUND`, `GRAPHQL_PATH`)
+- Code-first schema generation with auto-introspection
+
+New dependencies: `@nestjs/graphql`, `@nestjs/apollo`, `@apollo/server`, `graphql`, `cache-manager`, `cache-manager-redis-yet`, `prom-client`.
+
+---
+
 ## [1.1.0] — 2026-02-25
 
 ### Phase 27: Asia-Pacific & US Tech Expansion (2 sources)

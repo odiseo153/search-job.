@@ -1,9 +1,11 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { OnModuleInit, Injectable, Logger } from '@nestjs/common';
 import {
-  ScraperInputDto, JobPostDto, JobResponseDto, Site, IScraper,
+  Site, ScraperInputDto, JobPostDto, JobResponseDto, IScraper,
   Country, SalarySource, CompensationDto,
 } from '@ever-jobs/models';
 import { extractSalary, convertToAnnual } from '@ever-jobs/common';
+import { ConfigService } from '@nestjs/config';
+import { MetricsService } from '../metrics/metrics.service';
 import { LinkedInService } from '@ever-jobs/source-linkedin';
 import { IndeedService } from '@ever-jobs/source-indeed';
 import { GlassdoorService } from '@ever-jobs/source-glassdoor';
@@ -188,9 +190,9 @@ import { JobsdbService } from '@ever-jobs/source-jobsdb';
 import { TechcareersService } from '@ever-jobs/source-techcareers';
 
 @Injectable()
-export class JobsService {
+export class JobsService implements OnModuleInit {
   private readonly logger = new Logger(JobsService.name);
-  private readonly scraperMap: Map<Site, IScraper>;
+  protected readonly scraperMap: Map<Site, IScraper>;
 
   constructor(
     private readonly linkedInService: LinkedInService,
@@ -375,6 +377,8 @@ export class JobsService {
     // Phase 27: Asia-Pacific & US tech expansion
     private readonly jobsdbService: JobsdbService,
     private readonly techcareersService: TechcareersService,
+    private readonly metrics: MetricsService,
+    private readonly configService: ConfigService,
   ) {
     this.scraperMap = new Map<Site, IScraper>([
       [Site.LINKEDIN, this.linkedInService],
@@ -565,6 +569,10 @@ export class JobsService {
     ]);
   }
 
+  onModuleInit() {
+    this.logger.log(`JobsService initialized with ${this.scraperMap.size} core scrapers`);
+  }
+
 
   /** ATS scrapers require a companySlug to target a specific company board */
   private static readonly ATS_SITES = new Set<Site>([
@@ -681,9 +689,24 @@ export class JobsService {
     // Run all scrapers concurrently using Promise.allSettled
     const results = await Promise.allSettled(
       selectedScrapers.map(async ({ site, scraper }) => {
-      this.logger.log(`Starting search for ${site}`);
+        // Resolve retry policy for this source
+        const globalRetry = this.configService.get('retry');
+        const perSourceRetry = globalRetry.perSource?.[site] || {};
+        
+        const scraperInput = new ScraperInputDto({
+          ...input,
+          retries: input.retries ?? perSourceRetry.retries ?? globalRetry.defaultRetries,
+          retryDelay: input.retryDelay ?? perSourceRetry.delayMs ?? globalRetry.defaultDelayMs,
+          retryBackoff: input.retryBackoff ?? perSourceRetry.backoff ?? globalRetry.defaultBackoff,
+          retryMaxDelay: input.retryMaxDelay ?? perSourceRetry.maxDelayMs ?? 30000,
+        });
+
+        this.logger.log(`Starting search for ${site} (retries=${scraperInput.retries}, backoff=${scraperInput.retryBackoff})`);
+        const scraperStop = this.metrics.scraperDuration.startTimer({ site });
         try {
-          const response = await scraper.scrape(input);
+          const response = await scraper.scrape(scraperInput);
+          scraperStop();
+          this.metrics.scraperRequestsTotal.inc({ site, status: 'success' });
           // Tag each job with the site it came from
           for (const job of response.jobs) {
             job.site = site;
@@ -691,6 +714,8 @@ export class JobsService {
           this.logger.log(`${site}: found ${response.jobs.length} jobs`);
           return response;
         } catch (err: any) {
+          scraperStop();
+          this.metrics.scraperRequestsTotal.inc({ site, status: 'error' });
           this.logger.error(`${site} search failed: ${err.message}`);
           throw err;
         }
@@ -775,6 +800,22 @@ export class JobsService {
     if (!job.compensation?.minAmount) {
       job.salarySource = undefined;
     }
+  }
+
+  /**
+   * Dynamically register a new scraper (used by Plugin Architecture)
+   */
+  registerScraper(site: string, scraper: IScraper) {
+    const siteKey = site.toLowerCase() as Site;
+    this.scraperMap.set(siteKey, scraper);
+    this.logger.log(`Registered custom scraper for: ${siteKey}`);
+  }
+
+  /**
+   * List all currently registered source keys
+   */
+  listRegisteredSources(): string[] {
+    return Array.from(this.scraperMap.keys());
   }
 }
 

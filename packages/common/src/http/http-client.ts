@@ -9,6 +9,8 @@ export interface HttpClientOptions {
   userAgent?: string;
   retries?: number;
   retryDelay?: number;
+  retryBackoff?: 'linear' | 'exponential';
+  retryMaxDelay?: number;
   timeout?: number;
   /** Minimum delay between requests in seconds (rate limiting) */
   rateDelayMin?: number;
@@ -28,6 +30,8 @@ export class HttpClient {
   private proxyIndex = 0;
   private readonly maxRetries: number;
   private readonly retryDelay: number;
+  private readonly retryBackoff: 'linear' | 'exponential';
+  private readonly retryMaxDelay: number;
   private readonly rateDelayMin: number;
   private readonly rateDelayMax: number;
   private lastRequestTime = 0;
@@ -36,6 +40,8 @@ export class HttpClient {
     this.proxies = options.proxies ?? [];
     this.maxRetries = options.retries ?? 3;
     this.retryDelay = options.retryDelay ?? 1000;
+    this.retryBackoff = options.retryBackoff ?? 'linear';
+    this.retryMaxDelay = options.retryMaxDelay ?? 30000;
     this.rateDelayMin = (options.rateDelayMin ?? 0) * 1000; // convert to ms
     this.rateDelayMax = (options.rateDelayMax ?? 0) * 1000;
 
@@ -121,8 +127,12 @@ export class HttpClient {
         lastError = error;
         const status = error.response?.status;
         if (status && [500, 502, 503, 504, 429].includes(status) && attempt < this.maxRetries) {
-          this.logger.warn(`Request failed with ${status}, retrying (${attempt + 1}/${this.maxRetries})...`);
-          await this.sleep(this.retryDelay * (attempt + 1));
+          const delay = this.retryBackoff === 'exponential'
+            ? Math.min(this.retryMaxDelay, this.retryDelay * Math.pow(2, attempt))
+            : Math.min(this.retryMaxDelay, this.retryDelay * (attempt + 1));
+
+          this.logger.warn(`Request failed with ${status}, retrying (${attempt + 1}/${this.maxRetries}) in ${delay}ms...`);
+          await this.sleep(delay);
           continue;
         }
         throw error;
@@ -149,7 +159,26 @@ export class HttpClient {
 /**
  * Factory to create HttpClient instances with options.
  */
-export function createHttpClient(options?: HttpClientOptions): HttpClient {
-  return new HttpClient(options);
+/**
+ * Factory to create HttpClient instances with options.
+ * Can accept either HttpClientOptions or ScraperInputDto.
+ */
+export function createHttpClient(options?: HttpClientOptions | any): HttpClient {
+  if (options && (options.requestTimeout !== undefined || options.proxies !== undefined)) {
+    // It's likely a ScraperInputDto or a similar object from a scraper
+    return new HttpClient({
+      proxies: options.proxies,
+      caCert: options.caCert,
+      userAgent: options.userAgent,
+      timeout: options.requestTimeout,
+      retries: options.retries,
+      retryDelay: options.retryDelay,
+      retryBackoff: options.retryBackoff,
+      retryMaxDelay: options.retryMaxDelay,
+      rateDelayMin: options.rateDelayMin,
+      rateDelayMax: options.rateDelayMax,
+    });
+  }
+  return new HttpClient(options as HttpClientOptions);
 }
 

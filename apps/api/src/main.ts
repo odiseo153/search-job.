@@ -45,7 +45,7 @@ async function bootstrap() {
       .setDescription(
         `# Ever Jobs API
 
-Multi-source job scraping API. Aggregates job listings from 158+ sources including LinkedIn, Indeed, Glassdoor, ZipRecruiter, and 150+ more job boards, ATS platforms, and company career pages.
+Multi-source job scraping API. Aggregates job listings from 160+ sources including LinkedIn, Indeed, Glassdoor, ZipRecruiter, and 150+ more job boards, ATS platforms, and company career pages.\n\n## GraphQL\n\nA GraphQL API is available at \`/graphql\` alongside this REST API.
 
 ## Authentication
 
@@ -98,11 +98,15 @@ Results are cached (when enabled) to improve performance and reduce load on job 
   const authEnabled = config.get<boolean>('auth.enabled', false);
   const rateLimitEnabled = config.get<boolean>('rateLimit.enabled', false);
   const cacheEnabled = config.get<boolean>('cache.enabled', false);
+  const redisUrl = config.get<string>('cache.redisUrl');
+  const graphqlEnabled = config.get<boolean>('graphql.enabled', true);
+  const graphqlPath = config.get<string>('graphql.path', 'graphql');
 
   logger.log(`🚀 Ever Jobs API is running on: http://localhost:${port}`);
   logger.log(`🔑 API key auth: ${authEnabled ? 'ENABLED' : 'disabled'}`);
   logger.log(`⏱️  Rate limiting: ${rateLimitEnabled ? 'ENABLED' : 'disabled'}`);
-  logger.log(`📦 Caching: ${cacheEnabled ? 'ENABLED' : 'disabled'}`);
+  logger.log(`📦 Caching: ${cacheEnabled ? `ENABLED (${redisUrl ? 'Redis' : 'in-memory'})` : 'disabled'}`);
+  logger.log(`🔮 GraphQL: ${graphqlEnabled ? `ENABLED → http://localhost:${port}/${graphqlPath}` : 'disabled'}`);
 }
 
 bootstrap();

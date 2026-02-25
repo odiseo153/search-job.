@@ -30,10 +30,10 @@ export class WellfoundService implements IScraper, OnModuleDestroy {
   async scrape(input: ScraperInputDto): Promise<JobResponseDto> {
     const proxy = input.proxies?.[0] ?? undefined;
     const resultsWanted = input.resultsWanted ?? 15;
-    let page;
+    const client = createHttpClient(input); // Assuming createHttpClient returns a Playwright Page object or similar
+    let page = client; // Assign client to page for existing logic to work
 
     try {
-      page = await BrowserPool.getPage({ proxy });
       const timeoutMs = (input.requestTimeout ?? 30) * 1000;
 
       const url = new URL(WELLFOUND_JOBS_URL);

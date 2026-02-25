@@ -46,11 +46,7 @@ export class SimplyHiredService implements IScraper, OnModuleDestroy {
     input: ScraperInputDto,
     resultsWanted: number,
   ): Promise<JobPostDto[]> {
-    const client = createHttpClient({
-      proxies: input.proxies,
-      caCert: input.caCert,
-      timeout: input.requestTimeout,
-    });
+    const client = createHttpClient(input);
     client.setHeaders(SIMPLYHIRED_HEADERS);
 
     const allJobs: JobPostDto[] = [];

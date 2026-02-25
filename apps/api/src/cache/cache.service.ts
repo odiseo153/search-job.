@@ -1,48 +1,42 @@
-import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
+import { Inject, Injectable, Logger, Optional } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { MetricsService } from '../metrics/metrics.service';
 import * as crypto from 'crypto';
 
-interface CacheEntry<T> {
-  timestamp: number;
-  data: T;
-}
-
 /**
- * In-memory TTL cache for job search results.
+ * Application-level cache service wrapping the NestJS CacheManager.
  *
- * Keys are MD5 hashes of sorted, stringified search parameters.
+ * Provides a deterministic key generation from search parameters
+ * and respects the enabled/disabled flag from configuration.
+ *
+ * Backing store is configured by AppCacheModule:
+ *   - Redis when REDIS_URL is set
+ *   - In-memory otherwise
  */
 @Injectable()
-export class CacheService implements OnModuleDestroy {
+export class CacheService {
   private readonly logger = new Logger(CacheService.name);
-  private readonly store = new Map<string, CacheEntry<any>>();
   private readonly enabled: boolean;
-  private readonly expirySec: number;
-  private cleanupInterval: NodeJS.Timeout | null = null;
+  private readonly ttlMs: number;
 
-  constructor(private readonly config: ConfigService) {
+  constructor(
+    private readonly config: ConfigService,
+    private readonly metrics: MetricsService,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+  ) {
     this.enabled = this.config.get<boolean>('cache.enabled', false);
-    this.expirySec = this.config.get<number>('cache.expirySec', 3600);
+    this.ttlMs = this.config.get<number>('cache.expirySec', 3600) * 1000;
 
+    const redisUrl = this.config.get<string>('cache.redisUrl');
     if (this.enabled) {
-      // Periodic cleanup every 5 minutes
-      this.cleanupInterval = setInterval(
-        () => this.cleanupExpired(),
-        5 * 60 * 1000,
-      );
       this.logger.log(
-        `Cache enabled — TTL ${this.expirySec}s, cleanup every 5 min`,
+        `Cache enabled — TTL ${this.ttlMs / 1000}s, store: ${redisUrl ? 'Redis' : 'in-memory'}`,
       );
     } else {
       this.logger.log('Cache disabled');
     }
-  }
-
-  onModuleDestroy() {
-    if (this.cleanupInterval) {
-      clearInterval(this.cleanupInterval);
-    }
-    this.store.clear();
   }
 
   /** Generate a deterministic cache key from search parameters. */
@@ -54,51 +48,52 @@ export class CacheService implements OnModuleDestroy {
       }
     }
     const raw = JSON.stringify(sorted);
-    return crypto.createHash('md5').update(raw).digest('hex');
+    return `everjobs:${crypto.createHash('md5').update(raw).digest('hex')}`;
   }
 
-  /** Retrieve cached data, or null if missing / expired. */
-  get<T>(params: Record<string, any>): T | null {
+  /** Retrieve cached data, or null if missing / expired / disabled. */
+  async get<T>(params: Record<string, any>): Promise<T | null> {
     if (!this.enabled) return null;
 
-    const key = this.generateKey(params);
-    const entry = this.store.get(key);
-    if (!entry) return null;
-
-    const age = (Date.now() - entry.timestamp) / 1000;
-    if (age > this.expirySec) {
-      this.store.delete(key);
+    try {
+      const key = this.generateKey(params);
+      const result = await this.cacheManager.get<T>(key);
+      if (result !== undefined && result !== null) {
+        this.logger.debug(`Cache hit for key ${key.substring(0, 16)}...`);
+        this.metrics.cacheHitsTotal.inc();
+        return result;
+      }
+      this.metrics.cacheMissesTotal.inc();
+      return null;
+    } catch (err: any) {
+      this.logger.warn(`Cache get error: ${err.message}`);
       return null;
     }
-
-    this.logger.debug(`Cache hit (age ${age.toFixed(0)}s)`);
-    return entry.data as T;
   }
 
   /** Store data in cache. */
-  set<T>(params: Record<string, any>, data: T): void {
+  async set<T>(params: Record<string, any>, data: T): Promise<void> {
     if (!this.enabled) return;
-    const key = this.generateKey(params);
-    this.store.set(key, { timestamp: Date.now(), data });
+
+    try {
+      const key = this.generateKey(params);
+      await this.cacheManager.set(key, data, this.ttlMs);
+    } catch (err: any) {
+      this.logger.warn(`Cache set error: ${err.message}`);
+    }
   }
 
   /** Clear all cached data. */
-  clear(): void {
-    this.store.clear();
+  async clear(): Promise<void> {
+    try {
+      await this.cacheManager.reset();
+    } catch (err: any) {
+      this.logger.warn(`Cache clear error: ${err.message}`);
+    }
   }
 
-  /** Remove expired entries. */
-  private cleanupExpired(): void {
-    const now = Date.now();
-    let removed = 0;
-    for (const [key, entry] of this.store.entries()) {
-      if ((now - entry.timestamp) / 1000 > this.expirySec) {
-        this.store.delete(key);
-        removed++;
-      }
-    }
-    if (removed > 0) {
-      this.logger.debug(`Cleaned up ${removed} expired cache entries`);
-    }
+  /** Returns the backing store type for logging/monitoring. */
+  getStoreType(): 'redis' | 'memory' {
+    return this.config.get<string>('cache.redisUrl') ? 'redis' : 'memory';
   }
 }
