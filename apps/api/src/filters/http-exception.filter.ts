@@ -17,6 +17,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(HttpExceptionFilter.name);
 
   catch(exception: unknown, host: ArgumentsHost) {
+    // GraphQL requests don't have an Express request/response — let Apollo
+    // handle errors natively by re-throwing.
+    const contextType = host.getType<string>();
+    if (contextType === 'graphql') {
+      if (exception instanceof Error) {
+        throw exception;
+      }
+      throw new Error(String(exception));
+    }
+
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();

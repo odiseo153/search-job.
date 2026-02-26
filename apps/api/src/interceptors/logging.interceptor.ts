@@ -22,6 +22,11 @@ export class LoggingInterceptor implements NestInterceptor {
   private readonly logger = new Logger('HTTP');
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    // GraphQL requests don't have Express req/res — skip HTTP logging
+    if (context.getType<string>() === 'graphql') {
+      return next.handle();
+    }
+
     const request = context.switchToHttp().getRequest<Request>();
     const response = context.switchToHttp().getResponse<Response>();
 
