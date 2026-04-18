@@ -1,0 +1,577 @@
+{
+  "info": {
+    "_postman_id": "4f9c0c0b-4d41-4f38-a2e2-2b943a6ad4a7",
+    "name": "Ever Jobs API",
+    "description": "Coleccion de Postman para probar los endpoints HTTP expuestos por este proyecto segun el README y los controladores reales de `apps/api`.\n\nIncluye:\n- REST: `GET /health`, `GET /ping`, `GET /metrics`, `POST /api/jobs/search`, `POST /api/jobs/analyze`\n- GraphQL: `POST /graphql` con `searchJobs` y `listSources`\n\nNotas:\n- La API corre por defecto en `http://localhost:3001`.\n- Si la autenticacion por API key esta habilitada, usa la variable `apiKey` en el header `x-api-key`.\n- El endpoint REST principal usa `ScraperInputDto` como body.\n- Para ver todas las fuentes soportadas en tiempo real, ejecuta `GraphQL / listSources`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    },
+    {
+      "key": "searchTerm",
+      "value": "software engineer"
+    },
+    {
+      "key": "location",
+      "value": "Remote"
+    },
+    {
+      "key": "country",
+      "value": "USA"
+    },
+    {
+      "key": "sitePrimary",
+      "value": "google"
+    },
+    {
+      "key": "siteSecondary",
+      "value": "indeed"
+    },
+    {
+      "key": "atsSite",
+      "value": "greenhouse"
+    },
+    {
+      "key": "companySlug",
+      "value": "stripe"
+    },
+    {
+      "key": "resultsWanted",
+      "value": "5"
+    },
+    {
+      "key": "pageSize",
+      "value": "2"
+    },
+    {
+      "key": "workableAccessToken",
+      "value": ""
+    },
+    {
+      "key": "workableSubdomain",
+      "value": ""
+    },
+    {
+      "key": "greenhouseApiKey",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Tiene status healthy', function () {",
+                  "  var body = pm.response.json();",
+                  "  pm.expect(body.status).to.eql('healthy');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Health check del servicio.\n\nRespuesta esperada:\n- `status`\n- `uptime`\n- `version`\n- `environment`\n- `timestamp`\n- `memoryUsage`",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /ping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Tiene status pong', function () {",
+                  "  var body = pm.response.json();",
+                  "  pm.expect(body.status).to.eql('pong');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Ping simple para monitoreo.",
+            "url": {
+              "raw": "{{baseUrl}}/ping",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ping"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /metrics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Respuesta de texto Prometheus', function () {",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.include('text/plain');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Metricas Prometheus del servicio.",
+            "url": {
+              "raw": "{{baseUrl}}/metrics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metrics"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jobs REST",
+      "item": [
+        {
+          "name": "POST /api/jobs/search - Basic JSON",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 o 201', function () {",
+                  "  pm.expect([200, 201]).to.include(pm.response.code);",
+                  "});",
+                  "pm.test('Respuesta con count y jobs', function () {",
+                  "  var body = pm.response.json();",
+                  "  pm.expect(body).to.have.property('count');",
+                  "  pm.expect(body).to.have.property('jobs');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Busqueda REST principal.\n\nQuery params soportados:\n- `format`: `json` o `csv`\n- `paginate`: `true|false`\n- `page`: numero de pagina\n- `page_size`: tamano de pagina (1-100)\n\nBody (`ScraperInputDto`) soportado:\n- `siteType[]`: fuentes a consultar\n- `searchTerm`: termino de busqueda\n- `googleSearchTerm`: override especifico para Google\n- `location`: ubicacion\n- `distance`: radio en millas\n- `isRemote`: solo remotos\n- `jobType`: `fulltime|parttime|contract|temporary|internship|perdiem|nights|other|summer|volunteer`\n- `easyApply`: filtra easy apply\n- `resultsWanted`: cantidad deseada\n- `offset`: offset interno del scraper\n- `hoursOld`: antiguedad maxima en horas\n- `country`: enum de pais, por ejemplo `USA`, `UK`, `SPAIN`, `GERMANY`\n- `descriptionFormat`: `markdown|html|plain`\n- `linkedinFetchDescription`: trae descripcion completa en LinkedIn\n- `linkedinCompanyIds[]`: ids de compania para LinkedIn\n- `requestTimeout`: timeout en segundos\n- `proxies[]`: lista de proxies\n- `caCert`: ruta a certificado CA\n- `userAgent`: user agent custom\n- `clientIp`: IP cliente para ciertas fuentes\n- `enforceAnnualSalary`: normaliza salarios a anual\n- `rateDelayMin`, `rateDelayMax`: throttling entre requests\n- `companySlug`: requerido por fuentes ATS\n- `maxConcurrentCompanies`: concurrencia ATS\n- `retries`, `retryDelay`, `retryBackoff`, `retryMaxDelay`: politicas de retry\n- `auth`: credenciales por fuente\n\nBloque `auth` soportado:\n- `upwork`: `grantType`, `clientId`, `clientSecret`, `accessToken`, `refreshToken`\n- `usajobs`: `apiKey`, `email`\n- `adzuna`: `appId`, `appKey`\n- `reed`: `apiKey`\n- `jooble`: `apiKey`\n- `careerjet`: `affId`\n- `exa`: `apiKey`\n- `greenhouse`: `apiKey`\n- `lever`: `apiKey`\n- `ashby`: `apiKey`\n- `smartrecruiters`: `apiKey`\n- `workable`: `accessToken`, `subdomain`\n- `teamtailor`: `apiToken`\n- `recruitee`: `apiToken`\n- `bamboohr`: `apiKey`\n- `personio`: `clientId`, `clientSecret`\n- `jazzhr`: `apiKey`\n- `jobvite`: `apiKey`, `apiSecret`\n- `trakstar`: `apiKey`\n- `deel`: `apiToken`\n- `loxo`: `apiToken`\n- `fountain`: `apiKey`\n- `bullhorn`: `corpToken`\n\nUsa `GraphQL / listSources` para ver el enum completo de `siteType`.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searchTerm\": \"{{searchTerm}}\",\n  \"siteType\": [\"{{sitePrimary}}\"],\n  \"resultsWanted\": {{resultsWanted}},\n  \"location\": \"{{location}}\",\n  \"country\": \"{{country}}\",\n  \"descriptionFormat\": \"markdown\",\n  \"isRemote\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/jobs/search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "search"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/jobs/search - Paginated",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 o 201', function () {",
+                  "  pm.expect([200, 201]).to.include(pm.response.code);",
+                  "});",
+                  "pm.test('Respuesta paginada', function () {",
+                  "  var body = pm.response.json();",
+                  "  pm.expect(body).to.have.property('total_pages');",
+                  "  pm.expect(body).to.have.property('current_page');",
+                  "  pm.expect(body).to.have.property('page_size');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Mismo endpoint de busqueda con paginacion REST via query string.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searchTerm\": \"{{searchTerm}}\",\n  \"siteType\": [\"{{sitePrimary}}\", \"{{siteSecondary}}\"],\n  \"resultsWanted\": 10,\n  \"location\": \"{{location}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/jobs/search?paginate=true&page=1&page_size={{pageSize}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "paginate",
+                  "value": "true"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "{{pageSize}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/jobs/search - CSV Export",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 o 201', function () {",
+                  "  pm.expect([200, 201]).to.include(pm.response.code);",
+                  "});",
+                  "pm.test('Respuesta CSV', function () {",
+                  "  pm.expect(pm.response.headers.get('Content-Type')).to.include('text/csv');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Exporta resultados en CSV usando `?format=csv`.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searchTerm\": \"{{searchTerm}}\",\n  \"siteType\": [\"{{sitePrimary}}\"],\n  \"resultsWanted\": {{resultsWanted}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/jobs/search?format=csv",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/jobs/search - ATS by companySlug",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 o 201', function () {",
+                  "  pm.expect([200, 201]).to.include(pm.response.code);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Ejemplo para scrapers ATS que requieren `companySlug`.\n\nEjemplo publico:\n- `siteType: [\"greenhouse\"]`\n- `companySlug: \"stripe\"`\n\nEjemplo autenticado opcional:\n- `auth.greenhouse.apiKey`\n- `auth.workable.accessToken` y `auth.workable.subdomain`\n\nAjusta el body segun la fuente ATS que quieras probar.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searchTerm\": \"{{searchTerm}}\",\n  \"siteType\": [\"{{atsSite}}\"],\n  \"companySlug\": \"{{companySlug}}\",\n  \"resultsWanted\": {{resultsWanted}},\n  \"descriptionFormat\": \"markdown\",\n  \"auth\": {\n    \"greenhouse\": {\n      \"apiKey\": \"{{greenhouseApiKey}}\"\n    },\n    \"workable\": {\n      \"accessToken\": \"{{workableAccessToken}}\",\n      \"subdomain\": \"{{workableSubdomain}}\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/jobs/search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "search"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/jobs/analyze",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 o 201', function () {",
+                  "  pm.expect([200, 201]).to.include(pm.response.code);",
+                  "});",
+                  "pm.test('Respuesta con summary y siteComparison', function () {",
+                  "  var body = pm.response.json();",
+                  "  pm.expect(body).to.have.property('summary');",
+                  "  pm.expect(body).to.have.property('companies');",
+                  "  pm.expect(body).to.have.property('siteComparison');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Mismo body que `POST /api/jobs/search`, pero devuelve analiticas agregadas en lugar de `{count, jobs, cached}`.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searchTerm\": \"{{searchTerm}}\",\n  \"siteType\": [\"{{sitePrimary}}\"],\n  \"resultsWanted\": {{resultsWanted}},\n  \"location\": \"{{location}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/jobs/analyze",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "jobs",
+                "analyze"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "GraphQL",
+      "item": [
+        {
+          "name": "POST /graphql - searchJobs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Sin errores GraphQL', function () {",
+                  "  var body = pm.response.json();",
+                  "  pm.expect(body.errors).to.eql(undefined);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Busqueda via GraphQL.\n\nInput soportado por `searchJobs(input)`:\n- `siteType: [Site]`\n- `searchTerm: String!`\n- `location: String`\n- `resultsWanted: Int`\n- `country: String`\n- `distance: Int`\n- `companySlug: String`\n- `descriptionFormat: String`\n\nLa API GraphQL expone este endpoint en `POST /graphql`.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query SearchJobs($input: SearchJobsInput!) { searchJobs(input: $input) { count cached jobs { id site title companyName jobUrl description datePosted isRemote companyUrl logoUrl location { country city state } compensation { minAmount maxAmount currency interval } jobType emails } } }\",\n  \"variables\": {\n    \"input\": {\n      \"searchTerm\": \"{{searchTerm}}\",\n      \"location\": \"{{location}}\",\n      \"resultsWanted\": {{resultsWanted}},\n      \"country\": \"{{country}}\",\n      \"descriptionFormat\": \"markdown\",\n      \"siteType\": [\"GOOGLE\", \"INDEED\"]\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /graphql - listSources",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Retorna listado de fuentes', function () {",
+                  "  var body = pm.response.json();",
+                  "  pm.expect(body.errors).to.eql(undefined);",
+                  "  pm.expect(body.data.listSources).to.have.property('total');",
+                  "  pm.expect(body.data.listSources).to.have.property('sources');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}",
+                "type": "text"
+              }
+            ],
+            "description": "Devuelve el enum completo de fuentes soportadas por el proyecto. Es la forma mas util para descubrir todos los valores validos de `siteType` en tiempo real.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { listSources { total sources { name value } } }\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

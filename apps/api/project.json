@@ -7,21 +7,21 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx nest build api",
+        "command": "bunx nest build api",
         "cwd": "{workspaceRoot}"
       }
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx nest start api",
+        "command": "bunx nest start api",
         "cwd": "{workspaceRoot}"
       }
     },
     "start:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx nest start api --watch",
+        "command": "bunx nest start api --watch",
         "cwd": "{workspaceRoot}"
       }
     },

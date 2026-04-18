@@ -16,6 +16,7 @@ import { Request } from 'express';
  *  - If no API keys are configured → allow all
  *  - Otherwise require a valid key
  */
+
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
   private readonly logger = new Logger(ApiKeyGuard.name);
