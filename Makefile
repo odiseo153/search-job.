@@ -1,7 +1,7 @@
 # ──────────────────────────────────────────
 # Ever Jobs API — Makefile
 # ──────────────────────────────────────────
-.PHONY: install dev build test lint clean docker-build docker-up docker-dev docker-down logs restart rebuild clean-start help
+.PHONY: install dev build test lint clean clean-start help
 
 # ── Development ───────────────────────────
 install:         ## Install dependencies
@@ -21,31 +21,6 @@ lint:            ## Lint code
 
 clean:           ## Remove dist and node_modules
 	rm -rf dist node_modules .nx
-
-# ── Docker ────────────────────────────────
-docker-build:    ## Build Docker image
-	docker build -t ever-jobs-api .
-
-docker-up:       ## Start production containers
-	docker compose up -d
-
-docker-dev:      ## Start dev containers (hot-reload)
-	docker compose -f docker-compose.yml -f docker-compose.dev.yml up
-
-docker-down:     ## Stop containers
-	docker compose down
-
-logs:            ## Tail container logs
-	docker compose logs -f ever-jobs-api
-
-restart:         ## Restart containers
-	docker compose restart
-
-rebuild:         ## Rebuild & restart containers
-	docker compose down
-	docker compose build --no-cache
-	docker compose up -d
-
 clean-start:     ## Full clean rebuild
 	rm -rf dist node_modules .nx
 	npm install

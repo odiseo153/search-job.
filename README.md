@@ -212,7 +212,7 @@ Direct integrations with major tech companies' career APIs.
 - 🏥 **Health checks** — `/health` and `/ping` endpoints with uptime & memory stats
 - 🌐 **CORS support** — Environment-driven origin configuration
 - 📋 **Request logging** — Per-request IDs, timing, and structured logs
-- 🐳 **Docker ready** — Multi-stage Dockerfile, production & dev docker-compose
+
 - 📄 **CSV export** — `POST /api/jobs/search?format=csv` with pagination
 
 ---
@@ -240,15 +240,15 @@ npm run start:dev
 
 The API will be available at `http://localhost:3001`.
 
-### Docker
 
-```bash
-# Production
-docker compose up -d
 
-# Development (hot-reload)
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up
-```
+
+
+
+
+
+
+
 
 ### Swagger Documentation
 
@@ -598,10 +598,10 @@ ever-jobs/
 │   ├── SECURITY_GUIDELINES.md
 │   └── UPGRADE_GUIDE.md
 │
-├── Dockerfile                        Multi-stage Docker build
-├── docker-compose.yml                Production deployment
-├── docker-compose.dev.yml            Development with hot-reload
-├── Makefile                          Dev & Docker shortcuts
+
+
+
+├── Makefile                          Dev shortcuts
 ├── .env.example                      Environment variable template
 ├── tool_manifest.json                Machine-readable tool metadata for MCP/LLMs
 ├── package.json
