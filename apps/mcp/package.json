@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "description": "MCP (Model Context Protocol) server for Ever Jobs — allows AI assistants like ChatGPT, Claude, Copilot to search and browse jobs",
-  "main": "dist/index.js",
+  "main": "../../dist/apps/mcp/index.js",
   "bin": {
-    "ever-jobs-mcp": "dist/index.js"
+    "ever-jobs-mcp": "../../dist/apps/mcp/index.js"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node ../../dist/apps/mcp/index.js",
     "dev": "ts-node src/index.ts"
   },
   "dependencies": {
