@@ -2,7 +2,7 @@
   "name": "@ever-jobs/root",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "npm@10",
+  "packageManager": "npm@10.8.2",
   "description": "Ever Jobs — NestJS monorepo for multi-source job scraping",
   "license": "MIT",
   "workspaces": [
