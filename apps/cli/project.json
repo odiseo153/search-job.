@@ -7,21 +7,21 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "bunx nest build cli",
+        "command": "npx nest build cli",
         "cwd": "{workspaceRoot}"
       }
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "bunx nest start cli",
+        "command": "npx nest start cli",
         "cwd": "{workspaceRoot}"
       }
     },
     "start:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "bunx nest start cli --watch",
+        "command": "npx nest start cli --watch",
         "cwd": "{workspaceRoot}"
       }
     }

@@ -2,6 +2,7 @@
   "name": "@ever-jobs/root",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@10",
   "description": "Ever Jobs — NestJS monorepo for multi-source job scraping",
   "license": "MIT",
   "workspaces": [
@@ -9,10 +10,12 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npx nx run-many --target=build --all",
-    "start:dev": "npx nx run api:start:dev",
-    "cli": "npx ts-node -r tsconfig-paths/register apps/cli/src/main.ts",
-    "lint": "npx nx run-many --target=lint --all",
+    "build": "nest build api",
+    "start": "nest start api",
+    "start:dev": "nest start api",
+    "start:watch": "nest start api --watch",
+    "cli": "ts-node -r tsconfig-paths/register apps/cli/src/main.ts",
+    "lint": "eslint \"{apps,packages}/**/*.ts\"",
     "test": "jest",
     "test:e2e": "jest --testPathPatterns e2e-spec",
     "test:api": "jest --testPathPatterns apps/api/__tests__",
