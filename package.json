@@ -10,7 +10,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "nest build api",
+    "build": "npm run build:api && npm run build:mcp",
+    "build:api": "nest build api",
+    "build:mcp": "tsc -p apps/mcp/tsconfig.json",
     "start": "nest start api",
     "start:dev": "nest start api",
     "start:watch": "nest start api --watch",

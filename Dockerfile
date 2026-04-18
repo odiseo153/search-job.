@@ -12,8 +12,8 @@ RUN npm ci
 # Copy full source
 COPY . .
 
-# Build the API application
-RUN npx nest build
+# Build the applications (API + MCP)
+RUN npm run build
 
 # ── Runtime stage ──────────────────────────
 FROM node:20-alpine AS runtime

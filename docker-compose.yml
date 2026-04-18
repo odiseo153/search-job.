@@ -56,3 +56,18 @@ services:
       timeout: 10s
       start_period: 10s
       retries: 3
+
+  ever-jobs-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ever-jobs-api:latest # Uses same image, just different command
+    container_name: ever-jobs-mcp
+    command: ["node", "dist/apps/mcp/index.js"]
+    env_file:
+      - .env
+    environment:
+      EVER_JOBS_API_URL: http://ever-jobs-api:3001
+    depends_on:
+      - ever-jobs-api
+    restart: unless-stopped
